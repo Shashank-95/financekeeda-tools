@@ -1,31 +1,32 @@
 # Keeps the IPO tracker's list current with no one touching it.
 #
 # ---------------------------------------------------------------------------
-# SETUP — once, about five minutes, then never again
+# SETUP
 # ---------------------------------------------------------------------------
 #  1. Put this file at .github/workflows/ipo-refresh.yml in the repo that
-#     holds your site, alongside build/fetch_ipos.py.
-#  2. Choose a source and add the matching repository secret
-#     (Settings -> Secrets and variables -> Actions):
-#
-#        IPO_API_KEY   for --source ipoguru. Free, requested by email.
-#        FEED_URL      for --source url. Any endpoint already returning the
-#                      widget's shape — your own, or a provider you pay.
-#
-#     Then set SOURCE below to match. Nothing else to configure.
-#  3. Make sure ipos.json ends up beside the widget when you deploy. The
+#     holds your site, alongside build/fetch_ipos.py and build/fetch_sebi.py.
+#  2. Make sure ipos.json ends up beside the widget when you deploy. The
 #     widget looks for ./ipos.json relative to itself and needs no editing.
 #
-# After that it runs twice a day on GitHub's infrastructure. Nothing to keep
-# alive, nothing to pay for on a public repo, and no server of yours involved.
+# That is the whole setup. There is no API key, no account and no secret to
+# add: the data comes from SEBI's own public-issue filings, which are
+# published for exactly this purpose. An earlier version of this file sat
+# dormant until someone supplied a third-party key; nothing is dormant now.
+#
+# It runs twice a day on GitHub's infrastructure. Nothing to keep alive,
+# nothing to pay for on a public repo, and no server of yours involved.
 #
 # ---------------------------------------------------------------------------
 # WHAT IT DOES WHEN THINGS GO WRONG
 # ---------------------------------------------------------------------------
-#  * Source unreachable        -> the existing file is left alone and the run
+#  * SEBI unreachable          -> the existing file is left alone and the run
 #                                 fails, so GitHub emails you. Readers keep
 #                                 seeing the last good list, still rotating.
-#  * Source returns nothing new -> the merge is additive, so nothing is lost.
+#  * A filing will not parse   -> that one issue is skipped, the rest publish.
+#                                 Nothing half-read is ever written.
+#  * SEBI serves a stale node  -> the listing is read several times and the
+#                                 results unioned. Its nodes genuinely
+#                                 disagree; see listing() in fetch_sebi.py.
 #  * Pool runs out of open issues -> the file is still written, the run fails
 #                                 loudly, and the widget tells readers the
 #                                 list needs refreshing rather than pretending.
@@ -51,7 +52,7 @@ concurrency:
   cancel-in-progress: false   # never let two runs write the file at once
 
 env:
-  SOURCE: ipoguru             # ipoguru | url | file
+  SOURCE: sebi                # sebi | url | file | ipoguru
   OUT: public/tools/ipo-tracker/ipos.json
   WIDGET: public/tools/ipo-tracker/index.html
   INPUT_FILE: data/feed.json  # only read when SOURCE is 'file'
@@ -59,6 +60,7 @@ env:
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    timeout-minutes: 20       # a cold run reads a few dozen filings
     steps:
       - uses: actions/checkout@v4
 
@@ -66,41 +68,26 @@ jobs:
         with:
           python-version: '3.12'
 
-      # Until a credential exists this job does nothing and stays green. A
-      # workflow that fails every day until it is configured just trains you
-      # to ignore its mail.
-      - name: Is a source configured?
-        id: gate
-        env:
-          IPO_API_KEY: ${{ secrets.IPO_API_KEY }}
-          FEED_URL: ${{ secrets.FEED_URL }}
-        run: |
-          if [ -n "$IPO_API_KEY" ] || [ -n "$FEED_URL" ] || [ "$SOURCE" = "file" ]; then
-            echo "ready=yes" >> "$GITHUB_OUTPUT"
-          else
-            echo "ready=no" >> "$GITHUB_OUTPUT"
-            echo "::notice::Dormant — add an IPO_API_KEY or FEED_URL secret to start refreshing."
-            echo "::notice::Readers are on the committed ipos.json, which still rotates by date."
-          fi
+      # The offer dates live inside the filed PDF, so the run needs a PDF
+      # text extractor. Nothing else is required.
+      - name: Install PyMuPDF
+        run: pip install --quiet pymupdf
 
       - name: Refresh the pool
         id: refresh
-        if: steps.gate.outputs.ready == 'yes'
         continue-on-error: true        # commit what we got, judge it after
         env:
-          IPO_API_KEY: ${{ secrets.IPO_API_KEY }}
           FEED_URL: ${{ secrets.FEED_URL }}
+          IPO_API_KEY: ${{ secrets.IPO_API_KEY }}
         run: |
           mkdir -p "$(dirname "$OUT")"
           python3 build/fetch_ipos.py \
             --out "$OUT" \
             --source "$SOURCE" \
             ${FEED_URL:+--url "$FEED_URL"} \
-            ${INPUT_FILE:+--input "$INPUT_FILE"} \
             --seed "$WIDGET"
 
       - name: Commit if the list moved
-        if: steps.gate.outputs.ready == 'yes'
         run: |
           if [ ! -f "$OUT" ]; then
             echo "nothing written — leaving the repo untouched"
@@ -113,6 +100,7 @@ jobs:
             echo "no change since the last run"
           else
             git commit -m "IPO list refreshed $(date -u +%Y-%m-%d)"
+            git pull --rebase --autostash
             git push
           fi
 

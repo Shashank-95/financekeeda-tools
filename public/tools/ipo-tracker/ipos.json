@@ -2,152 +2,200 @@
  "updated": "2026-08-04",
  "ipos": [
   {
-   "name": "Ambit Finvest",
+   "name": "Dhoot Transmission",
    "kind": "Mainboard",
-   "open": "2026-09-08",
-   "close": "2026-09-10",
-   "band": "265 – 280",
-   "size": "₹1,120 Cr"
-  },
-  {
-   "name": "Pennar Engineered",
-   "kind": "Mainboard",
-   "open": "2026-08-25",
-   "close": "2026-08-27",
-   "band": "170 – 178"
+   "open": "2026-08-10",
+   "close": "2026-08-12",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/dhoot-transmission-limited-rhp_103333.html",
+   "filed": "2026-08-04"
   },
   {
    "name": "LEAP India",
    "kind": "Mainboard",
    "open": "2026-08-07",
    "close": "2026-08-11",
-   "band": "151 – 159",
-   "size": "₹2,480 Cr"
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/leap-india-limited-rhp_103182.html",
+   "filed": "2026-08-03"
   },
   {
    "name": "Technocraft Ventures",
    "kind": "Mainboard",
    "open": "2026-08-07",
    "close": "2026-08-11",
-   "band": "200 – 212",
-   "size": "₹252 Cr"
-  },
-  {
-   "name": "Optimystix Ent.",
-   "kind": "NSE SME",
-   "open": "2026-08-07",
-   "close": "2026-08-11"
-  },
-  {
-   "name": "LAPL Automotive",
-   "kind": "BSE SME",
-   "open": "2026-08-06",
-   "close": "2026-08-10",
-   "band": "88 – 94",
-   "size": "₹32.4 Cr"
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/technocraft-ventures-limited-rhp_103278.html",
+   "filed": "2026-07-31"
   },
   {
    "name": "Ardee Industries",
    "kind": "Mainboard",
    "open": "2026-08-05",
    "close": "2026-08-07",
-   "band": "50 – 53",
-   "size": "₹425.9 Cr"
-  },
-  {
-   "name": "Aegeus Technologies",
-   "kind": "BSE SME",
-   "open": "2026-08-04",
-   "close": "2026-08-06",
-   "band": "100 – 105",
-   "size": "₹23.7 Cr"
-  },
-  {
-   "name": "Anawil Wire & Engg.",
-   "kind": "NSE SME",
-   "open": "2026-08-03",
-   "close": "2026-08-05",
-   "band": "257 – 270",
-   "size": "₹177.8 Cr"
-  },
-  {
-   "name": "G.V. Electricals",
-   "kind": "BSE SME",
-   "open": "2026-07-31",
-   "close": "2026-08-04",
-   "band": "123 – 130",
-   "size": "₹42.3 Cr"
-  },
-  {
-   "name": "Fusion Klassroom",
-   "kind": "BSE SME",
-   "open": "2026-07-31",
-   "close": "2026-08-04",
-   "band": "151 – 159",
-   "size": "₹39.0 Cr"
-  },
-  {
-   "name": "Dhaval Packaging",
-   "kind": "BSE SME",
-   "open": "2026-07-30",
-   "close": "2026-08-03",
-   "listed": "2026-08-06",
-   "subs": "46.23x",
-   "price": 97.0
-  },
-  {
-   "name": "Oneindig Tech.",
-   "kind": "NSE SME",
-   "open": "2026-07-30",
-   "close": "2026-08-03",
-   "listed": "2026-08-06",
-   "subs": "1.68x",
-   "price": 96.0
-  },
-  {
-   "name": "MV Electrosystems",
-   "kind": "Mainboard",
-   "open": "2026-07-30",
-   "close": "2026-08-03",
-   "listed": "2026-08-06",
-   "subs": "188.32x",
-   "price": 425.0
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/ardee-industries-limited-rhp_103086.html",
+   "filed": "2026-07-28"
   },
   {
    "name": "Juniper Green Energy",
    "kind": "Mainboard",
    "open": "2026-07-30",
    "close": "2026-08-03",
-   "listed": "2026-08-06",
-   "subs": "7.93x",
-   "price": 225.0
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/juniper-green-energy-limited-rhp_103074.html",
+   "filed": "2026-07-28"
   },
   {
-   "name": "H.R.Hygiene",
-   "kind": "BSE SME",
-   "open": "2026-07-29",
-   "close": "2026-07-31",
-   "listed": "2026-08-05",
-   "subs": "6.17x",
-   "price": 88.0
+   "name": "MV Electrosystems",
+   "kind": "Mainboard",
+   "open": "2026-07-30",
+   "close": "2026-08-03",
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/mv-electrosystems-limited-prospectus_103331.html",
+   "filed": "2026-07-24",
+   "price": 425.0
   },
   {
-   "name": "Manipal Health",
+   "name": "Manipal Health Enterprises",
    "kind": "Mainboard",
    "open": "2026-07-29",
    "close": "2026-07-31",
-   "listed": "2026-08-05",
-   "subs": "4.90x",
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/manipal-health-enterprises-limited-prospectus_103300.html",
+   "filed": "2026-07-24",
    "price": 590.0
   },
   {
-   "name": "Poojaa Precision",
-   "kind": "BSE SME",
-   "open": "2026-07-28",
-   "close": "2026-07-30",
-   "listed": "2026-08-04",
-   "price": 301.0,
-   "gain": 56.15
+   "name": "Xtranet Technologies",
+   "kind": "Mainboard",
+   "open": "2026-07-23",
+   "close": "2026-07-27",
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/xtranet-technologies-limited-prospectus_103105.html",
+   "filed": "2026-07-20",
+   "price": 127.0
+  },
+  {
+   "name": "Indo-MIM",
+   "kind": "Mainboard",
+   "open": "2026-07-23",
+   "close": "2026-07-27",
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/indo-mim-limited_103050.html",
+   "filed": "2026-07-17",
+   "price": 485.0
+  },
+  {
+   "name": "Lohia Corp",
+   "kind": "Mainboard",
+   "open": "2026-07-23",
+   "close": "2026-07-27",
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/lohia-corp-limited-prospectus_103075.html",
+   "filed": "2026-07-17",
+   "price": 425.0
+  },
+  {
+   "name": "Caliber Mining and Logistics",
+   "kind": "Mainboard",
+   "open": "2026-07-17",
+   "close": "2026-07-21",
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/caliber-mining-and-logistics-limited-prospectus_102990.html",
+   "filed": "2026-07-14",
+   "price": 424.0
+  },
+  {
+   "name": "Alpine Texworld",
+   "kind": "Mainboard",
+   "open": "2026-07-14",
+   "close": "2026-07-16",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/alpine-texworld-limited-rhp_102719.html",
+   "filed": "2026-07-09"
+  },
+  {
+   "name": "SBI Funds Management",
+   "kind": "Mainboard",
+   "open": "2026-07-14",
+   "close": "2026-07-16",
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/sbi-funds-management-limited-prospectus_102917.html",
+   "filed": "2026-07-08",
+   "price": 574.0
+  },
+  {
+   "name": "Laser Power and Infra",
+   "kind": "Mainboard",
+   "open": "2026-07-09",
+   "close": "2026-07-13",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/laser-power-and-infra-limited-rhp_102750.html",
+   "filed": "2026-07-10"
+  },
+  {
+   "name": "Kusumgar",
+   "kind": "Mainboard",
+   "open": "2026-07-08",
+   "close": "2026-07-10",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/kusumgar-limited-rhp_102510.html",
+   "filed": "2026-07-02"
+  },
+  {
+   "name": "Knack Packaging",
+   "kind": "Mainboard",
+   "open": "2026-07-01",
+   "close": "2026-07-03",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/knack-packaging-limited-rhp_102348.html",
+   "filed": "2026-06-24"
+  },
+  {
+   "name": "CSM Technologies",
+   "kind": "Mainboard",
+   "open": "2026-06-24",
+   "close": "2026-06-29",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/csm-technologies-limited-rhp_102194.html",
+   "filed": "2026-06-17"
+  },
+  {
+   "name": "Waterways Leisure Tourism",
+   "kind": "Mainboard",
+   "open": "2026-06-23",
+   "close": "2026-06-25",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/waterways-leisure-tourism-limited-rhp_102226.html",
+   "filed": "2026-06-19"
+  },
+  {
+   "name": "Advit Jewels",
+   "kind": "Mainboard",
+   "open": "2026-06-23",
+   "close": "2026-06-25",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/advit-jewels-limited-rhp_102061.html",
+   "filed": "2026-06-11"
+  },
+  {
+   "name": "Turtlemint Fintech Solutions",
+   "kind": "Mainboard",
+   "open": "2026-06-19",
+   "close": "2026-06-23",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/turtlemint-fintech-solutions-limited-rhp_102389.html",
+   "filed": "2026-06-15"
+  },
+  {
+   "name": "Hexagon Nutrition",
+   "kind": "Mainboard",
+   "open": "2026-06-05",
+   "close": "2026-06-09",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/hexagon-nutrition-limited-rhp_101824.html",
+   "filed": "2026-06-04"
   }
  ]
 }

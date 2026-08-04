@@ -26,6 +26,14 @@ than removing it.
 
 What is available:
 
+  sebi      The default, and what you should use. SEBI publishes every
+            public-issue filing itself and its robots.txt disallows only
+            /js and /css. No key, no account, no third party, and every
+            number traceable to the document it was read from. See
+            fetch_sebi.py, which also sets out plainly what a filing cannot
+            tell you — the price band above all, because the RHP is filed
+            before the band exists.
+
   ipoguru   A third-party API whose published terms state plainly that
             commercial use is permitted with attribution. Free key, issued
             by email, 300 requests a day. Caveat worth knowing: they do not
@@ -83,20 +91,28 @@ def parse(s):
 
 
 def clean(rec):
-    """Keep only the fields the widget reads, and only when they are usable."""
+    """
+    Keep only the fields the widget reads, and only when they are usable.
+
+    Price band, issue size, listing gain and subscription used to be carried
+    here. They are gone because SEBI's filings cannot support them — the band
+    is not set when the RHP is filed, and gain and subscription are exchange
+    data. fetch_sebi.py explains it at length. Anything still holding those
+    keys is simply dropped rather than passed through, so a stale file cannot
+    resurrect columns the widget no longer renders.
+    """
     out = {"name": str(rec.get("name", "")).strip()[:28],
            "kind": str(rec.get("kind", "")).strip()[:10] or "Mainboard",
            "open": iso(rec.get("open")), "close": iso(rec.get("close"))}
     if not out["name"] or not parse(out["close"]):
         return None
-    for k in ("listed", "band", "size", "subs"):
+    for k in ("stage", "doc", "filed"):
         v = rec.get(k)
         if v not in (None, "", "-"):
-            out[k] = iso(v) if k == "listed" else str(v).strip()[:16]
-    for k in ("price", "gain"):
-        v = rec.get(k)
-        if isinstance(v, (int, float)):
-            out[k] = round(float(v), 2)
+            out[k] = str(v).strip()[:200]
+    v = rec.get("price")
+    if isinstance(v, (int, float)):
+        out["price"] = round(float(v), 2)
     return out
 
 
@@ -153,7 +169,22 @@ def from_url(url):
     return data.get("ipos", data if isinstance(data, list) else [])
 
 
-SOURCES = {"file": from_file, "ipoguru": from_ipoguru, "url": from_url}
+def from_sebi(existing):
+    """
+    SEBI's own public-issue filings — the default, and the only source here
+    that needs no key, no account and no third party. fetch_sebi.py documents
+    what it can and cannot read out of a filing, and why.
+
+    `existing` is passed through so that issues already resolved are not
+    fetched again: a resolved record costs nothing, an unresolved one costs a
+    PDF.
+    """
+    from fetch_sebi import collect
+    return collect(existing)
+
+
+SOURCES = {"sebi": from_sebi, "file": from_file,
+           "ipoguru": from_ipoguru, "url": from_url}
 
 
 # ------------------------------------------------------------------ merge --
@@ -198,8 +229,11 @@ def seed_from_widget(path):
         line = line.strip().rstrip(",")
         if not line.startswith("{"):
             continue
-        # the widget is JS, so keys are bare — quote them, then it is JSON
-        j = re.sub(r"(\w+):", r'"\1":', line).replace("'", '"')
+        # The widget is JS, so keys are bare — quote them and it becomes JSON.
+        # Anchored on the brace or comma that precedes a key, because records
+        # now carry a `doc` URL and an unanchored \w+: happily rewrites the
+        # "https:" inside it.
+        j = re.sub(r"([{,]\s*)(\w+)\s*:", r'\1"\2":', line).replace("'", '"')
         try:
             out.append(json.loads(j))
         except json.JSONDecodeError:
@@ -210,7 +244,7 @@ def seed_from_widget(path):
 def main():
     ap = argparse.ArgumentParser(description="Refresh the IPO tracker pool.")
     ap.add_argument("--out", required=True, help="JSON file the widget fetches")
-    ap.add_argument("--source", default="file", choices=sorted(SOURCES))
+    ap.add_argument("--source", default="sebi", choices=sorted(SOURCES))
     ap.add_argument("--key", default=os.environ.get("IPO_API_KEY", ""),
                     help="API key, for sources that need one")
     ap.add_argument("--input", help="path, for --source file")
@@ -235,7 +269,9 @@ def main():
         print(f"seeded {len(existing)} issues from {args.seed}")
 
     try:
-        if args.source == "file":
+        if args.source == "sebi":
+            incoming = from_sebi(existing)
+        elif args.source == "file":
             if not args.input:
                 sys.exit("--input is required with --source file")
             incoming = from_file(args.input)
@@ -247,9 +283,12 @@ def main():
             if not args.key:
                 sys.exit(f"--key (or IPO_API_KEY) is required with --source {args.source}")
             incoming = from_ipoguru(args.key)
-    except (urllib.error.URLError, OSError, json.JSONDecodeError, TimeoutError) as e:
+    except Exception as e:                      # noqa: BLE001
         # Leave the file alone. A stale pool still rotates and still dates
         # itself honestly; a truncated one would show five empty rows.
+        # Deliberately broad: SEBI can fail with an IncompleteRead or a
+        # markup change as easily as with a URLError, and every one of those
+        # has the same right answer — keep the last good file and exit loud.
         sys.exit(f"fetch failed ({e}) — existing pool left untouched")
 
     pool, added, updated = merge(existing, incoming, today)

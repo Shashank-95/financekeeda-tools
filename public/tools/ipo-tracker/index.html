@@ -31,16 +31,35 @@
   empty table — see the stamp logic at the bottom.
 
   --------------------------------------------------------------------------
-  KEEPING THE POOL TOPPED UP
+  WHERE THE NUMBERS COME FROM
   --------------------------------------------------------------------------
-  CONFIG.dataUrl takes a JSON file of the same shape. build/fetch_ipos.py
-  writes exactly that file and is meant to run on a schedule. Everything about
-  where that data can legally come from is documented in that script — the
-  short version is that the exchanges' terms prohibit automated collection
-  from their sites, so the script never touches them.
+  build/fetch_sebi.py reads SEBI's own Public Issues filings and writes the
+  JSON this widget fetches. Not an aggregator, not the exchanges — the filing
+  itself. Every row therefore links to the document its dates were read from,
+  which is the point: a reader who wants to check a number can.
 
-  Deliberately no grey market premium. Ten-plus sites publish it, there is no
-  authoritative source, and it is a number nobody can stand behind.
+  --------------------------------------------------------------------------
+  THE COLUMNS ARE WHAT SEBI CAN ACTUALLY SUPPORT
+  --------------------------------------------------------------------------
+  This tool used to show a price band and an issue size. Both are gone, and
+  their absence is deliberate.
+
+  A Red Herring Prospectus is filed BEFORE the price band is fixed. The
+  document reads "aggregating up to Rs [<bullet>] million" — an actual
+  placeholder, confirmed across Technocraft, SBI Funds and Ardee. There is no
+  band in the filing to read, and no issue size either wherever the offer
+  includes an offer-for-sale priced off that band. An early draft of the
+  scraper read a number from a nearby promoter table and produced Rs 320 Cr
+  for Ardee against a true Rs 425.9 Cr, which is exactly the kind of
+  confident wrong number this tool exists not to print.
+
+  Listing gain and subscription are exchange data rather than filings, so
+  they are not available here at any price. Grey market premium has no
+  authoritative source at all and was never included.
+
+  What replaced them is what the filings genuinely carry: the offer dates, a
+  plain-language status, the final issue price once the Prospectus is filed,
+  and a link to the document.
 
   --------------------------------------------------------------------------
   NO HEADING INSIDE THE TOOL — the host page supplies it.
@@ -52,8 +71,8 @@
   each band the height is constant, whatever the reader types or drags.
 
       <style>
-        .fk-embed-ipo-tracker{width:100%;border:0;display:block;height:313px}
-        @media (min-width:821px){ .fk-embed-ipo-tracker{height:306px} }
+        .fk-embed-ipo-tracker{width:100%;border:0;display:block;height:306px}
+        @media (min-width:821px){ .fk-embed-ipo-tracker{height:299px} }
       </style>
       <iframe class="fk-embed-ipo-tracker" src="/tools/ipo-tracker.html"
               title="Indian IPO Tracker" loading="lazy" scrolling="no"></iframe>
@@ -298,8 +317,17 @@ dl{margin:0}
   .fk-sel{height:48px}
 }
 
-.fk-tbl{min-width:640px}
-.fk-tbl .band{color:var(--ink-3)}
+/* Five columns of dates and short labels — narrower than the old set, so the
+   horizontal scroll on a phone starts later. */
+.fk-tbl{min-width:560px}
+.fk-tbl .mut{color:var(--muted)}
+/* The link is the trust anchor: every row is one click from the filing its
+   dates were read out of. */
+.fk-doc{color:var(--accent-ink);font-weight:600;text-decoration:none;white-space:nowrap}
+.fk-doc:hover{text-decoration:underline}
+.fk-st{white-space:nowrap}
+.fk-st.now{color:var(--accent-ink);font-weight:700}
+.fk-st.soon{color:var(--warn-ink);font-weight:700}
 /* One line, always. The stamp text changes with how many issues are left —
    "10 open or upcoming" against "None open" — and a wrapping footer would move
    the widget's height as the pool ages, which is exactly the drift the fixed
@@ -317,7 +345,6 @@ dl{margin:0}
 .fk-stamp.stale i{background:var(--warn-ink)}
 .fk-stamp.stale{color:var(--warn-ink)}
 .fk-src{color:var(--muted-2)}
-.fk-live{color:var(--accent-ink);font-weight:700}
 </style>
 </head>
 <body>
@@ -339,7 +366,7 @@ dl{margin:0}
 
   <div class="fk-meta">
     <span class="fk-stamp" id="stamp"><i></i><span id="stampTxt">—</span></span>
-    <span class="fk-src">Exchange filings and company announcements</span>
+    <span class="fk-src">Read from SEBI public-issue filings</span>
   </div>
 </div>
 
@@ -550,32 +577,40 @@ function inr2(v) {
      side of today it falls on at render time — that is what makes the two
      tabs rotate without anything being pushed to them.
 
-     price / subs / gain are only known after an issue prices and lists, so
-     they are optional and the table degrades to whatever exists. */
+     Every field here was read out of a SEBI filing by build/fetch_sebi.py.
+     `price` appears only once an issue has closed and its Prospectus has been
+     filed, so the table degrades to whatever exists. */
   var POOL = {
     updated: '2026-08-04',
     ipos: [
-      { name: 'Pennar Engineered',    kind: 'Mainboard', open: '2026-08-25', close: '2026-08-27', band: '170 – 178' },
-      { name: 'LEAP India',           kind: 'Mainboard', open: '2026-08-07', close: '2026-08-11', band: '151 – 159', size: '₹2,480 Cr' },
-      { name: 'Technocraft Ventures', kind: 'Mainboard', open: '2026-08-07', close: '2026-08-11', band: '200 – 212', size: '₹252 Cr' },
-      { name: 'Optimystix Ent.',      kind: 'NSE SME',   open: '2026-08-07', close: '2026-08-11' },
-      { name: 'LAPL Automotive',      kind: 'BSE SME',   open: '2026-08-06', close: '2026-08-10', band: '88 – 94',   size: '₹32.4 Cr' },
-      { name: 'Ardee Industries',     kind: 'Mainboard', open: '2026-08-05', close: '2026-08-07', band: '50 – 53',   size: '₹425.9 Cr' },
-      { name: 'Aegeus Technologies',  kind: 'BSE SME',   open: '2026-08-04', close: '2026-08-06', band: '100 – 105', size: '₹23.7 Cr' },
-      { name: 'Anawil Wire & Engg.',  kind: 'NSE SME',   open: '2026-08-03', close: '2026-08-05', band: '257 – 270', size: '₹177.8 Cr' },
-      { name: 'G.V. Electricals',     kind: 'BSE SME',   open: '2026-07-31', close: '2026-08-04', band: '123 – 130', size: '₹42.3 Cr' },
-      { name: 'Fusion Klassroom',     kind: 'BSE SME',   open: '2026-07-31', close: '2026-08-04', band: '151 – 159', size: '₹39.0 Cr' },
-      { name: 'Dhaval Packaging',     kind: 'BSE SME',   open: '2026-07-30', close: '2026-08-03', listed: '2026-08-06', price: 97,  subs: '46.23x' },
-      { name: 'Oneindig Tech.',       kind: 'NSE SME',   open: '2026-07-30', close: '2026-08-03', listed: '2026-08-06', price: 96,  subs: '1.68x' },
-      { name: 'MV Electrosystems',    kind: 'Mainboard', open: '2026-07-30', close: '2026-08-03', listed: '2026-08-06', price: 425, subs: '188.32x' },
-      { name: 'Juniper Green Energy', kind: 'Mainboard', open: '2026-07-30', close: '2026-08-03', listed: '2026-08-06', price: 225, subs: '7.93x' },
-      { name: 'H.R.Hygiene',          kind: 'BSE SME',   open: '2026-07-29', close: '2026-07-31', listed: '2026-08-05', price: 88,  subs: '6.17x' },
-      { name: 'Manipal Health',       kind: 'Mainboard', open: '2026-07-29', close: '2026-07-31', listed: '2026-08-05', price: 590, subs: '4.90x' },
-      { name: 'Poojaa Precision',     kind: 'BSE SME',   open: '2026-07-28', close: '2026-07-30', listed: '2026-08-04', price: 301, gain: 56.15 }
+      { name: 'Dhoot Transmission',            kind: 'Mainboard',   open: '2026-08-10', close: '2026-08-12', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/aug-2026/dhoot-transmission-limited-rhp_103333.html' },
+      { name: 'LEAP India',                    kind: 'Mainboard',   open: '2026-08-07', close: '2026-08-11', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/aug-2026/leap-india-limited-rhp_103182.html' },
+      { name: 'Technocraft Ventures',          kind: 'Mainboard',   open: '2026-08-07', close: '2026-08-11', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/technocraft-ventures-limited-rhp_103278.html' },
+      { name: 'Ardee Industries',              kind: 'Mainboard',   open: '2026-08-05', close: '2026-08-07', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/ardee-industries-limited-rhp_103086.html' },
+      { name: 'Juniper Green Energy',          kind: 'Mainboard',   open: '2026-07-30', close: '2026-08-03', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/juniper-green-energy-limited-rhp_103074.html' },
+      { name: 'MV Electrosystems',             kind: 'Mainboard',   open: '2026-07-30', close: '2026-08-03', price: 425, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/aug-2026/mv-electrosystems-limited-prospectus_103331.html' },
+      { name: 'Manipal Health Enterprises',    kind: 'Mainboard',   open: '2026-07-29', close: '2026-07-31', price: 590, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/aug-2026/manipal-health-enterprises-limited-prospectus_103300.html' },
+      { name: 'Xtranet Technologies',          kind: 'Mainboard',   open: '2026-07-23', close: '2026-07-27', price: 127, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/xtranet-technologies-limited-prospectus_103105.html' },
+      { name: 'Indo-MIM',                      kind: 'Mainboard',   open: '2026-07-23', close: '2026-07-27', price: 485, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/indo-mim-limited_103050.html' },
+      { name: 'Lohia Corp',                    kind: 'Mainboard',   open: '2026-07-23', close: '2026-07-27', price: 425, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/lohia-corp-limited-prospectus_103075.html' },
+      { name: 'Caliber Mining and Logistics',  kind: 'Mainboard',   open: '2026-07-17', close: '2026-07-21', price: 424, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/caliber-mining-and-logistics-limited-prospectus_102990.html' },
+      { name: 'Laser Power and Infra',         kind: 'Mainboard',   open: '2026-07-09', close: '2026-07-13', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/laser-power-and-infra-limited-rhp_102750.html' },
+      { name: 'Alpine Texworld',               kind: 'Mainboard',   open: '2026-07-14', close: '2026-07-16', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/alpine-texworld-limited-rhp_102719.html' },
+      { name: 'SBI Funds Management',          kind: 'Mainboard',   open: '2026-07-14', close: '2026-07-16', price: 574, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/sbi-funds-management-limited-prospectus_102917.html' },
+      { name: 'Kusumgar',                      kind: 'Mainboard',   open: '2026-07-08', close: '2026-07-10', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/kusumgar-limited-rhp_102510.html' },
+      { name: 'Knack Packaging',               kind: 'Mainboard',   open: '2026-07-01', close: '2026-07-03', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jun-2026/knack-packaging-limited-rhp_102348.html' },
+      { name: 'Waterways Leisure Tourism',     kind: 'Mainboard',   open: '2026-06-23', close: '2026-06-25', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jun-2026/waterways-leisure-tourism-limited-rhp_102226.html' },
+      { name: 'CSM Technologies',              kind: 'Mainboard',   open: '2026-06-24', close: '2026-06-29', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jun-2026/csm-technologies-limited-rhp_102194.html' },
+      { name: 'Turtlemint Fintech Solutions',  kind: 'Mainboard',   open: '2026-06-19', close: '2026-06-23', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jun-2026/turtlemint-fintech-solutions-limited-rhp_102389.html' },
+      { name: 'Advit Jewels',                  kind: 'Mainboard',   open: '2026-06-23', close: '2026-06-25', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jun-2026/advit-jewels-limited-rhp_102061.html' },
+      { name: 'Hexagon Nutrition',             kind: 'Mainboard',   open: '2026-06-05', close: '2026-06-09', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jun-2026/hexagon-nutrition-limited-rhp_101824.html' },
+      { name: 'OnEMI Technology Solutions',    kind: 'Mainboard',   open: '2026-04-30', close: '2026-05-05', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/apr-2026/onemi-technology-solutions-limited-rhp_102191.html' },
+      { name: 'Om Power Transmission',         kind: 'Mainboard',   open: '2026-04-09', close: '2026-04-13', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/apr-2026/om-power-transmission-limited-rhp_100792.html' }
     ]
   };
 
   var view = 'up';
+  var DAY = 86400000;
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -593,6 +628,35 @@ function inr2(v) {
     return Date.UTC(n.getFullYear(), n.getMonth(), n.getDate());
   }
 
+  /* The only thing here a filing does not state outright, and the one a
+     reader actually wants: can I apply right now, and if not, when? */
+  function status(x, t) {
+    var o = dparse(x.open), c = dparse(x.close);
+    if (o == null) return { txt: '—', cls: '' };
+    if (o > t) {
+      var n = Math.round((o - t) / DAY);
+      return { txt: n === 1 ? 'Opens tomorrow' : 'Opens in ' + n + ' days', cls: '' };
+    }
+    if (c != null && c <= t) return { txt: 'Last day', cls: 'soon' };
+    return { txt: 'Open now', cls: 'now' };
+  }
+
+  /* Mainboard is all but every issue SEBI lists, so naming it on every row
+     would be a column of one repeated word. An SME issue is the exception
+     and is worth flagging, so it is tagged inline and nothing else is. */
+  function nameCell(x) {
+    var tag = x.kind && x.kind !== 'Mainboard'
+      ? ' <span class="fk-tag2">' + esc(x.kind) + '</span>' : '';
+    return '<td class="co">' + esc(x.name) + tag + '</td>';
+  }
+
+  function docCell(x) {
+    if (!x.doc) return '<td class="mut">—</td>';
+    return '<td><a class="fk-doc" href="' + esc(x.doc) + '" target="_blank" ' +
+      'rel="noopener noreferrer">' + (x.stage === 'final' ? 'Prospectus' : 'RHP') +
+      ' &#8599;</a></td>';
+  }
+
   /* The whole rotation, in one function. Nothing is stored as "upcoming" or
      "past" — those are just which side of today an entry lands on. */
   function partition(pool) {
@@ -605,9 +669,7 @@ function inr2(v) {
     // Closing soonest first — that is the one you have least time to act on.
     up.sort(function (a, b) { return dparse(a.close) - dparse(b.close); });
     // Most recently finished first.
-    past.sort(function (a, b) {
-      return (dparse(b.listed) || dparse(b.close)) - (dparse(a.listed) || dparse(a.close));
-    });
+    past.sort(function (a, b) { return dparse(b.close) - dparse(a.close); });
     return { up: up, past: past, today: t };
   }
 
@@ -615,41 +677,39 @@ function inr2(v) {
     var part = partition(pool), head, rows = [], list, i;
 
     if (view === 'up') {
-      head = ['Company', 'Type', 'Opens – closes', 'Price band', 'Issue size'];
+      head = ['Company', 'Opens', 'Closes', 'Status', 'Filing'];
       list = part.up.slice(0, CONFIG.rows);
       for (i = 0; i < list.length; i++) {
-        var u = list[i];
-        var open = dparse(u.open), live = open != null && open <= part.today;
-        rows.push('<tr><td class="co">' + esc(u.name) +
-            (live ? ' <span class="fk-live">• open</span>' : '') + '</td>' +
-          '<td><span class="fk-tag2">' + esc(u.kind) + '</span></td>' +
-          '<td>' + shortDate(u.open) + ' – ' + shortDate(u.close) + '</td>' +
-          '<td class="band">' + (u.band ? '₹' + esc(u.band) : 'To be announced') + '</td>' +
-          '<td>' + (u.size ? esc(u.size) : '—') + '</td></tr>');
+        var u = list[i], st = status(u, part.today);
+        rows.push('<tr>' + nameCell(u) +
+          '<td>' + shortDate(u.open) + '</td>' +
+          '<td>' + shortDate(u.close) + '</td>' +
+          '<td class="fk-st ' + st.cls + '">' + st.txt + '</td>' +
+          docCell(u) + '</tr>');
       }
     } else {
-      head = ['Company', 'Type', 'Closed', 'Issue price', 'On listing'];
+      head = ['Company', 'Opened', 'Closed', 'Issue price', 'Filing'];
       list = part.past.slice(0, CONFIG.rows);
       for (i = 0; i < list.length; i++) {
         var p = list[i];
-        // Listing gain once it exists, subscription until then — an issue has
-        // a subscription figure days before it has a listing price.
-        var last = p.gain != null
-          ? '<span class="' + (p.gain >= 0 ? 'up' : 'dn') + '">' +
-            (p.gain >= 0 ? '+' : '') + p.gain.toFixed(2) + '%</span>'
-          : '<span class="band">' + (p.subs ? esc(p.subs) + ' subscribed' : 'awaiting listing') + '</span>';
-        rows.push('<tr><td class="co">' + esc(p.name) + '</td>' +
-          '<td><span class="fk-tag2">' + esc(p.kind) + '</span></td>' +
+        // The final price is only fixed once the Prospectus is filed, a few
+        // days after the book closes. Saying so beats an unexplained dash.
+        var px = p.price != null
+          ? inr(p.price)
+          : '<span class="mut">awaiting filing</span>';
+        rows.push('<tr>' + nameCell(p) +
+          '<td>' + shortDate(p.open) + '</td>' +
           '<td>' + shortDate(p.close) + '</td>' +
-          '<td>' + (p.price ? inr(p.price) : '—') + '</td>' +
-          '<td>' + last + '</td></tr>');
+          '<td>' + px + '</td>' +
+          docCell(p) + '</tr>');
       }
     }
 
     // Always five rows: a table that shrinks with the data shrinks the widget,
     // and the host has already reserved the height.
     while (rows.length < CONFIG.rows) {
-      rows.push('<tr class="empty"><td>—</td><td></td><td></td><td></td><td></td></tr>');
+      rows.push('<tr class="empty"><td>—</td>' +
+        new Array(head.length).join('<td></td>') + '</tr>');
     }
     $('thead').innerHTML = head.map(function (h) { return '<th>' + h + '</th>'; }).join('');
     $('tbody').innerHTML = rows.join('');
@@ -659,15 +719,15 @@ function inr2(v) {
        it; the moment there are none, it has nothing left to say and should
        admit that rather than show five empty rows and a confident date. */
     var leftToCome = part.up.length;
-    var st = $('stamp'), txt;
+    var st2 = $('stamp'), txt;
     if (leftToCome === 0) {
-      st.className = 'fk-stamp stale';
+      st2.className = 'fk-stamp stale';
       txt = 'None open — the list needs refreshing';
     } else if (leftToCome <= 2) {
-      st.className = 'fk-stamp stale';
+      st2.className = 'fk-stamp stale';
       txt = 'Only ' + leftToCome + ' still to come';
     } else {
-      st.className = 'fk-stamp';
+      st2.className = 'fk-stamp';
       txt = leftToCome + ' open or upcoming · from ' + dfmt(dparse(pool.updated));
     }
     $('stampTxt').textContent = txt;
