@@ -1,0 +1,145 @@
+{
+ "updated": "2026-08-04",
+ "ipos": [
+  {
+   "name": "Pennar Engineered",
+   "kind": "Mainboard",
+   "open": "2026-08-25",
+   "close": "2026-08-27",
+   "band": "170 – 178"
+  },
+  {
+   "name": "LEAP India",
+   "kind": "Mainboard",
+   "open": "2026-08-07",
+   "close": "2026-08-11",
+   "band": "151 – 159",
+   "size": "₹2,480 Cr"
+  },
+  {
+   "name": "Technocraft Ventures",
+   "kind": "Mainboard",
+   "open": "2026-08-07",
+   "close": "2026-08-11",
+   "band": "200 – 212",
+   "size": "₹252 Cr"
+  },
+  {
+   "name": "Optimystix Ent.",
+   "kind": "NSE SME",
+   "open": "2026-08-07",
+   "close": "2026-08-11"
+  },
+  {
+   "name": "LAPL Automotive",
+   "kind": "BSE SME",
+   "open": "2026-08-06",
+   "close": "2026-08-10",
+   "band": "88 – 94",
+   "size": "₹32.4 Cr"
+  },
+  {
+   "name": "Ardee Industries",
+   "kind": "Mainboard",
+   "open": "2026-08-05",
+   "close": "2026-08-07",
+   "band": "50 – 53",
+   "size": "₹425.9 Cr"
+  },
+  {
+   "name": "Aegeus Technologies",
+   "kind": "BSE SME",
+   "open": "2026-08-04",
+   "close": "2026-08-06",
+   "band": "100 – 105",
+   "size": "₹23.7 Cr"
+  },
+  {
+   "name": "Anawil Wire & Engg.",
+   "kind": "NSE SME",
+   "open": "2026-08-03",
+   "close": "2026-08-05",
+   "band": "257 – 270",
+   "size": "₹177.8 Cr"
+  },
+  {
+   "name": "G.V. Electricals",
+   "kind": "BSE SME",
+   "open": "2026-07-31",
+   "close": "2026-08-04",
+   "band": "123 – 130",
+   "size": "₹42.3 Cr"
+  },
+  {
+   "name": "Fusion Klassroom",
+   "kind": "BSE SME",
+   "open": "2026-07-31",
+   "close": "2026-08-04",
+   "band": "151 – 159",
+   "size": "₹39.0 Cr"
+  },
+  {
+   "name": "Dhaval Packaging",
+   "kind": "BSE SME",
+   "open": "2026-07-30",
+   "close": "2026-08-03",
+   "listed": "2026-08-06",
+   "price": 97,
+   "subs": "46.23x"
+  },
+  {
+   "name": "Oneindig Tech.",
+   "kind": "NSE SME",
+   "open": "2026-07-30",
+   "close": "2026-08-03",
+   "listed": "2026-08-06",
+   "price": 96,
+   "subs": "1.68x"
+  },
+  {
+   "name": "MV Electrosystems",
+   "kind": "Mainboard",
+   "open": "2026-07-30",
+   "close": "2026-08-03",
+   "listed": "2026-08-06",
+   "price": 425,
+   "subs": "188.32x"
+  },
+  {
+   "name": "Juniper Green Energy",
+   "kind": "Mainboard",
+   "open": "2026-07-30",
+   "close": "2026-08-03",
+   "listed": "2026-08-06",
+   "price": 225,
+   "subs": "7.93x"
+  },
+  {
+   "name": "H.R.Hygiene",
+   "kind": "BSE SME",
+   "open": "2026-07-29",
+   "close": "2026-07-31",
+   "listed": "2026-08-05",
+   "price": 88,
+   "subs": "6.17x"
+  },
+  {
+   "name": "Manipal Health",
+   "kind": "Mainboard",
+   "open": "2026-07-29",
+   "close": "2026-07-31",
+   "listed": "2026-08-05",
+   "price": 590,
+   "subs": "4.90x"
+  },
+  {
+   "name": "Poojaa Precision",
+   "kind": "BSE SME",
+   "open": "2026-07-28",
+   "close": "2026-07-30",
+   "listed": "2026-08-04",
+   "price": 301,
+   "gain": 56.15
+  }
+ ]
+}
