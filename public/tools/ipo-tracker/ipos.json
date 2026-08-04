@@ -148,27 +148,30 @@
    "kind": "Mainboard",
    "open": "2026-07-01",
    "close": "2026-07-03",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/knack-packaging-limited-rhp_102348.html",
-   "filed": "2026-06-24"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/knack-packaging-limited-prospectus_102599.html",
+   "filed": "2026-06-24",
+   "price": 170.0
   },
   {
    "name": "CSM Technologies",
    "kind": "Mainboard",
    "open": "2026-06-24",
    "close": "2026-06-29",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/csm-technologies-limited-rhp_102194.html",
-   "filed": "2026-06-17"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/csm-technologies-limited-prospectus_102473.html",
+   "filed": "2026-06-17",
+   "price": 113.0
   },
   {
    "name": "Waterways Leisure Tourism",
    "kind": "Mainboard",
    "open": "2026-06-23",
    "close": "2026-06-25",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/waterways-leisure-tourism-limited-rhp_102226.html",
-   "filed": "2026-06-19"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/waterways-leisure-tourism-limited-prospectus_102629.html",
+   "filed": "2026-06-19",
+   "price": 808.0
   },
   {
    "name": "Advit Jewels",
