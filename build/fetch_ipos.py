@@ -113,9 +113,12 @@ def from_ipoguru(key):
     are normalised here rather than in the widget, so swapping the source
     later touches this function and nothing else.
     """
+    # Base URL and header spelling taken from their published API page. An
+    # api.* subdomain looks right and does not resolve — worth checking rather
+    # than assuming, because the failure only shows up once a key exists.
     req = urllib.request.Request(
-        "https://api.ipoguru.in/v1/ipos",
-        headers={"X-API-Key": key, "Accept": "application/json",
+        "https://www.ipoguru.in/api/v1/ipos",
+        headers={"X-API-KEY": key, "Accept": "application/json",
                  "User-Agent": "financekeeda-ipo-tracker/1.0"})
     with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
         payload = json.load(r)
