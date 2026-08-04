@@ -2,7 +2,10 @@
 """
 Builds the IPO tracker's pool from SEBI's own filings — the primary source.
 
-    python3 fetch_sebi.py --out public/tools/ipo-tracker/ipos.json
+Normally driven by fetch_ipos.py, which merges what this returns into the
+pool file and writes it. Run directly to see what SEBI currently says:
+
+    python3 fetch_sebi.py --pool public/tools/ipo-tracker/ipos.json > new.json
 
 No API key, no third party, no account. SEBI publishes every public-issue
 document itself, and this reads that listing.
@@ -149,6 +152,13 @@ def parse_listing(html):
         ap = re.search(r"href=\s*'(%s/sebi_data/commondocs/[^']+)'"
                        % re.escape(BASE), chunk)
         if not (page and title):
+            continue
+        # The date regex accepts any capitalised three-letter word, so a typo
+        # in one cell would otherwise take down the whole run when the rows
+        # are sorted. Parse it here and drop the row if it is not a date.
+        try:
+            datetime.strptime(d.group(1), "%b %d, %Y")
+        except ValueError:
             continue
         rows.append({"filed": d.group(1),
                      "title": unescape(title.group(1)),
@@ -393,7 +403,7 @@ def collect(existing=None, verbose=True):
 
     def say(*a):
         # Progress goes to stderr so that stdout carries nothing but the JSON
-        # and `fetch_sebi.py --out x > pool.json` stays usable.
+        # and `fetch_sebi.py --pool x > new.json` stays usable.
         if verbose:
             print(*a, file=sys.stderr)
 
@@ -540,15 +550,20 @@ def resolve_prices(out, known, say):
 # ------------------------------------------------------------------- main --
 def main():
     import argparse, os
-    ap = argparse.ArgumentParser(description="Build the IPO pool from SEBI filings.")
-    ap.add_argument("--out", required=True)
+    ap = argparse.ArgumentParser(
+        description="Read the IPO pool from SEBI's filings and print it as JSON.",
+        epilog="Prints to stdout. fetch_ipos.py is the entry point that merges "
+               "the result into a pool file and writes it; this is for looking "
+               "at what SEBI currently says.")
+    ap.add_argument("--pool", help="an existing pool file, read only so that "
+                                   "issues already resolved are not fetched again")
     ap.add_argument("--quiet", action="store_true")
     args = ap.parse_args()
 
     existing = []
-    if os.path.exists(args.out):
+    if args.pool and os.path.exists(args.pool):
         try:
-            with open(args.out, encoding="utf-8") as fh:
+            with open(args.pool, encoding="utf-8") as fh:
                 existing = json.load(fh).get("ipos", [])
         except (json.JSONDecodeError, OSError):
             pass
