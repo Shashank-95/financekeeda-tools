@@ -2,6 +2,14 @@
  "updated": "2026-08-04",
  "ipos": [
   {
+   "name": "Ambit Finvest",
+   "kind": "Mainboard",
+   "open": "2026-09-08",
+   "close": "2026-09-10",
+   "band": "265 – 280",
+   "size": "₹1,120 Cr"
+  },
+  {
    "name": "Pennar Engineered",
    "kind": "Mainboard",
    "open": "2026-08-25",
@@ -84,8 +92,8 @@
    "open": "2026-07-30",
    "close": "2026-08-03",
    "listed": "2026-08-06",
-   "price": 97,
-   "subs": "46.23x"
+   "subs": "46.23x",
+   "price": 97.0
   },
   {
    "name": "Oneindig Tech.",
@@ -93,8 +101,8 @@
    "open": "2026-07-30",
    "close": "2026-08-03",
    "listed": "2026-08-06",
-   "price": 96,
-   "subs": "1.68x"
+   "subs": "1.68x",
+   "price": 96.0
   },
   {
    "name": "MV Electrosystems",
@@ -102,8 +110,8 @@
    "open": "2026-07-30",
    "close": "2026-08-03",
    "listed": "2026-08-06",
-   "price": 425,
-   "subs": "188.32x"
+   "subs": "188.32x",
+   "price": 425.0
   },
   {
    "name": "Juniper Green Energy",
@@ -111,8 +119,8 @@
    "open": "2026-07-30",
    "close": "2026-08-03",
    "listed": "2026-08-06",
-   "price": 225,
-   "subs": "7.93x"
+   "subs": "7.93x",
+   "price": 225.0
   },
   {
    "name": "H.R.Hygiene",
@@ -120,8 +128,8 @@
    "open": "2026-07-29",
    "close": "2026-07-31",
    "listed": "2026-08-05",
-   "price": 88,
-   "subs": "6.17x"
+   "subs": "6.17x",
+   "price": 88.0
   },
   {
    "name": "Manipal Health",
@@ -129,8 +137,8 @@
    "open": "2026-07-29",
    "close": "2026-07-31",
    "listed": "2026-08-05",
-   "price": 590,
-   "subs": "4.90x"
+   "subs": "4.90x",
+   "price": 590.0
   },
   {
    "name": "Poojaa Precision",
@@ -138,7 +146,7 @@
    "open": "2026-07-28",
    "close": "2026-07-30",
    "listed": "2026-08-04",
-   "price": 301,
+   "price": 301.0,
    "gain": 56.15
   }
  ]
