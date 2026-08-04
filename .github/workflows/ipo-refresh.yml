@@ -51,7 +51,7 @@ concurrency:
   cancel-in-progress: false   # never let two runs write the file at once
 
 env:
-  SOURCE: file                # ipoguru | url | file
+  SOURCE: ipoguru             # ipoguru | url | file
   OUT: public/tools/ipo-tracker/ipos.json
   WIDGET: public/tools/ipo-tracker/index.html
   INPUT_FILE: data/feed.json  # only read when SOURCE is 'file'
