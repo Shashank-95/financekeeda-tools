@@ -51,9 +51,10 @@ concurrency:
   cancel-in-progress: false   # never let two runs write the file at once
 
 env:
-  SOURCE: ipoguru             # ipoguru | url | file
+  SOURCE: file                # ipoguru | url | file
   OUT: public/tools/ipo-tracker/ipos.json
   WIDGET: public/tools/ipo-tracker/index.html
+  INPUT_FILE: data/feed.json  # only read when SOURCE is 'file'
 
 jobs:
   refresh:
@@ -95,6 +96,7 @@ jobs:
             --out "$OUT" \
             --source "$SOURCE" \
             ${FEED_URL:+--url "$FEED_URL"} \
+            ${INPUT_FILE:+--input "$INPUT_FILE"} \
             --seed "$WIDGET"
 
       - name: Commit if the list moved
