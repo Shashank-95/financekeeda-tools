@@ -66,7 +66,7 @@
   each band the height is constant, whatever the reader types or drags.
 
       <style>
-        .fk-embed-foreign-remittance-calculator{width:100%;border:0;display:block;height:728px}
+        .fk-embed-foreign-remittance-calculator{width:100%;border:0;display:block;height:732px}
         @media (min-width:821px){ .fk-embed-foreign-remittance-calculator{height:340px} }
       </style>
       <iframe class="fk-embed-foreign-remittance-calculator" src="/tools/foreign-remittance-calculator.html"
@@ -327,6 +327,16 @@ dl{margin:0}
 .fk-slot>*{grid-area:1/1;margin:0;font-size:11px;line-height:1.5;color:var(--muted)}
 .fk-slot .ghost{visibility:hidden;pointer-events:none}
 .fk-slot b{font-weight:700;color:var(--ink-3)}
+/* Freshness, on the widget's face. A converter quoting a months-old rate
+   with no date is the one way this tool can mislead without looking wrong,
+   so the date is always shown — and turns amber once the rates are old
+   enough that the refresh has clearly stopped. */
+.fk-asof{display:flex;align-items:center;gap:6px;margin-top:9px;font-size:10.5px;
+  color:var(--muted-2);min-width:0}
+.fk-asof span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fk-asof i{width:5px;height:5px;border-radius:50%;background:var(--accent);flex:none}
+.fk-asof.stale{color:var(--warn-ink)}
+.fk-asof.stale i{background:var(--warn-ink)}
 </style>
 </head>
 <body>
@@ -403,10 +413,12 @@ dl{margin:0}
            and seven at 821px, and because they are the tallest thing in this
            column the whole widget grew by 33px as the embed narrowed. -->
       <div class="fk-slot">
-        <p class="ghost">TCS is not a cost — it is your own tax paid early, claimed back in your
-          return. The ₹10 lakh threshold counts everything you have sent abroad this year.</p>
+        <p class="ghost">The ₹99,99,999 of TCS is not a cost — your own tax paid early,
+          claimed back in your return. Real charges ₹99,99,999, or 00.00%.</p>
         <p id="foot"></p>
       </div>
+
+      <div class="fk-asof" id="asof"><i></i><span id="asofTxt">—</span></div>
     </div>
   </div>
 </div>
@@ -720,25 +732,39 @@ function inr2(v) {
        gone, so that is the first thing said whenever TCS applies. */
     var pct = remitted > 0 ? charges / remitted * 100 : 0;
     if (tcs > 0) {
-      $('foot').innerHTML = '<b>The ' + inr(tcs) + ' of TCS is not a cost.</b> It is your own ' +
-        'tax paid early — claim it in your return and get it back if you owe less. Real ' +
-        'charges are ' + inr(charges) + ', or ' + pct.toFixed(2) + '% of what you sent.';
+      $('foot').innerHTML = '<b>The ' + inr(tcs) + ' of TCS is not a cost</b> — your own tax ' +
+        'paid early, claimed back in your return. Real charges ' + inr(charges) + ', or ' +
+        pct.toFixed(2) + '%.';
     } else if (why.rate === 0) {
-      $('foot').innerHTML = '<b>No TCS at all here</b> — education funded by a loan from a ' +
-        'financial institution is outside it. Charges are ' + inr(charges) + ', or ' +
-        pct.toFixed(2) + '% of what you sent, mostly the margin inside the bank’s rate.';
+      $('foot').innerHTML = '<b>No TCS here</b> — education funded by a loan is outside it. ' +
+        'Real charges ' + inr(charges) + ', or ' + pct.toFixed(2) + '%, mostly the bank’s margin.';
     } else {
       var room = Math.max(0, THRESHOLD - Math.min(prev, THRESHOLD) - remitted);
       $('foot').innerHTML = '<b>No TCS yet</b> — ' + inr(room) + ' of the ₹10 lakh yearly ' +
-        'threshold is left. Charges are ' + inr(charges) + ', or ' + pct.toFixed(2) +
-        '% of what you sent, mostly the margin inside the bank’s rate.';
+        'threshold left. Real charges ' + inr(charges) + ', or ' + pct.toFixed(2) + '%.';
     }
+  }
+
+  /* The ECB publishes on weekdays only, so a couple of days old is normal
+     and a week old means the refresh has stopped. Nothing here guesses at a
+     newer rate — it just stops presenting an old one as if it were today's. */
+  function stamp() {
+    var el = $('asof'), txt = $('asofTxt');
+    var t = dparse(DATA.updated);
+    if (t == null) { el.className = 'fk-asof stale'; txt.textContent = 'Rate date unknown'; return; }
+    var now = new Date();
+    var age = Math.round((Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) - t) / 86400000);
+    var old = age > 6;
+    el.className = 'fk-asof' + (old ? ' stale' : '');
+    txt.textContent = old ? 'ECB rate from ' + dfmt(t) + ' — may be out of date'
+                          : 'ECB rate, ' + dfmt(t);
   }
 
   fillSelect();
   ['amt', 'prev', 'mk', 'fee'].forEach(function (i) { bind(i, null, calc); });
   $('cur').addEventListener('change', calc);
   $('why').addEventListener('change', calc);
+  stamp();
   calc();
 
   if (CONFIG.dataUrl) {
@@ -747,7 +773,7 @@ function inr2(v) {
       .then(function (r) { if (!r.ok) throw 0; return r.json(); })
       .then(function (d) {
         if (!d || !d.rates || !d.rates.USD) return;
-        DATA = d; fillSelect(); calc();
+        DATA = d; fillSelect(); stamp(); calc();
       })
       .catch(function () { /* baked rates stand */ });
   }

@@ -63,7 +63,7 @@
   each band the height is constant, whatever the reader types or drags.
 
       <style>
-        .fk-embed-currency-converter{width:100%;border:0;display:block;height:680px}
+        .fk-embed-currency-converter{width:100%;border:0;display:block;height:684px}
         @media (min-width:821px){ .fk-embed-currency-converter{height:324px} }
       </style>
       <iframe class="fk-embed-currency-converter" src="/tools/currency-converter.html"
@@ -328,6 +328,16 @@ dl{margin:0}
 .fk-slot>*{grid-area:1/1;margin:0;font-size:11px;line-height:1.5;color:var(--muted)}
 .fk-slot .ghost{visibility:hidden;pointer-events:none}
 .fk-slot b{font-weight:700;color:var(--ink-3)}
+/* Freshness, on the widget's face. A converter quoting a months-old rate
+   with no date is the one way this tool can mislead without looking wrong,
+   so the date is always shown — and turns amber once the rates are old
+   enough that the refresh has clearly stopped. */
+.fk-asof{display:flex;align-items:center;gap:6px;margin-top:9px;font-size:10.5px;
+  color:var(--muted-2);min-width:0}
+.fk-asof span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fk-asof i{width:5px;height:5px;border-radius:50%;background:var(--accent);flex:none}
+.fk-asof.stale{color:var(--warn-ink)}
+.fk-asof.stale i{background:var(--warn-ink)}
 </style>
 </head>
 <body>
@@ -394,11 +404,12 @@ dl{margin:0}
            overruns it, that variant sets the height instead and the widget
            jumps as the reader types. -->
       <div class="fk-slot">
-        <p class="ghost">You lose 00.00% to the margin and GST. The margin is inside the rate
-          you are quoted, not a line on your statement. GST here is ₹5,500 + 0.1% of the
-          amount over ₹10 lakh.</p>
+        <p class="ghost">You lose 00.00% to margin and GST. The margin hides inside the rate
+          you are quoted. GST here is ₹5,500 + 0.1% over ₹10 lakh.</p>
         <p id="foot"></p>
       </div>
+
+      <div class="fk-asof" id="asof"><i></i><span id="asofTxt">—</span></div>
     </div>
   </div>
 </div>
@@ -682,7 +693,7 @@ function inr2(v) {
       });
       $('o-get-s').textContent = '';
       $('foot').innerHTML = 'Enter an amount to convert. Rates are the European Central ' +
-        'Bank’s daily reference rates, crossed through the euro.';
+        'Bank’s daily reference rates.';
       return;
     }
 
@@ -718,11 +729,25 @@ function inr2(v) {
     var pct = inrGross > 0 ? (marginInr + gst) / inrGross * 100 : 0;
     var slab = inrGross <= 100000
       ? (0.01 * inrGross < 250 ? 'the ₹250 minimum' : '1% of the amount')
-      : inrGross <= 1000000 ? '₹1,000 + 0.5% of the amount over ₹1 lakh'
-      : '₹5,500 + 0.1% of the amount over ₹10 lakh';
-    $('foot').innerHTML = 'You lose <b>' + pct.toFixed(2) + '%</b> to the margin and GST. ' +
-      'The margin is inside the rate you are quoted, not a line on your statement. ' +
-      'GST here is ' + slab + '.';
+      : inrGross <= 1000000 ? '₹1,000 + 0.5% over ₹1 lakh'
+      : '₹5,500 + 0.1% over ₹10 lakh';
+    $('foot').innerHTML = 'You lose <b>' + pct.toFixed(2) + '%</b> to margin and GST. ' +
+      'The margin hides inside the rate you are quoted. GST here is ' + slab + '.';
+  }
+
+  /* The ECB publishes on weekdays only, so a couple of days old is normal
+     and a week old means the refresh has stopped. Nothing here guesses at a
+     newer rate — it just stops presenting an old one as if it were today's. */
+  function stamp() {
+    var el = $('asof'), txt = $('asofTxt');
+    var t = dparse(DATA.updated);
+    if (t == null) { el.className = 'fk-asof stale'; txt.textContent = 'Rate date unknown'; return; }
+    var now = new Date();
+    var age = Math.round((Date.UTC(now.getFullYear(), now.getMonth(), now.getDate()) - t) / 86400000);
+    var old = age > 6;
+    el.className = 'fk-asof' + (old ? ' stale' : '');
+    txt.textContent = old ? 'ECB rate from ' + dfmt(t) + ' — may be out of date'
+                          : 'ECB rate, ' + dfmt(t);
   }
 
   fillSelect('from', 'INR');
@@ -746,6 +771,7 @@ function inr2(v) {
   bind('mk', null, calc);
   $('from').addEventListener('change', calc);
   $('to').addEventListener('change', calc);
+  stamp();
   calc();
 
   if (CONFIG.dataUrl) {
@@ -757,7 +783,7 @@ function inr2(v) {
         var f = $('from').value, t = $('to').value;
         DATA = d;
         fillSelect('from', f); fillSelect('to', t);
-        calc();
+        stamp(); calc();
       })
       .catch(function () { /* baked rates stand */ });
   }
