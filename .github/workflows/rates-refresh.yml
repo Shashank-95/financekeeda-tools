@@ -1,0 +1,112 @@
+# Keeps the forex widgets' rates current with no one touching them.
+#
+# ---------------------------------------------------------------------------
+# SETUP
+# ---------------------------------------------------------------------------
+#  1. Put this file at .github/workflows/rates-refresh.yml in the repo that
+#     holds your site, alongside build/fetch_ecb.py.
+#  2. Make sure rates.json ends up beside each widget when you deploy. Every
+#     widget looks for ./rates.json relative to itself and needs no editing.
+#
+# That is the whole setup. No API key, no account, no secret: the data is the
+# European Central Bank's own published reference rates, which it states may
+# be reused free of charge provided the ECB is cited as the source. Every
+# widget cites it on its face.
+#
+# ---------------------------------------------------------------------------
+# WHY WEEKDAYS ONLY
+# ---------------------------------------------------------------------------
+# The ECB publishes once a day, around 16:00 CET, and not at all on TARGET
+# holidays or weekends. Running at 17:30 CET on weekdays catches each day's
+# publication shortly after it lands. A weekend run would do nothing but
+# re-commit Friday's numbers.
+#
+# The file records the ECB's own date for the rates rather than the date the
+# job ran, so a widget can say how fresh its numbers are honestly — and a
+# stale file dates itself rather than pretending.
+#
+# ---------------------------------------------------------------------------
+# WHAT IT DOES WHEN THINGS GO WRONG
+# ---------------------------------------------------------------------------
+#  * ECB unreachable         -> the existing file is left alone and the run
+#                               fails, so GitHub emails you. Readers keep the
+#                               last good rates, and every widget also carries
+#                               a baked copy, so nothing shows an empty screen.
+#  * Only one source answers -> the daily XML alone refreshes the converter;
+#                               the history alone still redraws the chart.
+#                               Either is written, with a warning.
+#  * A parse goes wrong      -> a rate that moved more than 10% in a day is
+#                               rejected as a bad parse rather than published.
+#                               Currencies do not do that; decimal confusion
+#                               does.
+#  * The series comes back
+#    empty                   -> the previous series is kept rather than
+#                               overwritten, so a partial failure can never
+#                               blank the chart.
+
+name: Refresh forex rates
+
+on:
+  schedule:
+    # 17:30 CET on weekdays — after the ECB's daily publication.
+    - cron: '30 16 * * 1-5'
+  workflow_dispatch:          # and a button, for when you want it now
+
+permissions:
+  contents: write             # the job commits the refreshed JSON back
+
+concurrency:
+  group: rates-refresh
+  cancel-in-progress: false   # never let two runs write the file at once
+
+env:
+  OUT: public/tools/rates.json
+  # Every widget reads ./rates.json beside itself, so the one file is copied
+  # into each widget's folder. Space-separated, edit to match your layout.
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # No pip install step: fetch_ecb.py uses only the standard library.
+
+      - name: Refresh the rates
+        id: refresh
+        continue-on-error: true        # commit what we got, judge it after
+        run: |
+          mkdir -p "$(dirname "$OUT")"
+          python3 build/fetch_ecb.py --out "$OUT"
+
+      - name: Confirm something was written
+        run: |
+          [ -f "$OUT" ] || { echo "nothing written"; exit 0; }
+          echo "widgets read this file from the CDN, so no copies are needed"
+
+      - name: Commit if the rates moved
+        run: |
+          [ -f "$OUT" ] || exit 0
+          git config user.name  "fx-bot"
+          git config user.email "fx-bot@users.noreply.github.com"
+          git add "$OUT"
+          if git diff --staged --quiet; then
+            echo "no change since the last run — the ECB has not published yet"
+          else
+            git commit -m "Forex rates refreshed $(date -u +%Y-%m-%d)"
+            git pull --rebase --autostash
+            git push
+          fi
+
+      - name: Fail loudly if the refresh did not work
+        if: steps.refresh.outcome == 'failure'
+        run: |
+          echo "::error::The rate refresh failed. Readers are on the last good"
+          echo "::error::rates, and on each widget's baked fallback if that is"
+          echo "::error::missing — so nothing is broken, but nothing is moving."
+          exit 1
