@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-08",
+ "updated": "2026-08-09",
  "ipos": [
   {
    "name": "Shiprocket",
@@ -208,15 +208,6 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/turtlemint-fintech-solutions-limited-rhp_102389.html",
    "filed": "2026-06-15"
-  },
-  {
-   "name": "Hexagon Nutrition",
-   "kind": "Mainboard",
-   "open": "2026-06-05",
-   "close": "2026-06-09",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/hexagon-nutrition-limited-rhp_101824.html",
-   "filed": "2026-06-04"
   }
  ]
 }
