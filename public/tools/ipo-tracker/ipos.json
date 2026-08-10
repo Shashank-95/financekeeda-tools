@@ -51,9 +51,10 @@
    "kind": "Mainboard",
    "open": "2026-08-05",
    "close": "2026-08-07",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/ardee-industries-limited-rhp_103086.html",
-   "filed": "2026-07-28"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/ardee-industries-limited-prospectus_103457.html",
+   "filed": "2026-07-28",
+   "price": 53.0
   },
   {
    "name": "Juniper Green Energy",
