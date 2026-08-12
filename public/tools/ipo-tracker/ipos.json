@@ -2,6 +2,24 @@
  "updated": "2026-08-12",
  "ipos": [
   {
+   "name": "Sunshine Pictures",
+   "kind": "Mainboard",
+   "open": "2026-08-18",
+   "close": "2026-08-20",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/sunshine-pictures-limited-rhp_103495.html",
+   "filed": "2026-08-12"
+  },
+  {
+   "name": "Lalithaa Jewellery Mart",
+   "kind": "Mainboard",
+   "open": "2026-08-17",
+   "close": "2026-08-19",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/lalithaa-jewellery-mart-limited-rhp_103513.html",
+   "filed": "2026-08-12"
+  },
+  {
    "name": "Shiprocket",
    "kind": "Mainboard",
    "open": "2026-08-12",
@@ -9,6 +27,15 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/shiprocket-limited-rhp_103432.html",
    "filed": "2026-08-07"
+  },
+  {
+   "name": "Behari Lal Engineering",
+   "kind": "Mainboard",
+   "open": "2026-08-12",
+   "close": "2026-08-14",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/behari-lal-engineering-limited-rhp_103498.html",
+   "filed": "2026-08-12"
   },
   {
    "name": "Dhoot Transmission",
@@ -33,9 +60,10 @@
    "kind": "Mainboard",
    "open": "2026-08-07",
    "close": "2026-08-11",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/leap-india-limited-rhp_103182.html",
-   "filed": "2026-08-03"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/leap-india-limited-prospectus_103511.html",
+   "filed": "2026-08-03",
+   "price": 159.0
   },
   {
    "name": "Technocraft Ventures",
