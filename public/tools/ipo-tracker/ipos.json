@@ -11,6 +11,15 @@
    "filed": "2026-08-20"
   },
   {
+   "name": "Lumino Industries",
+   "kind": "Mainboard",
+   "open": "2026-08-27",
+   "close": "2026-08-31",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/lumino-industries-limited-rhp_103845.html",
+   "filed": "2026-08-21"
+  },
+  {
    "name": "Annu Projects",
    "kind": "Mainboard",
    "open": "2026-08-25",
@@ -79,9 +88,10 @@
    "kind": "Mainboard",
    "open": "2026-08-12",
    "close": "2026-08-14",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/shiprocket-limited-rhp_103432.html",
-   "filed": "2026-08-07"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/shiprocket-limited-prospectus_103843.html",
+   "filed": "2026-08-07",
+   "price": 97.0
   },
   {
    "name": "Behari Lal Engineering",
