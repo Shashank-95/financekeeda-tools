@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-22",
+ "updated": "2026-08-23",
  "ipos": [
   {
    "name": "Rays of Belief",
@@ -294,15 +294,6 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/advit-jewels-limited-rhp_102061.html",
    "filed": "2026-06-11"
-  },
-  {
-   "name": "Turtlemint Fintech Solutions",
-   "kind": "Mainboard",
-   "open": "2026-06-19",
-   "close": "2026-06-23",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/turtlemint-fintech-solutions-limited-rhp_102389.html",
-   "filed": "2026-06-15"
   }
  ]
 }
