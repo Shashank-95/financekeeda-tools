@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-24",
+ "updated": "2026-08-25",
  "ipos": [
   {
    "name": "Rays of Belief",
@@ -284,25 +284,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/csm-technologies-limited-prospectus_102473.html",
    "filed": "2026-06-17",
    "price": 113.0
-  },
-  {
-   "name": "Waterways Leisure Tourism",
-   "kind": "Mainboard",
-   "open": "2026-06-23",
-   "close": "2026-06-25",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/waterways-leisure-tourism-limited-prospectus_102629.html",
-   "filed": "2026-06-19",
-   "price": 808.0
-  },
-  {
-   "name": "Advit Jewels",
-   "kind": "Mainboard",
-   "open": "2026-06-23",
-   "close": "2026-06-25",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/advit-jewels-limited-rhp_102061.html",
-   "filed": "2026-06-11"
   }
  ]
 }
