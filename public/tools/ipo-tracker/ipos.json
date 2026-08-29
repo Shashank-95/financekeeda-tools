@@ -1,5 +1,5 @@
 {
- "updated": "2026-08-28",
+ "updated": "2026-08-29",
  "ipos": [
   {
    "name": "Rays of Belief",
@@ -293,16 +293,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/knack-packaging-limited-prospectus_102599.html",
    "filed": "2026-06-24",
    "price": 170.0
-  },
-  {
-   "name": "CSM Technologies",
-   "kind": "Mainboard",
-   "open": "2026-06-24",
-   "close": "2026-06-29",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jun-2026/csm-technologies-limited-prospectus_102473.html",
-   "filed": "2026-06-17",
-   "price": 113.0
   }
  ]
 }
