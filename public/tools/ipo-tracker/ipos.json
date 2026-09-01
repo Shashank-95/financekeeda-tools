@@ -1,6 +1,15 @@
 {
- "updated": "2026-08-31",
+ "updated": "2026-09-01",
  "ipos": [
+  {
+   "name": "Veegaland Developers",
+   "kind": "Mainboard",
+   "open": "2026-09-10",
+   "close": "2026-09-15",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/veegaland-developers-ltd-rhp_104160.html",
+   "filed": "2026-08-31"
+  },
   {
    "name": "Rays of Belief",
    "kind": "Mainboard",
