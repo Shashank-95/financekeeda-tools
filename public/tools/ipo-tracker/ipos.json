@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-01",
+ "updated": "2026-09-02",
  "ipos": [
   {
    "name": "Veegaland Developers",
@@ -42,9 +42,10 @@
    "kind": "Mainboard",
    "open": "2026-08-28",
    "close": "2026-09-01",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/priority-jewels-limited-rhp_103896.html",
-   "filed": "2026-08-24"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/priority-jewels-limited-prospectus_104198.html",
+   "filed": "2026-08-24",
+   "price": 200.0
   },
   {
    "name": "ESDS Software Solution",
@@ -301,16 +302,6 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/kusumgar-limited-rhp_102510.html",
    "filed": "2026-07-02"
-  },
-  {
-   "name": "Knack Packaging",
-   "kind": "Mainboard",
-   "open": "2026-07-01",
-   "close": "2026-07-03",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/knack-packaging-limited-prospectus_102599.html",
-   "filed": "2026-06-24",
-   "price": 170.0
   }
  ]
 }
