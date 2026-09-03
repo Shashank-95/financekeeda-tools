@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-02",
+ "updated": "2026-09-03",
  "ipos": [
   {
    "name": "Veegaland Developers",
@@ -18,6 +18,24 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/asset-reconstruction-company-india-limited-rhp_104202.html",
    "filed": "2026-09-02"
+  },
+  {
+   "name": "Kanohar Electricals",
+   "kind": "Mainboard",
+   "open": "2026-09-08",
+   "close": "2026-09-10",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/kanohar-electricals-limited-rhp_104224.html",
+   "filed": "2026-09-03"
+  },
+  {
+   "name": "Prasol Chemicals",
+   "kind": "Mainboard",
+   "open": "2026-09-08",
+   "close": "2026-09-10",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/prasol-chemicals-limited-rhp_104222.html",
+   "filed": "2026-09-03"
   },
   {
    "name": "Pranav Constructions",
