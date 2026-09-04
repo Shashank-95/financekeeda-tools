@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-03",
+ "updated": "2026-09-04",
  "ipos": [
   {
    "name": "Veegaland Developers",
@@ -18,6 +18,15 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/asset-reconstruction-company-india-limited-rhp_104202.html",
    "filed": "2026-09-02"
+  },
+  {
+   "name": "Steamhouse India",
+   "kind": "Mainboard",
+   "open": "2026-09-09",
+   "close": "2026-09-11",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/steamhouse-india-limited-rhp_104262.html",
+   "filed": "2026-09-04"
   },
   {
    "name": "Kanohar Electricals",
