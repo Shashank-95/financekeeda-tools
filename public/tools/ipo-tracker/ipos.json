@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-06",
+ "updated": "2026-09-07",
  "ipos": [
   {
    "name": "Veegaland Developers",
@@ -114,9 +114,10 @@
    "kind": "Mainboard",
    "open": "2026-09-01",
    "close": "2026-09-03",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/deepa-jewellers-limited-rhp_104030.html",
-   "filed": "2026-08-25"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/deepa-jewellers-limited-prospectus_104286.html",
+   "filed": "2026-08-25",
+   "price": 177.0
   },
   {
    "name": "Priority Jewels",
