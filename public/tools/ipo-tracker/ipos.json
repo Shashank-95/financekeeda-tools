@@ -2,6 +2,15 @@
  "updated": "2026-09-07",
  "ipos": [
   {
+   "name": "Manika Plastech",
+   "kind": "Mainboard",
+   "open": "2026-09-11",
+   "close": "2026-09-16",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/manika-plastech-limited-rhp_104296.html",
+   "filed": "2026-09-07"
+  },
+  {
    "name": "Veegaland Developers",
    "kind": "Mainboard",
    "open": "2026-09-10",
