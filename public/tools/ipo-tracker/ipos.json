@@ -1,6 +1,15 @@
 {
- "updated": "2026-09-07",
+ "updated": "2026-09-08",
  "ipos": [
+  {
+   "name": "Jindal Supreme (India)",
+   "kind": "Mainboard",
+   "open": "2026-09-16",
+   "close": "2026-09-18",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/jindal-supreme-india-limited-rhp_104328.html",
+   "filed": "2026-09-08"
+  },
   {
    "name": "Manika Plastech",
    "kind": "Mainboard",
