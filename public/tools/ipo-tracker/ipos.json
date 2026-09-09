@@ -11,6 +11,15 @@
    "filed": "2026-09-08"
   },
   {
+   "name": "SS Retail",
+   "kind": "Mainboard",
+   "open": "2026-09-16",
+   "close": "2026-09-18",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/ss-retail-limited-rhp_104355.html",
+   "filed": "2026-09-09"
+  },
+  {
    "name": "Manika Plastech",
    "kind": "Mainboard",
    "open": "2026-09-11",
