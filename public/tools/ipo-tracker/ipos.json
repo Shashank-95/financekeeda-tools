@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-08",
+ "updated": "2026-09-09",
  "ipos": [
   {
    "name": "Jindal Supreme (India)",
@@ -393,15 +393,6 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/laser-power-and-infra-limited-rhp_102750.html",
    "filed": "2026-07-10"
-  },
-  {
-   "name": "Kusumgar",
-   "kind": "Mainboard",
-   "open": "2026-07-08",
-   "close": "2026-07-10",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/kusumgar-limited-rhp_102510.html",
-   "filed": "2026-07-02"
   }
  ]
 }
