@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-11",
+ "updated": "2026-09-12",
  "ipos": [
   {
    "name": "Sonaselection India",
@@ -421,15 +421,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/sbi-funds-management-limited-prospectus_102917.html",
    "filed": "2026-07-08",
    "price": 574.0
-  },
-  {
-   "name": "Laser Power and Infra",
-   "kind": "Mainboard",
-   "open": "2026-07-09",
-   "close": "2026-07-13",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/laser-power-and-infra-limited-rhp_102750.html",
-   "filed": "2026-07-10"
   }
  ]
 }
