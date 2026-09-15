@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-14",
+ "updated": "2026-09-15",
  "ipos": [
   {
    "name": "Sonaselection India",
@@ -78,9 +78,10 @@
    "kind": "Mainboard",
    "open": "2026-09-09",
    "close": "2026-09-11",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/steamhouse-india-limited-rhp_104262.html",
-   "filed": "2026-09-04"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/steamhouse-india-limited-prospectus_104485.html",
+   "filed": "2026-09-04",
+   "price": 81.0
   },
   {
    "name": "LCC Projects",
@@ -123,18 +124,20 @@
    "kind": "Mainboard",
    "open": "2026-09-08",
    "close": "2026-09-10",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/kanohar-electricals-limited-rhp_104224.html",
-   "filed": "2026-09-03"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/kanohar-electricals-limited-prospectus_104483.html",
+   "filed": "2026-09-03",
+   "price": 632.0
   },
   {
    "name": "Prasol Chemicals",
    "kind": "Mainboard",
    "open": "2026-09-08",
    "close": "2026-09-10",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/prasol-chemicals-limited-rhp_104222.html",
-   "filed": "2026-09-03"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/prasol-chemicals-limited-prospectus_104479.html",
+   "filed": "2026-09-03",
+   "price": 676.0
   },
   {
    "name": "Glass Wall Systems (india)",
@@ -401,26 +404,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/caliber-mining-and-logistics-limited-prospectus_102990.html",
    "filed": "2026-07-14",
    "price": 424.0
-  },
-  {
-   "name": "Alpine Texworld",
-   "kind": "Mainboard",
-   "open": "2026-07-14",
-   "close": "2026-07-16",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/alpine-texworld-limited-prospectus_103604.html",
-   "filed": "2026-07-09",
-   "price": 105.0
-  },
-  {
-   "name": "SBI Funds Management",
-   "kind": "Mainboard",
-   "open": "2026-07-14",
-   "close": "2026-07-16",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/sbi-funds-management-limited-prospectus_102917.html",
-   "filed": "2026-07-08",
-   "price": 574.0
   }
  ]
 }
