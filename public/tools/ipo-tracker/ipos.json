@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-15",
+ "updated": "2026-09-16",
  "ipos": [
   {
    "name": "Sonaselection India",
@@ -60,9 +60,10 @@
    "kind": "Mainboard",
    "open": "2026-09-10",
    "close": "2026-09-15",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/veegaland-developers-ltd-rhp_104160.html",
-   "filed": "2026-08-31"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/veegaland-developers-limited-prospectus_104504.html",
+   "filed": "2026-08-31",
+   "price": 140.0
   },
   {
    "name": "Asset Reconstruction…",
