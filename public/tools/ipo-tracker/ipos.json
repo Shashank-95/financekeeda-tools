@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-16",
+ "updated": "2026-09-17",
  "ipos": [
   {
    "name": "Sonaselection India",
@@ -89,9 +89,10 @@
    "kind": "Mainboard",
    "open": "2026-09-09",
    "close": "2026-09-11",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/lcc-projects-limited-rhp_104283.html",
-   "filed": "2026-09-04"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/lcc-projects-limited-prospectus_104530.html",
+   "filed": "2026-09-04",
+   "price": 146.0
   },
   {
    "name": "Manipal Payment and…",
