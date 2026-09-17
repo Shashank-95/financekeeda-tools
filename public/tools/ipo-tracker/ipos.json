@@ -51,9 +51,10 @@
    "kind": "Mainboard",
    "open": "2026-09-11",
    "close": "2026-09-16",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/manika-plastech-limited-rhp_104296.html",
-   "filed": "2026-09-07"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/manika-plastech-limited-prospectus_104534.html",
+   "filed": "2026-09-07",
+   "price": 43.0
   },
   {
    "name": "Veegaland Developers",
