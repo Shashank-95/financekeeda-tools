@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-19",
+ "updated": "2026-09-20",
  "ipos": [
   {
    "name": "Swastika Infra",
@@ -406,16 +406,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/lohia-corp-limited-prospectus_103075.html",
    "filed": "2026-07-17",
    "price": 425.0
-  },
-  {
-   "name": "Caliber Mining and Logistics",
-   "kind": "Mainboard",
-   "open": "2026-07-17",
-   "close": "2026-07-21",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/caliber-mining-and-logistics-limited-prospectus_102990.html",
-   "filed": "2026-07-14",
-   "price": 424.0
   }
  ]
 }
