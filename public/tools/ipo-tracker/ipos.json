@@ -1,6 +1,24 @@
 {
- "updated": "2026-09-21",
+ "updated": "2026-09-22",
  "ipos": [
+  {
+   "name": "Acevector",
+   "kind": "Mainboard",
+   "open": "2026-09-25",
+   "close": "2026-09-29",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/acevector-limited-rhp_104628.html",
+   "filed": "2026-09-21"
+  },
+  {
+   "name": "German Green Steel and Power",
+   "kind": "Mainboard",
+   "open": "2026-09-25",
+   "close": "2026-09-29",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/german-green-steel-and-power-ltd-rhp_104626.html",
+   "filed": "2026-09-21"
+  },
   {
    "name": "Moneyview",
    "kind": "Mainboard",
@@ -9,6 +27,15 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/moneyview-limited-rhp_104597.html",
    "filed": "2026-09-21"
+  },
+  {
+   "name": "A One Steel",
+   "kind": "Mainboard",
+   "open": "2026-09-24",
+   "close": "2026-09-28",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/a-one-steel-limited_104624.html",
+   "filed": "2026-09-22"
   },
   {
    "name": "Swastika Infra",
