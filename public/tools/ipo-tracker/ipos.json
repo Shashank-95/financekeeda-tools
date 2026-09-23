@@ -29,6 +29,15 @@
    "filed": "2026-09-21"
   },
   {
+   "name": "Orient Cables (India)",
+   "kind": "Mainboard",
+   "open": "2026-09-25",
+   "close": "2026-09-29",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/orient-cables-india-limited-rhp_104663.html",
+   "filed": "2026-09-21"
+  },
+  {
    "name": "Moneyview",
    "kind": "Mainboard",
    "open": "2026-09-24",
@@ -63,6 +72,15 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/adroit-industries-limited-rhp_104607.html",
    "filed": "2026-09-21"
+  },
+  {
+   "name": "ArMee Infotech",
+   "kind": "Mainboard",
+   "open": "2026-09-23",
+   "close": "2026-09-25",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/armee-infotech-limited-rhp_104661.html",
+   "filed": "2026-09-16"
   },
   {
    "name": "Sonaselection India",
