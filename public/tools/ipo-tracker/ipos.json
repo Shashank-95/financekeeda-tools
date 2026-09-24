@@ -38,6 +38,15 @@
    "filed": "2026-09-21"
   },
   {
+   "name": "Runwal Enterprises",
+   "kind": "Mainboard",
+   "open": "2026-09-25",
+   "close": "2026-09-29",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/runwal-enterprises-limited-rhp_104683.html",
+   "filed": "2026-09-24"
+  },
+  {
    "name": "Moneyview",
    "kind": "Mainboard",
    "open": "2026-09-24",
@@ -80,6 +89,15 @@
    "close": "2026-09-25",
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/armee-infotech-limited-rhp_104661.html",
+   "filed": "2026-09-16"
+  },
+  {
+   "name": "Varmora Granito",
+   "kind": "Mainboard",
+   "open": "2026-09-22",
+   "close": "2026-09-24",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/varmora-granito-limited-rhp_104681.html",
    "filed": "2026-09-16"
   },
   {
