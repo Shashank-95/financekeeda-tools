@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-25",
+ "updated": "2026-09-26",
  "ipos": [
   {
    "name": "Shah Investor's Home",
@@ -468,36 +468,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/manipal-health-enterprises-limited-prospectus_103300.html",
    "filed": "2026-07-24",
    "price": 590.0
-  },
-  {
-   "name": "Xtranet Technologies",
-   "kind": "Mainboard",
-   "open": "2026-07-23",
-   "close": "2026-07-27",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/xtranet-technologies-limited-prospectus_103105.html",
-   "filed": "2026-07-20",
-   "price": 127.0
-  },
-  {
-   "name": "Indo-MIM",
-   "kind": "Mainboard",
-   "open": "2026-07-23",
-   "close": "2026-07-27",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/indo-mim-limited_103050.html",
-   "filed": "2026-07-17",
-   "price": 485.0
-  },
-  {
-   "name": "Lohia Corp",
-   "kind": "Mainboard",
-   "open": "2026-07-23",
-   "close": "2026-07-27",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/lohia-corp-limited-prospectus_103075.html",
-   "filed": "2026-07-17",
-   "price": 425.0
   }
  ]
 }
