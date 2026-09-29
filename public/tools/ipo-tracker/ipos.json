@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-28",
+ "updated": "2026-09-29",
  "ipos": [
   {
    "name": "Shah Investor's Home",
@@ -69,9 +69,10 @@
    "kind": "Mainboard",
    "open": "2026-09-23",
    "close": "2026-09-25",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/swastika-infra-ltd-rhp_104573.html",
-   "filed": "2026-09-17"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/swastika-infra-limited-prospectus_104762.html",
+   "filed": "2026-09-17",
+   "price": 185.0
   },
   {
    "name": "Adroit Industries",
