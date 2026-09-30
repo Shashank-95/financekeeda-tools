@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-29",
+ "updated": "2026-09-30",
  "ipos": [
   {
    "name": "Shah Investor's Home",
@@ -459,16 +459,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/mv-electrosystems-limited-prospectus_103331.html",
    "filed": "2026-07-24",
    "price": 425.0
-  },
-  {
-   "name": "Manipal Health Enterprises",
-   "kind": "Mainboard",
-   "open": "2026-07-29",
-   "close": "2026-07-31",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/manipal-health-enterprises-limited-prospectus_103300.html",
-   "filed": "2026-07-24",
-   "price": 590.0
   }
  ]
 }
