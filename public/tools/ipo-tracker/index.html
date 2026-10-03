@@ -26,9 +26,12 @@
   different five rows.
 
   What that does NOT do is invent issues that were not in the pool. Rotation
-  is free; new companies are not. When the pool runs out of future-dated
-  entries the tool says so on its face rather than showing a confidently
-  empty table — see the stamp logic at the bottom.
+  is free; new companies are not — the refresh job adds them twice a day.
+
+  The footer stamp keeps two facts apart: how many issues are open (a fact
+  about the market — none is a normal week, shown grey) and how old the list
+  is (a fact about the data — amber only when the job has not refreshed it
+  for more than three days). See paintStamp() at the bottom.
 
   --------------------------------------------------------------------------
   WHERE THE NUMBERS COME FROM
@@ -143,7 +146,7 @@ body{background:var(--surface,#fff)}
 .fk-grid>.fk-panel:first-child{justify-content:space-between}
 
 /* ---- inputs ---- */
-.fk-field{margin-bottom:12px}
+.fk-field{margin-bottom:12px;min-width:0}
 .fk-field:last-child{margin-bottom:0}
 .fk-lab{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:6px}
 .fk-lab label{font-size:10.5px;font-weight:600;letter-spacing:.07em;
@@ -320,6 +323,46 @@ dl{margin:0}
   .fk-sel{height:48px}
 }
 
+/* ---- dropdown that cannot outgrow the widget ----
+   A native <select> popup is drawn by the operating system, so its height
+   cannot be constrained by CSS: eighteen currencies render a list several
+   times taller than the tool it belongs to. This replaces the popup with a
+   listbox drawn inside the widget and capped, at open time, to the space
+   actually available above or below the field — so it can never exceed the
+   widget's own height, whatever the option count.
+
+   The real <select> stays in the DOM, transparent and on top, so it remains
+   focusable and reachable by a screen reader and every tool still reads
+   $('id').value and listens for 'change'. Nothing else had to change. */
+.fk-sel select{position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;z-index:2}
+.fk-selval{flex:1;min-width:0;font-family:var(--ui);font-size:15px;font-weight:700;
+  color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  padding-right:18px}
+.fk-opts{position:absolute;z-index:40;left:0;right:0;display:none;padding:4px;
+  background:var(--surface);border:1px solid var(--border-strong);
+  border-radius:var(--radius-sm);box-shadow:0 10px 28px rgb(0 0 0/.16);
+  overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.fk-opts.open{display:block}
+.fk-opt{padding:8px 10px;border-radius:6px;font-size:13.5px;color:var(--ink-3);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.fk-opt:hover,.fk-opt.act{background:var(--field);color:var(--ink)}
+.fk-opt.sel{font-weight:700;color:var(--accent-ink)}
+
+/* An absurd entry must not be able to widen the widget. The hero is the one
+   place a figure is set at 26px and nowrap — needed so it cannot wrap onto a
+   second line and change the height — and at 320px a thirteen-digit number is
+   wider than the tool itself, which pushed the whole layout sideways.
+
+   Letting it ellipsise trades a broken layout for a visibly truncated number,
+   which is the better failure: nothing shifts, and the reader can see the
+   figure has been cut rather than wondering why the tool looks wrong. Real
+   amounts are nowhere near this. */
+.fk-hero>span{min-width:0}
+/* display:block matters — max-width and overflow do nothing on an inline
+   element, which is what the hero value is in some of these tools. */
+.fk-hero-v,.fk-hero-s{display:block;max-width:100%;overflow:hidden;
+  text-overflow:ellipsis}
+
 /* Every other tool in the suite puts its content inside .fk-panel, which
    carries 15px of horizontal padding, so nothing in them touches the edge of
    the embed. This one is a bare table with no panel, which left its first and
@@ -333,6 +376,17 @@ dl{margin:0}
    about printing text against the pixel edge. */
 .fk-calc{padding:0 15px}
 .fk-tbl{min-width:370px}
+.fk-co{display:flex;align-items:center;gap:6px;min-width:0}
+.fk-nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+.fk-co .fk-tag2{flex:none}
+/* On a phone the name absorbs whatever width the other columns leave and
+   ellipsises inside it, so a long name can never push Status off the edge.
+   The SME tag sits outside the ellipsis and is always shown whole. Wider
+   than this, every name fits and the columns keep their natural spread. */
+@media (max-width:559px){
+  .fk-tbl{min-width:0}
+  .fk-tbl td.co{width:100%;max-width:0}
+}
 .fk-tbl .mut{color:var(--muted)}
 .fk-st{white-space:nowrap}
 .fk-st.now{color:var(--accent-ink);font-weight:700}
@@ -351,8 +405,21 @@ dl{margin:0}
    signal is the one the reader actually needs. */
 @media (max-width:560px){ .fk-src{display:none} }
 .fk-stamp i{width:6px;height:6px;border-radius:50%;background:var(--accent);flex:none}
+/* The dot answers one question only: is the data current? Green when it is,
+   grey while the live list is still loading or when it is current but there
+   is simply nothing open, amber when the list itself has gone stale. How MANY
+   issues are open is a fact about the market and never changes the colour —
+   an earlier version turned amber on a quiet week and told readers the data
+   was broken when it had been refreshed that morning. */
+.fk-stamp.quiet i,.fk-stamp.wait i{background:var(--muted-2)}
 .fk-stamp.stale i{background:var(--warn-ink)}
 .fk-stamp.stale{color:var(--warn-ink)}
+/* When nothing is open, say so in the table rather than leaving five bare
+   dashes, which read as a tool that failed to load. Same row height, so the
+   widget does not move. Its one cell spans the row, which also makes it the
+   row's last cell — left-aligned here, or it inherits the right alignment
+   meant for the status/price column. */
+.fk-tbl tr.fk-none td{color:var(--muted);text-align:left;white-space:nowrap}
 .fk-src{color:var(--muted-2)}
 </style>
 </head>
@@ -568,6 +635,138 @@ function inr2(v) {
     rest.replace(/\B(?=(\d{2})+(?!\d))/g, ',') + last3 + '.' + s[1];
 }
 
+/* ---------------------------------------------------------------------------
+   Dropdowns that stay inside the widget.
+
+   See base.css for why: an OS-drawn <select> popup ignores CSS entirely, and
+   a list of eighteen currencies ends up several times taller than a 324px
+   tool. Here the popup is suppressed and a listbox is drawn inside the
+   widget instead, its height capped at open time to the room actually
+   available — so it can never run past the edge of the embed.
+
+   The <select> itself is kept, transparent, on top and focusable, and stays
+   the single source of truth. Tools read $('id').value and listen for
+   'change' exactly as before.
+   --------------------------------------------------------------------------- */
+var FK_OPEN = null;
+
+function fkCloseSelect() {
+  if (!FK_OPEN) return;
+  FK_OPEN.box.classList.remove('open');
+  FK_OPEN = null;
+}
+
+function fkSelect(sel) {
+  // Already enhanced: just resync the label, because the caller has usually
+  // just rebuilt the option list from a freshly fetched payload.
+  if (sel && sel.dataset.fk) { sel.fkPaint && sel.fkPaint(); return; }
+  if (!sel) return;
+  sel.dataset.fk = '1';
+  var wrap = sel.closest('.fk-sel');
+  if (!wrap) return;
+
+  var label = document.createElement('span');
+  label.className = 'fk-selval';
+  wrap.insertBefore(label, sel);
+
+  var box = document.createElement('div');
+  box.className = 'fk-opts';
+  box.setAttribute('role', 'listbox');
+  wrap.appendChild(box);
+
+  function paint() {
+    var o = sel.options[sel.selectedIndex];
+    label.textContent = o ? o.textContent : '';
+  }
+
+  function build() {
+    box.innerHTML = '';
+    for (var i = 0; i < sel.options.length; i++) {
+      var o = sel.options[i], d = document.createElement('div');
+      d.className = 'fk-opt' + (i === sel.selectedIndex ? ' sel' : '');
+      d.setAttribute('role', 'option');
+      d.setAttribute('aria-selected', i === sel.selectedIndex ? 'true' : 'false');
+      d.textContent = o.textContent;
+      d.dataset.i = i;
+      box.appendChild(d);
+    }
+  }
+
+  /* The whole point. The cap is whatever room the widget actually has above
+     or below this field — never a fixed number, because the same component
+     sits at different heights in different tools and at different widths. */
+  function place() {
+    var host = sel.closest('.fk-calc') || document.body;
+    var hb = host.getBoundingClientRect(), fb = wrap.getBoundingClientRect();
+    var below = hb.bottom - fb.bottom - 6;
+    var above = fb.top - hb.top - 6;
+    var up = above > below;
+    var room = Math.max(24, Math.floor(up ? above : below));
+    box.style.maxHeight = Math.min(room, 260) + 'px';
+    if (up) { box.style.bottom = (fb.height + 4) + 'px'; box.style.top = 'auto'; }
+    else    { box.style.top = (fb.height + 4) + 'px'; box.style.bottom = 'auto'; }
+  }
+
+  function open() {
+    if (FK_OPEN && FK_OPEN.box !== box) fkCloseSelect();
+    build(); place();
+    box.classList.add('open');
+    FK_OPEN = { box: box, sel: sel };
+    var cur = box.querySelector('.sel');
+    if (cur) cur.scrollIntoView({ block: 'nearest' });
+  }
+
+  function choose(i) {
+    if (i == null || i < 0 || i >= sel.options.length) return;
+    sel.selectedIndex = i;
+    paint();
+    sel.dispatchEvent(new Event('change', { bubbles: true }));
+    fkCloseSelect();
+  }
+
+  // Suppress the OS popup without losing focus or keyboard access.
+  sel.addEventListener('mousedown', function (e) {
+    e.preventDefault();
+    sel.focus();
+    FK_OPEN && FK_OPEN.box === box ? fkCloseSelect() : open();
+  });
+  sel.addEventListener('keydown', function (e) {
+    var k = e.key;
+    if (k === 'Escape') { fkCloseSelect(); return; }
+    if (!FK_OPEN || FK_OPEN.box !== box) {
+      if (k === 'Enter' || k === ' ' || k === 'ArrowDown' || k === 'ArrowUp') {
+        e.preventDefault(); open();
+      }
+      return;
+    }
+    if (k === 'Enter' || k === ' ') { e.preventDefault(); choose(sel.selectedIndex); }
+  });
+  // Arrow keys still move the native selection; keep the list in step.
+  sel.addEventListener('change', function () {
+    paint();
+    if (FK_OPEN && FK_OPEN.box === box) { build(); var c = box.querySelector('.sel');
+      if (c) c.scrollIntoView({ block: 'nearest' }); }
+  });
+  box.addEventListener('mousedown', function (e) {
+    var t = e.target.closest('.fk-opt');
+    if (!t) return;
+    e.preventDefault();
+    choose(parseInt(t.dataset.i, 10));
+  });
+
+  sel.fkPaint = paint;
+  paint();
+}
+
+function fkSelectAll() {
+  document.querySelectorAll('.fk-sel select').forEach(fkSelect);
+}
+
+document.addEventListener('mousedown', function (e) {
+  if (FK_OPEN && !e.target.closest('.fk-sel')) fkCloseSelect();
+});
+window.addEventListener('resize', fkCloseSelect);
+
 </script>
 <script>
 (function () {
@@ -597,34 +796,44 @@ function inr2(v) {
      `price` appears only once an issue has closed and its Prospectus has been
      filed, so the table degrades to whatever exists. */
   var POOL = {
-    updated: '2026-08-04',
+    updated: '2026-10-03',
     ipos: [
-      { name: 'Dhoot Transmission',            kind: 'Mainboard',   open: '2026-08-10', close: '2026-08-12', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/aug-2026/dhoot-transmission-limited-rhp_103333.html' },
-      { name: 'LEAP India',                    kind: 'Mainboard',   open: '2026-08-07', close: '2026-08-11', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/aug-2026/leap-india-limited-rhp_103182.html' },
-      { name: 'Technocraft Ventures',          kind: 'Mainboard',   open: '2026-08-07', close: '2026-08-11', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/technocraft-ventures-limited-rhp_103278.html' },
-      { name: 'Ardee Industries',              kind: 'Mainboard',   open: '2026-08-05', close: '2026-08-07', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/ardee-industries-limited-rhp_103086.html' },
-      { name: 'Juniper Green Energy',          kind: 'Mainboard',   open: '2026-07-30', close: '2026-08-03', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/juniper-green-energy-limited-rhp_103074.html' },
-      { name: 'MV Electrosystems',             kind: 'Mainboard',   open: '2026-07-30', close: '2026-08-03', price: 425, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/aug-2026/mv-electrosystems-limited-prospectus_103331.html' },
-      { name: 'Manipal Health Enterprises',    kind: 'Mainboard',   open: '2026-07-29', close: '2026-07-31', price: 590, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/aug-2026/manipal-health-enterprises-limited-prospectus_103300.html' },
-      { name: 'Xtranet Technologies',          kind: 'Mainboard',   open: '2026-07-23', close: '2026-07-27', price: 127, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/xtranet-technologies-limited-prospectus_103105.html' },
-      { name: 'Indo-MIM',                      kind: 'Mainboard',   open: '2026-07-23', close: '2026-07-27', price: 485, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/indo-mim-limited_103050.html' },
-      { name: 'Lohia Corp',                    kind: 'Mainboard',   open: '2026-07-23', close: '2026-07-27', price: 425, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/lohia-corp-limited-prospectus_103075.html' },
-      { name: 'Caliber Mining and Logistics',  kind: 'Mainboard',   open: '2026-07-17', close: '2026-07-21', price: 424, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/caliber-mining-and-logistics-limited-prospectus_102990.html' },
-      { name: 'Alpine Texworld',               kind: 'Mainboard',   open: '2026-07-14', close: '2026-07-16', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/alpine-texworld-limited-rhp_102719.html' },
-      { name: 'SBI Funds Management',          kind: 'Mainboard',   open: '2026-07-14', close: '2026-07-16', price: 574, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/sbi-funds-management-limited-prospectus_102917.html' },
-      { name: 'Laser Power and Infra',         kind: 'Mainboard',   open: '2026-07-09', close: '2026-07-13', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/laser-power-and-infra-limited-rhp_102750.html' },
-      { name: 'Kusumgar',                      kind: 'Mainboard',   open: '2026-07-08', close: '2026-07-10', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/kusumgar-limited-rhp_102510.html' },
-      { name: 'Knack Packaging',               kind: 'Mainboard',   open: '2026-07-01', close: '2026-07-03', price: 170, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/knack-packaging-limited-prospectus_102599.html' },
-      { name: 'CSM Technologies',              kind: 'Mainboard',   open: '2026-06-24', close: '2026-06-29', price: 113, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/jun-2026/csm-technologies-limited-prospectus_102473.html' },
-      { name: 'Waterways Leisure Tourism',     kind: 'Mainboard',   open: '2026-06-23', close: '2026-06-25', price: 808, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/jul-2026/waterways-leisure-tourism-limited-prospectus_102629.html' },
-      { name: 'Advit Jewels',                  kind: 'Mainboard',   open: '2026-06-23', close: '2026-06-25', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jun-2026/advit-jewels-limited-rhp_102061.html' },
-      { name: 'Turtlemint Fintech Solutions',  kind: 'Mainboard',   open: '2026-06-19', close: '2026-06-23', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jun-2026/turtlemint-fintech-solutions-limited-rhp_102389.html' },
-      { name: 'Hexagon Nutrition',             kind: 'Mainboard',   open: '2026-06-05', close: '2026-06-09', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/jun-2026/hexagon-nutrition-limited-rhp_101824.html' }
+      { name: 'Shah Investor\'s Home',        kind: 'Mainboard', open: '2026-09-28', close: '2026-09-30', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/shah-investor-s-home-limited-rhp_104660.html' },
+      { name: 'SRIT India',                   kind: 'Mainboard', open: '2026-09-28', close: '2026-09-30', price: 130, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/oct-2026/srit-india-limited-prospectus_104852.html' },
+      { name: 'Acevector',                    kind: 'Mainboard', open: '2026-09-25', close: '2026-09-29', price: 32, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/acevector-limited-prospectus_104868.html' },
+      { name: 'German Green Steel and Power', kind: 'Mainboard', open: '2026-09-25', close: '2026-09-29', price: 139, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/german-green-steel-and-power-limited-prospectus_104824.html' },
+      { name: 'Orient Cables (India)',        kind: 'Mainboard', open: '2026-09-25', close: '2026-09-29', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/orient-cables-india-limited-rhp_104663.html' },
+      { name: 'Runwal Enterprises',           kind: 'Mainboard', open: '2026-09-25', close: '2026-09-29', price: 305, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/oct-2026/runwal-enterprises-limited-prospectus_104856.html' },
+      { name: 'Moneyview',                    kind: 'Mainboard', open: '2026-09-24', close: '2026-09-28', price: 34, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/moneyview-limited-prospectus_104787.html' },
+      { name: 'A One Steel',                  kind: 'Mainboard', open: '2026-09-24', close: '2026-09-28', price: 405, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/oct-2026/a-one-steels-limited-prospectus_104844.html' },
+      { name: 'Swastika Infra',               kind: 'Mainboard', open: '2026-09-23', close: '2026-09-25', price: 185, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/swastika-infra-limited-prospectus_104762.html' },
+      { name: 'Adroit Industries',            kind: 'Mainboard', open: '2026-09-23', close: '2026-09-25', price: 134, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/adroit-industries-india-limited-prospectus_104835.html' },
+      { name: 'ArMee Infotech',               kind: 'Mainboard', open: '2026-09-23', close: '2026-09-25', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/armee-infotech-limited-rhp_104661.html' },
+      { name: 'Varmora Granito',              kind: 'Mainboard', open: '2026-09-22', close: '2026-09-24', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/varmora-granito-limited-rhp_104681.html' },
+      { name: 'Sonaselection India',          kind: 'Mainboard', open: '2026-09-17', close: '2026-09-21', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/sonaselection-india-limited-rhp_104393.html' },
+      { name: 'National Stock Exchange of…',  kind: 'Mainboard', open: '2026-09-17', close: '2026-09-21', price: 1785, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/national-stock-exchange-of-india-ltd-prospectus_104637.html' },
+      { name: 'Jindal Supreme (India)',       kind: 'Mainboard', open: '2026-09-16', close: '2026-09-18', price: 93, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/jindal-supreme-india-limited-prospectus_104621.html' },
+      { name: 'SS Retail',                    kind: 'Mainboard', open: '2026-09-16', close: '2026-09-18', price: 424, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/ss-retail-limited-prospectus_104599.html' },
+      { name: 'Hero Motors',                  kind: 'Mainboard', open: '2026-09-16', close: '2026-09-18', price: 84, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/hero-motors-limited-prospectus_104589.html' },
+      { name: 'Manika Plastech',              kind: 'Mainboard', open: '2026-09-11', close: '2026-09-16', price: 43, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/manika-plastech-limited-prospectus_104534.html' },
+      { name: 'Veegaland Developers',         kind: 'Mainboard', open: '2026-09-10', close: '2026-09-15', price: 140, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/veegaland-developers-limited-prospectus_104504.html' },
+      { name: 'Asset Reconstruction…',        kind: 'Mainboard', open: '2026-09-09', close: '2026-09-11', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/asset-reconstruction-company-india-limited-rhp_104202.html' }
     ]
   };
 
   var view = 'up';
   var DAY = 86400000;
+
+  /* The refresh job runs twice a day and stamps the file with the date it
+     ran. A day old is normal; three days with no new stamp means the job has
+     stopped, and only then does the tool say the list may be out of date. */
+  var FRESH_DAYS = 3;
+
+  /* Until the live fetch has either landed or failed, the baked pool above
+     is a placeholder, not a verdict. Without this, a stale baked copy would
+     flash "may be out of date" in amber on every page load for the second or
+     two before the live list arrived. */
+  var settled = !CONFIG.dataUrl;
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -636,6 +845,23 @@ function inr2(v) {
     var d = new Date(t);
     return d.getUTCDate() + ' ' + FKMON[d.getUTCMonth()];
   }
+  /* "22–24 Sep", or "29 Sep–1 Oct" across a month end. On a phone the two
+     date columns become this one, which is what leaves room for Status. */
+  function dateRange(a, b) {
+    var o = dparse(a), c = dparse(b);
+    if (o == null || c == null) return shortDate(a) + '–' + shortDate(b);
+    var x = new Date(o), y = new Date(c);
+    return x.getUTCMonth() === y.getUTCMonth()
+      ? x.getUTCDate() + '–' + shortDate(b)
+      : shortDate(a) + '–' + shortDate(b);
+  }
+
+  /* Under 560px four columns do not fit: on a 375px phone Status — the one
+     column a reader actually came for — was pushed off-screen behind a
+     sideways scroll. Narrow layouts get three columns instead. */
+  var NARROW = window.matchMedia ? window.matchMedia('(max-width:559px)') : null;
+  function narrow() { return !!(NARROW && NARROW.matches); }
+
   /** Today at UTC midnight, so an issue closing today still counts as open. */
   function today() {
     var n = new Date();
@@ -659,9 +885,13 @@ function inr2(v) {
      would be a column of one repeated word. An SME issue is the exception
      and is worth flagging, so it is tagged inline and nothing else is. */
   function nameCell(x) {
-    var tag = x.kind && x.kind !== 'Mainboard'
-      ? ' <span class="fk-tag2">' + esc(x.kind) + '</span>' : '';
-    return '<td class="co">' + esc(x.name) + tag + '</td>';
+    // On a phone "BSE SME" shortens to "SME": the exchange matters less than
+    // the company name it would otherwise crowd out.
+    var kind = x.kind && x.kind !== 'Mainboard'
+      ? (narrow() ? 'SME' : x.kind) : '';
+    var tag = kind ? '<span class="fk-tag2">' + esc(kind) + '</span>' : '';
+    return '<td class="co"><span class="fk-co"><span class="fk-nm" title="' +
+      esc(x.name) + '">' + esc(x.name) + '</span>' + tag + '</span></td>';
   }
 
   /* The whole rotation, in one function. Nothing is stored as "upcoming" or
@@ -674,27 +904,37 @@ function inr2(v) {
       if (close >= t) up.push(x); else past.push(x);
     });
     // Closing soonest first — that is the one you have least time to act on.
-    up.sort(function (a, b) { return dparse(a.close) - dparse(b.close); });
+    // Ties broken by name, so the same data always renders in the same order
+    // rather than rows swapping places between page loads.
+    up.sort(function (a, b) {
+      return (dparse(a.close) - dparse(b.close)) || String(a.name).localeCompare(String(b.name));
+    });
     // Most recently finished first.
-    past.sort(function (a, b) { return dparse(b.close) - dparse(a.close); });
+    past.sort(function (a, b) {
+      return (dparse(b.close) - dparse(a.close)) || String(a.name).localeCompare(String(b.name));
+    });
     return { up: up, past: past, today: t };
   }
 
   function render(pool) {
     var part = partition(pool), head, rows = [], list, i;
 
+    var nw = narrow();
+    function dates(x) {
+      return nw ? '<td>' + dateRange(x.open, x.close) + '</td>'
+                : '<td>' + shortDate(x.open) + '</td><td>' + shortDate(x.close) + '</td>';
+    }
+
     if (view === 'up') {
-      head = ['Company', 'Opens', 'Closes', 'Status'];
+      head = nw ? ['Company', 'Dates', 'Status'] : ['Company', 'Opens', 'Closes', 'Status'];
       list = part.up.slice(0, CONFIG.rows);
       for (i = 0; i < list.length; i++) {
         var u = list[i], st = status(u, part.today);
-        rows.push('<tr>' + nameCell(u) +
-          '<td>' + shortDate(u.open) + '</td>' +
-          '<td>' + shortDate(u.close) + '</td>' +
+        rows.push('<tr>' + nameCell(u) + dates(u) +
           '<td class="fk-st ' + st.cls + '">' + st.txt + '</td></tr>');
       }
     } else {
-      head = ['Company', 'Opened', 'Closed', 'Issue price'];
+      head = nw ? ['Company', 'Dates', 'Issue price'] : ['Company', 'Opened', 'Closed', 'Issue price'];
       list = part.past.slice(0, CONFIG.rows);
       for (i = 0; i < list.length; i++) {
         var p = list[i];
@@ -702,14 +942,19 @@ function inr2(v) {
         // days after the book closes. Saying so beats an unexplained dash.
         var px = p.price != null
           ? inr(p.price)
-          : '<span class="mut">awaiting filing</span>';
-        rows.push('<tr>' + nameCell(p) +
-          '<td>' + shortDate(p.open) + '</td>' +
-          '<td>' + shortDate(p.close) + '</td>' +
+          : '<span class="mut">' + (nw ? 'awaiting' : 'awaiting filing') + '</span>';
+        rows.push('<tr>' + nameCell(p) + dates(p) +
           '<td>' + px + '</td></tr>');
       }
     }
 
+    // Nothing to show: say so in words, in the first row, instead of five
+    // bare dashes that look like the tool failed to load.
+    if (!rows.length) {
+      rows.push('<tr class="empty fk-none"><td colspan="' + head.length + '">' +
+        (view === 'up' ? 'No IPOs open or upcoming right now'
+                       : 'No recently closed IPOs to show') + '</td></tr>');
+    }
     // Always five rows: a table that shrinks with the data shrinks the widget,
     // and the host has already reserved the height.
     while (rows.length < CONFIG.rows) {
@@ -719,22 +964,43 @@ function inr2(v) {
     $('thead').innerHTML = head.map(function (h) { return '<th>' + h + '</th>'; }).join('');
     $('tbody').innerHTML = rows.join('');
 
-    /* Staleness is about the pool running dry, not about the clock. Rotation
-       keeps the tool correct for as long as there are future-dated issues in
-       it; the moment there are none, it has nothing left to say and should
-       admit that rather than show five empty rows and a confident date. */
-    var leftToCome = part.up.length;
-    var st2 = $('stamp'), txt;
-    if (leftToCome === 0) {
-      st2.className = 'fk-stamp stale';
-      txt = 'None open — the list needs refreshing';
-    } else if (leftToCome <= 2) {
-      st2.className = 'fk-stamp stale';
-      txt = 'Only ' + leftToCome + ' still to come';
+    paintStamp(pool, part);
+  }
+
+  /* Two separate questions, deliberately kept apart.
+
+       Is the list current?   Answered by the date the refresh job last ran.
+       How many are open?     Answered by the list, and a fact about the
+                              market, not about the data.
+
+     An earlier version answered only the second and used it as a proxy for
+     the first: it went amber with "the list needs refreshing" whenever
+     nothing was open, which on 3 October 2026 told readers a list refreshed
+     that very morning was broken — SEBI simply had no new filings. It also
+     never went amber when the list really was old, as long as it still held
+     a few future-dated issues. */
+  function paintStamp(pool, part) {
+    var st = $('stamp'), n = part.up.length;
+    var upd = dparse(pool.updated);
+    var age = upd == null ? Infinity : Math.round((part.today - upd) / DAY);
+    var count = n === 0 ? 'None open or upcoming'
+              : n === 1 ? '1 open or upcoming'
+              : n + ' open or upcoming';
+    var cls, txt;
+
+    if (age > FRESH_DAYS && !settled) {
+      // The baked copy is old and the live list has not answered yet.
+      cls = 'fk-stamp wait';
+      txt = 'Checking for the latest list…';
+    } else if (age > FRESH_DAYS) {
+      cls = 'fk-stamp stale';
+      txt = upd == null ? 'List date unknown — may be out of date'
+                        : 'List from ' + dfmt(upd) + ' — may be out of date';
     } else {
-      st2.className = 'fk-stamp';
-      txt = leftToCome + ' open or upcoming · from ' + dfmt(dparse(pool.updated));
+      cls = 'fk-stamp' + (n === 0 ? ' quiet' : '');
+      txt = count + ' · updated ' + dfmt(upd);
     }
+    st.className = cls;
     $('stampTxt').textContent = txt;
   }
 
@@ -749,6 +1015,11 @@ function inr2(v) {
   });
 
   render(DATA);
+  if (NARROW) {
+    var relayout = function () { render(DATA); };
+    if (NARROW.addEventListener) NARROW.addEventListener('change', relayout);
+    else if (NARROW.addListener) NARROW.addListener(relayout);   // Safari < 14
+  }
 
   /* Top the pool up from your own endpoint if one is configured. Failure is
      silent: the baked pool is already rendered and still rotating. */
@@ -758,10 +1029,28 @@ function inr2(v) {
        week to reach readers. */
     var stamp = new Date().toISOString().slice(0, 10).replace(/-/g, '');
     var url = CONFIG.dataUrl + (CONFIG.dataUrl.indexOf('?') < 0 ? '?' : '&') + 'd=' + stamp;
+
+    /* Whatever happens — the list arrives, the request fails, or it simply
+       hangs — the stamp stops saying "checking" and says what it knows. */
+    // Renders every time it is called: a list that lands after the timeout
+    // has already fired must still replace what is on screen.
+    var settle = function () {
+      settled = true;
+      render(DATA);
+    };
+    var timer = setTimeout(settle, 8000);
+
     fetch(url, { credentials: 'omit' })
       .then(function (r) { if (!r.ok) throw 0; return r.json(); })
-      .then(function (d) { if (d && d.ipos && d.ipos.length) { DATA = d; render(DATA); } })
-      .catch(function () { /* baked pool stands */ });
+      .then(function (d) {
+        // Never step backwards: a CDN edge still holding yesterday's file
+        // must not replace a newer list already baked into the page.
+        var live = d && d.ipos && d.ipos.length ? dparse(d.updated) : null;
+        var baked = dparse(DATA.updated);
+        if (live != null && (baked == null || live >= baked)) DATA = d;
+      })
+      .catch(function () { /* baked pool stands */ })
+      .then(function () { clearTimeout(timer); settle(); });
   }
 })();
 </script>

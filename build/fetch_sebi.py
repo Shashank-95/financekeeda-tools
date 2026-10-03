@@ -82,7 +82,7 @@ HOW IT AVOIDS BREAKING
 """
 
 import json, re, sys, time, urllib.error, urllib.request
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 BASE = "https://www.sebi.gov.in"
 LIST = (BASE + "/sebiweb/home/HomeAction.do"
@@ -100,6 +100,11 @@ RETRIES = 3
 LISTING_TRIES = 6
 MAX_PRICE_LOOKUPS = 8   # full prospectuses are ~10 MB; spread the first run out
 PRICE_WINDOW_DAYS = 45  # only issues recent enough to still be on display
+
+# Filled in by collect(): how many real RHPs SEBI listed and which of them did
+# not make it into the pool. fetch_ipos.py reads this to decide whether a run
+# actually worked — see the health check at the end of collect().
+LAST_RUN = {}
 
 # A real browser string. SEBI serves the listing to a default urllib agent too,
 # but an identifiable-yet-ordinary UA is what every other reader sends and is
@@ -250,10 +255,18 @@ def documents(page_url):
 # ------------------------------------------------------------------- pdfs --
 def text_of(pdf_bytes, pages=4):
     """First few pages, whitespace collapsed. Everything wanted is up front."""
+    # The workflow installs the latest PyMuPDF on every run, and PyMuPDF has
+    # announced that the old `fitz` module name "will be removed in future" —
+    # the warning is in every run log since September. On the day it goes,
+    # `import fitz` fails and the whole refresh dies. The real package name
+    # comes first; `fitz` stays only as a fallback for older installs.
     try:
-        import fitz                                     # PyMuPDF
+        import pymupdf as fitz
     except ImportError:
-        sys.exit("PyMuPDF is required:  pip install pymupdf")
+        try:
+            import fitz                                 # PyMuPDF < 1.24.3
+        except ImportError:
+            sys.exit("PyMuPDF is required:  pip install pymupdf")
     doc = fitz.open(stream=pdf_bytes, filetype="pdf")
     try:
         n = min(pages, doc.page_count)
@@ -264,19 +277,32 @@ def text_of(pdf_bytes, pages=4):
 
 def offer_date(flat, word):
     """
-    The date after "OPENS ON" / "CLOSES ON".
+    The date after "OPENS" / "CLOSES", with or without a following "ON".
 
     Anchoring on the keyword and taking the next date within 60 characters is
     what makes this survive the markup: real filings write "CLOSES ON#",
     "CLOSES ON(2)(3)", "OPENS ON *" and "OPENS ON:" — matching the marker
     itself fails on the next filing that invents a new one.
 
+    The "ON" is optional because it is not always there. SRIT India's RHP
+    reads "BID/ ISSUE OPENS MONDAY, SEPTEMBER 28, 2026" — no "ON" at all —
+    and an earlier version of this function required it, so the open date
+    never matched, validation failed for want of a pair, and the whole filing
+    was dropped in silence. Tempsens Instruments went the same way. What
+    keeps this honest is not the "ON" but the date having to appear within a
+    few dozen characters of the keyword, which is checked below.
+
     The one collision worth knowing about is SBI Funds Management, whose
     anchor row reads "ANCHOR INVESTOR BID/OFFER OPENS AND CLOSES ON(1)
     MONDAY, JULY 13, 2026" — a different date entirely, and the only compound
     form that shadows the real one.
     """
-    for m in re.finditer(r"%s\s*ON\b" % word, flat, re.I):
+    # PDF text extraction occasionally splits a word at a kerning boundary:
+    # Tempsens Instruments' RHP comes out as "BID / OFFER CLOSE S ON(1)".
+    # Allowing one optional space before the final S catches that without
+    # loosening the keyword enough to match anything else.
+    pat = re.escape(word[:-1]) + r"\s?" + re.escape(word[-1])
+    for m in re.finditer(r"%s\b(?:\s*ON\b)?" % pat, flat, re.I):
         before = flat[max(0, m.start() - 14):m.start()]
         if re.search(r"OPENS?\s+AND\s*$", before, re.I):
             continue
@@ -302,31 +328,115 @@ def kind_of(flat):
     return "Mainboard"
 
 
-# "...FOR CASH AT A PRICE OF Rs 425 PER EQUITY SHARE (INCLUDING A SHARE
-#  PREMIUM OF Rs 420 PER EQUITY SHARE) (ISSUE PRICE)..."
+# The final price is stated on the prospectus cover, in wordings that vary
+# from one lead manager's template to the next:
 #
-# The share premium is quoted in exactly the same words one clause later, so
-# the match is only accepted once "ISSUE PRICE"/"OFFER PRICE" is declared
-# straight after it — that label is what distinguishes the two numbers.
+#   MV Electrosystems  AT A PRICE OF Rs 425 PER EQUITY SHARE (INCLUDING A SHARE
+#                      PREMIUM OF Rs 420 PER EQUITY SHARE) (ISSUE PRICE)
+#   A ONE Steels       AT A PRICE OF Rs405.00 PER EQUITY SHARE ("OFFER PRICE")
+#                      (INCLUDING A PREMIUM OF Rs395.00 PER EQUITY SHARE)
+#   Moneyview          AT A PRICE OF Rs 34 PER EQUITY SHARE INCLUDING A
+#                      SECURITIES PREMIUM OF Rs 33 ... (THE "OFFER PRICE")
+#   Rays of Belief     AT A PRICE OF Rs 239 PER EQUITY SHARE ("ISSUE PRICE")
+#   Runwal             for a cash price at Rs 305 per Equity Share (including
+#                      a premium of Rs 303 per Equity Share)
 #
-# The quotes around that label are typographic as often as not: MV
-# Electrosystems writes (ISSUE PRICE), Manipal Health writes (“OFFER PRICE”).
+# The same pages also quote OTHER per-share prices in the very same grammar —
+# pre-IPO and private placements above all:
+#
+#   German Green Steel  Pre-IPO Placement of 18,38,000 ... Equity Shares at an
+#                       issue price of Rs270 per Equity Share (including a
+#                       premium of Rs260 ...)          <- the offer was at 139
+#   Swastika Infra      private placement of 24,24,242 Equity Shares ... at a
+#                       price of Rs165 per Equity Share (including a premium
+#                       of Rs155 ...)                  <- the offer was at 185
+#
+# So no single pattern is safe: one keyed to the label misses Runwal, one
+# keyed to the premium picks the placement price (an earlier version of this
+# parser did exactly that). Instead every "price of Rs X per equity share" in
+# the text is a candidate, and a candidate counts only when
+#
+#   * it is tied to THE offer — followed closely by the defined term
+#     ("ISSUE PRICE"/"OFFER PRICE"), or by a premium that sits exactly one
+#     real face value below it; and
+#   * the words just before it are not about some other transaction
+#     (placement, pre-IPO, anchor, preferential, allotment, transfer).
+#
+# A premium that is stated but does NOT reconcile to a face value disqualifies
+# the candidate outright: that is a number this parser has misread.
+# Footnote markers ride on the number itself — NSE wrote "Rs 1,785.00*" and
+# SS Retail "Rs 424^" — so they are allowed between the figure and "PER".
 PRICE_RE = re.compile(
-    r"AT\s+A\s+PRICE\s+OF\s*(?:₹|Rs\.?|INR)\s*([\d,]+(?:\.\d+)?)\s*/?-?\s*"
-    r"PER\s+EQUITY\s+SHARE(.{0,200}?)"
-    r"""\(\s*["“”'‘’]?\s*(?:ISSUE|OFFER)\s+PRICE\s*["“”'‘’]?\s*\)""",
-    re.I | re.S)
+    r"PRICE\s+(?:OF|AT)\s*(?:₹|Rs\.?|INR)\s*([\d,]+(?:\.\d+)?)\s*[*^#†]*\s*/?-?\s*"
+    r"PER\s+EQUITY\s+SHARE", re.I)
+PREMIUM_RE = re.compile(
+    r"\(?\s*INCLUDING\s+(?:A|THE)\s+(?:SHARE\s+|SECURITIES\s+)?PREMIUM\s+OF\s*"
+    r"(?:₹|Rs\.?|INR)\s*([\d,]+(?:\.\d+)?)", re.I)
+# The bracket must open straight onto the label (quotes optional — SS Retail
+# has none), so "(ANCHOR INVESTOR OFFER PRICE)" does not count.
+LABEL_RE = re.compile(
+    r"\(\s*(?:THE\s+)?[\"“”'‘’]?\s*(?:ISSUE|OFFER)\s+PRICE\s*[\"“”'‘’]?\s*\)", re.I)
+OTHER_DEAL_RE = re.compile(
+    r"PLACEMENT|PRE[\s-]*IPO|ANCHOR|PREFERENTIAL|ALLOT|TRANSFER|BONUS|RIGHTS\s+ISSUE|"
+    r"ESOP|EMPLOYEE|ACQUIRED|PURCHASED|WEIGHTED\s+AVERAGE", re.I)
+
+# Face values an Indian listed equity share actually carries.
+FACE_VALUES = (0.1, 0.5, 1.0, 2.0, 5.0, 10.0)
+
+LOOK_AHEAD = 200     # chars after the price in which its label/premium sits
+LOOK_BEHIND = 160    # chars before it that must not name another deal
+
+
+def _num(s):
+    try:
+        return float(s.replace(",", ""))
+    except ValueError:
+        return None
 
 
 def final_price(flat):
-    m = PRICE_RE.search(flat)
-    if not m:
+    """The offer price on the cover, or None if it cannot be pinned down."""
+    votes = {}
+    found = list(PRICE_RE.finditer(flat))
+    for i, m in enumerate(found):
+        price = _num(m.group(1))
+        if price is None or not (1 <= price <= 100000):
+            continue
+
+        # What follows, up to the next quoted price — so a label belonging to
+        # the next sentence's price is not credited to this one.
+        end = m.end() + LOOK_AHEAD
+        if i + 1 < len(found):
+            end = min(end, found[i + 1].start())
+        after = flat[m.end():end]
+
+        # What precedes, back to the previous quoted price at most.
+        start = max(m.start() - LOOK_BEHIND, found[i - 1].end() if i else 0)
+        if OTHER_DEAL_RE.search(flat[start:m.start()]):
+            continue
+
+        tied = False
+        pm = PREMIUM_RE.search(after)
+        if pm:
+            prem = _num(pm.group(1))
+            if prem is None or prem >= price or not any(
+                    abs((price - prem) - fv) < 0.01 for fv in FACE_VALUES):
+                continue
+            tied = True
+        if LABEL_RE.search(after):
+            tied = True
+        if not tied:
+            continue
+
+        # The cover price is restated on later pages; the one stated most
+        # often wins, and "for cash" in front of it breaks a tie.
+        cash = bool(re.search(r"CASH\s+(?:AT\s+A\s+)?$", flat[max(0, m.start() - 20):m.start()], re.I))
+        v = votes.setdefault(price, [0, 0])
+        v[0] += 1
+        v[1] += cash
+    if not votes:
         return None
-    try:
-        v = float(m.group(1).replace(",", ""))
-    except ValueError:
-        return None
-    return v if 1 <= v <= 100000 else None
+    return max(votes, key=lambda p: (votes[p][0], votes[p][1]))
 
 
 # ------------------------------------------------------------------ names --
@@ -373,10 +483,21 @@ def company(title):
 # ------------------------------------------------------------- validation --
 def plausible(opened, closed, filed):
     """
-    The guard that stops a misparse reaching readers. Across the 25 filings
-    checked, every window was 2-5 days and every opening fell between one day
-    before and twelve days after the filing; these bounds are far looser than
-    that, so they reject nonsense without rejecting an unusual issue.
+    The guard that stops a misparse reaching readers. Across the filings
+    checked, every window was 2-5 days and openings usually fell between one
+    day before and twelve days after SEBI posted the document.
+
+    The lower bound is wide on purpose. "Filed" here is the date SEBI POSTED
+    the RHP to its listing, not the date the company filed it, and SEBI is
+    sometimes late: Tempsens Instruments' RHP appeared on 8 September for an
+    issue that opened on 20 August, nineteen days earlier. A -15 floor
+    rejected it, silently, and the issue never reached the tracker.
+
+    What actually protects against a misparse is that the date has to sit
+    within a few dozen characters of "OPENS"/"CLOSES" and the window has to
+    be a real issue window — not this bound. 45 days back still rejects a
+    stray financial-year date (31 March is months off), while letting a
+    late-posted RHP through.
     """
     if not (opened and closed):
         return False
@@ -384,7 +505,7 @@ def plausible(opened, closed, filed):
         return False
     if (closed - opened).days > 21:
         return False
-    if not (-15 <= (opened - filed).days <= 120):
+    if not (-45 <= (opened - filed).days <= 120):
         return False
     return True
 
@@ -438,8 +559,35 @@ def collect(existing=None, verbose=True):
             out.append(rec)
 
     # ---- the final price, for issues that have since filed a Prospectus ---
-    resolve_prices(out, known, say)
+    # SEBI's RHP page shows only the latest 25 filings, and the Prospectus
+    # comes a week or more after the RHP — so by then an issue's RHP has often
+    # scrolled off, and the issue is no longer in `out`. Pricing only `out`
+    # left Karamtara, Pranav and Rays of Belief unpriced for good although
+    # their prospectuses were sitting on SEBI's site. Pool records that have
+    # scrolled off are offered for pricing too, and returned if they gain a
+    # price; fetch_ipos.py merges the price into the record it already holds.
+    carried = [dict(rec) for k, rec in known.items()
+               if k not in done and rec.get("open") and rec.get("close")
+               and not rec.get("price")]
+    resolve_prices(out + carried, known, say)
+    out.extend(c for c in carried if c.get("price"))
 
+    # ---- health: did we capture every real RHP SEBI is showing? -----------
+    # Addenda and corrigenda are filed under the same heading but carry no
+    # offer dates, so they are excluded from the count — their original RHP
+    # is what has to be in the pool. Anything else SEBI lists that we did not
+    # capture is a parse failure, and that is the signal worth alerting on.
+    # It is exactly what went unnoticed when SRIT India and Tempsens were
+    # dropped in September: the run was green and two issues were missing.
+    real = {company(r["title"]).lower(): r for r in rows
+            if not re.search(r"addendum|corrigendum", r["title"], re.I)}
+    have = {x["name"].lower() for x in out}
+    LAST_RUN.clear()
+    LAST_RUN.update({
+        "listed": len(real),
+        "missing": sorted(k for k in real if k not in have),
+        "newest_filed": rows[0]["filed"] if rows else None,
+    })
     return out
 
 
@@ -482,6 +630,35 @@ def resolve_dates(row, name, filed, say):
                 "stage": "rhp"}
 
 
+def match_key(name):
+    """
+    The same company is not always spelled the same way in its RHP and its
+    Prospectus, and an exact match silently left issues unpriced:
+
+        RHP                       Prospectus
+        A One Steel               A ONE Steels
+        Adroit Industries         Adroit Industries (India)
+        Manipal Payment and...    Manipal Payment & Identity...
+
+    So both are reduced to bare letters and digits — "&" read as "and",
+    "(India)" and the truncation mark dropped — and a pair matches when one is
+    a prefix of the other. A prefix alone could pair two different companies
+    that share a first word, which is why resolve_prices() also requires the
+    Prospectus to have been filed around when the issue closed, and refuses a
+    match that is not unique.
+    """
+    s = name.lower().replace("&", " and ").replace("…", "")
+    s = re.sub(r"\(\s*india\s*\)", "", s)
+    return re.sub(r"[^a-z0-9]", "", s)
+
+
+def same_company(a, b):
+    if a == b:
+        return True
+    short, long_ = sorted((a, b), key=len)
+    return len(short) >= 8 and long_.startswith(short)
+
+
 def resolve_prices(out, known, say):
     """
     A closed issue's final price comes from its Prospectus, which is filed a
@@ -494,19 +671,43 @@ def resolve_prices(out, known, say):
         say("final-prospectus listing unavailable (%s) — prices unchanged" % str(e)[:60])
         return
 
-    by_name = {r["name"].lower(): r for r in out}
-    budget = MAX_PRICE_LOOKUPS
     recent = datetime.now().date() - timedelta(days=PRICE_WINDOW_DAYS)
+    keyed = [(match_key(r["name"]), r) for r in out]
 
+    def find(name, filed):
+        k = match_key(name)
+        hits = []
+        for rk, rec in keyed:
+            if not same_company(k, rk):
+                continue
+            try:
+                closed = datetime.strptime(rec["close"], "%Y-%m-%d").date()
+            except (KeyError, ValueError):
+                continue
+            # A Prospectus is filed after the book closes — allow a little
+            # slack either side for SEBI's posting date, no more.
+            if -5 <= (filed - closed).days <= 60:
+                hits.append(rec)
+        exact = [h for h in hits if match_key(h["name"]) == k]
+        if exact:
+            return exact[0]
+        return hits[0] if len(hits) == 1 else None
+
+    pending, seen = [], set()
     for row in finals:
         name = company(row["title"])
-        rec = by_name.get(name.lower())
-        if not rec:
+        try:
+            filed = datetime.strptime(row["filed"], "%b %d, %Y").date()
+        except (KeyError, ValueError):
             continue
+        rec = find(name, filed)
+        if not rec or id(rec) in seen:
+            continue
+        seen.add(id(rec))
 
         # A price already known is never looked up again. This is what keeps
         # the steady-state run cheap: prospectuses are ~10 MB each.
-        prev = known.get(name.lower()) or {}
+        prev = known.get(rec["name"].lower()) or {}
         if rec.get("price") or prev.get("price"):
             rec["price"] = rec.get("price") or prev["price"]
             rec["stage"] = "final"
@@ -522,18 +723,33 @@ def resolve_prices(out, known, say):
             continue
         if closed < recent:
             continue
+        pending.append((row, rec))
+
+    # The download budget used to be spent newest-first, every run. A few
+    # recent prospectuses the parser could not read then ate it on every run,
+    # and older issues behind them — Karamtara, Rays of Belief — were never
+    # reached at all. Starting from a different place each run (the job runs
+    # twice a day) means every pending issue gets its turn within a few runs,
+    # however many ahead of it keep failing.
+    if pending:
+        turn = int(datetime.now(timezone.utc).timestamp() // (12 * 3600)) % len(pending)
+        pending = pending[turn:] + pending[:turn]
+
+    budget = MAX_PRICE_LOOKUPS
+    for row, rec in pending:
         if budget <= 0:
             say("  price lookups capped at %d — the rest resolve next run"
                 % MAX_PRICE_LOOKUPS)
             break
-
         for url in ([row["ap"]] if row["ap"] else []) + documents(row["page"]):
+            if budget <= 0:
+                break
             try:
                 flat = text_of(fetch(url, binary=True), pages=8)
             except Exception as e:
                 # A truncated 10 MB download must not spend the budget — the
                 # issue is with the transfer, not with the document.
-                say("  %-30s prospectus unreadable (%s)" % (name, str(e)[:40]))
+                say("  %-30s prospectus unreadable (%s)" % (rec["name"], str(e)[:40]))
                 continue
             budget -= 1
             p = final_price(flat)
@@ -541,10 +757,10 @@ def resolve_prices(out, known, say):
                 rec["price"] = p
                 rec["stage"] = "final"
                 rec["doc"] = row["page"]
-                say("  %-30s priced at Rs %g" % (name, p))
+                say("  %-30s priced at Rs %g" % (rec["name"], p))
                 break
         else:
-            say("  %-30s closed, price not yet stated" % name)
+            say("  %-30s closed, price not yet stated" % rec["name"])
 
 
 # ------------------------------------------------------------------- main --

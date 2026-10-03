@@ -102,6 +102,13 @@ jobs:
             git commit -m "IPO list refreshed $(date -u +%Y-%m-%d)"
             git pull --rebase --autostash
             git push
+            # jsDelivr keeps a branch file for up to 12 hours and ignores the
+            # widget's ?d= query when it does, so without this a refresh can
+            # take half a day to reach readers. A purge failing is not worth
+            # failing the run over: the cache expires on its own regardless.
+            curl -fsS --retry 3 --max-time 30 \
+              "https://purge.jsdelivr.net/gh/${GITHUB_REPOSITORY}@main/$OUT" \
+              || echo "::warning::jsDelivr purge failed; readers catch up within 12 hours"
           fi
 
       - name: Fail loudly if the refresh did not work

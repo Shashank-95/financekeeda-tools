@@ -309,16 +309,39 @@ def main():
     print(f"{args.out}: {len(pool)} issues ({future} open or upcoming), "
           f"+{added} new, {updated} updated")
 
-    # The merge is additive, so a quiet feed can never empty the pool — it just
-    # stops topping it up. What CAN happen is the pool ageing out from under
-    # you, and that is the state worth waking someone for: the widget will be
-    # showing "no open issues left" to readers.
-    if future == 0:
-        sys.exit("ALERT: no open or upcoming issues left — the tracker is showing "
-                 "its empty state to readers")
-    if future <= 2:
-        print(f"warning: only {future} open or upcoming issues left in the pool",
-              file=sys.stderr)
+    # ----------------------------------------------------------------------
+    # WHAT COUNTS AS A FAILED RUN
+    # ----------------------------------------------------------------------
+    # Not an empty market. This used to exit non-zero whenever no issue was
+    # open or upcoming, and from 1 October 2026 it did — every run, twice a
+    # day, for a pipeline that was working perfectly, because SEBI simply had
+    # no new filings after a busy September. A failure email that fires on a
+    # quiet week trains whoever receives it to ignore failure emails, which
+    # is the worst thing an alert can do. The widget now tells readers "none
+    # open or upcoming" on its own, honestly; nothing here needs to shout.
+    #
+    # What IS a failure is SEBI listing real RHPs that this run did not
+    # capture. That is a parse breaking — new wording, a split word, a late
+    # posting outside the date window — and it is silent unless checked for:
+    # in September it dropped SRIT India and Tempsens Instruments while every
+    # run stayed green.
+    if args.source == "sebi":
+        import fetch_sebi
+        h = getattr(fetch_sebi, "LAST_RUN", {}) or {}
+        listed, missing = h.get("listed", 0), h.get("missing", [])
+        print(f"SEBI health: {listed - len(missing)} of {listed} listed RHPs captured, "
+              f"newest filing {h.get('newest_filed')}")
+        if future == 0:
+            print("note: no issue is open or upcoming right now — the widget says so "
+                  "itself; this is a quiet market, not a failure")
+        if missing:
+            print("missed: " + ", ".join(missing), file=sys.stderr)
+        # One unreadable filing (a scanned PDF with no text layer, say) is a
+        # gap worth logging, not a broken parser. Two or more is a pattern.
+        if len(missing) >= 2:
+            sys.exit(f"ALERT: {len(missing)} of {listed} real RHPs on SEBI's listing "
+                     f"were not captured — the parser needs attention: "
+                     + ", ".join(missing))
 
 
 if __name__ == "__main__":
