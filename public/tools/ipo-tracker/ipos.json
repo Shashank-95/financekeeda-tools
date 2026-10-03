@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-02",
+ "updated": "2026-10-03",
  "ipos": [
   {
    "name": "Shah Investor's Home",
@@ -442,25 +442,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/ardee-industries-limited-prospectus_103457.html",
    "filed": "2026-07-28",
    "price": 53.0
-  },
-  {
-   "name": "Juniper Green Energy",
-   "kind": "Mainboard",
-   "open": "2026-07-30",
-   "close": "2026-08-03",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/juniper-green-energy-limited-rhp_103074.html",
-   "filed": "2026-07-28"
-  },
-  {
-   "name": "MV Electrosystems",
-   "kind": "Mainboard",
-   "open": "2026-07-30",
-   "close": "2026-08-03",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/mv-electrosystems-limited-prospectus_103331.html",
-   "filed": "2026-07-24",
-   "price": 425.0
   }
  ]
 }
