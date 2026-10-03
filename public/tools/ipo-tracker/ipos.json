@@ -131,9 +131,10 @@
    "kind": "Mainboard",
    "open": "2026-09-17",
    "close": "2026-09-21",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/national-stock-exchange-of-india-limited-rhp_104428.html",
-   "filed": "2026-09-11"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/national-stock-exchange-of-india-ltd-prospectus_104637.html",
+   "filed": "2026-09-11",
+   "price": 1785.0
   },
   {
    "name": "Jindal Supreme (India)",
@@ -150,9 +151,10 @@
    "kind": "Mainboard",
    "open": "2026-09-16",
    "close": "2026-09-18",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/ss-retail-limited-rhp_104355.html",
-   "filed": "2026-09-09"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/ss-retail-limited-prospectus_104599.html",
+   "filed": "2026-09-09",
+   "price": 424.0
   },
   {
    "name": "Hero Motors",
@@ -218,9 +220,10 @@
    "kind": "Mainboard",
    "open": "2026-09-09",
    "close": "2026-09-11",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/manipal-payment-and-identity-solutions-limited-rhp_104270.html",
-   "filed": "2026-09-04"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/manipal-payment-and-identity-solutions-limited-prospectus_104619.html",
+   "filed": "2026-09-04",
+   "price": 339.0
   },
   {
    "name": "Rentomojo",
@@ -237,9 +240,10 @@
    "kind": "Mainboard",
    "open": "2026-09-09",
    "close": "2026-09-11",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/karamtara-engineering-limited-rhp_103407.html",
-   "filed": "2026-09-03"
+   "stage": "final",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/karamtara-engineering-limited-prospectus_104682.html",
+   "filed": "2026-09-03",
+   "price": 254.0
   },
   {
    "name": "Kanohar Electricals",
