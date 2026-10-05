@@ -26,7 +26,7 @@
   different five rows.
 
   What that does NOT do is invent issues that were not in the pool. Rotation
-  is free; new companies are not — the refresh job adds them twice a day.
+  is free; new companies are not — the refresh job adds them every 30 minutes.
 
   The footer stamp keeps two facts apart: how many issues are open (a fact
   about the market — none is a normal week, shown grey) and how old the list
@@ -36,9 +36,12 @@
   --------------------------------------------------------------------------
   WHERE THE NUMBERS COME FROM
   --------------------------------------------------------------------------
-  build/fetch_sebi.py reads SEBI's own Public Issues filings and writes the
-  JSON this widget fetches. Not an aggregator, not the exchanges — the filing
-  itself, which is why the footer names SEBI rather than a data provider.
+  build/fetch_ipos.py reads the offer documents themselves — from SEBI's
+  public-issue filings and from NSE's offer-documents RSS feed, which posts
+  them within hours and includes NSE SME issues — and writes the JSON this
+  widget fetches. Not an aggregator: the filing itself, which is why the
+  footer names NSE and SEBI rather than a data provider. SME issues listed
+  only on BSE are not covered; BSE publishes their dates on no feed.
 
   Each record still carries the URL of the filing it was read from. The
   widget does not render it — the column was dropped as clutter — but it
@@ -442,7 +445,7 @@ dl{margin:0}
 
   <div class="fk-meta">
     <span class="fk-stamp" id="stamp"><i></i><span id="stampTxt">—</span></span>
-    <span class="fk-src">Read from SEBI public-issue filings</span>
+    <span class="fk-src">Read from NSE and SEBI filings</span>
   </div>
 </div>
 
@@ -796,9 +799,9 @@ window.addEventListener('resize', fkCloseSelect);
      `price` appears only once an issue has closed and its Prospectus has been
      filed, so the table degrades to whatever exists. */
   var POOL = {
-    updated: '2026-10-03',
+    updated: '2026-10-05',
     ipos: [
-      { name: 'Shah Investor\'s Home',        kind: 'Mainboard', open: '2026-09-28', close: '2026-09-30', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/shah-investor-s-home-limited-rhp_104660.html' },
+      { name: 'Shah Investor\'s Home',        kind: 'Mainboard', open: '2026-09-28', close: '2026-09-30', price: 167, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/shah-investor-s-home-limited-rhp_104660.html' },
       { name: 'SRIT India',                   kind: 'Mainboard', open: '2026-09-28', close: '2026-09-30', price: 130, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/oct-2026/srit-india-limited-prospectus_104852.html' },
       { name: 'Acevector',                    kind: 'Mainboard', open: '2026-09-25', close: '2026-09-29', price: 32, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/acevector-limited-prospectus_104868.html' },
       { name: 'German Green Steel and Power', kind: 'Mainboard', open: '2026-09-25', close: '2026-09-29', price: 139, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/german-green-steel-and-power-limited-prospectus_104824.html' },
@@ -810,7 +813,7 @@ window.addEventListener('resize', fkCloseSelect);
       { name: 'Adroit Industries',            kind: 'Mainboard', open: '2026-09-23', close: '2026-09-25', price: 134, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/adroit-industries-india-limited-prospectus_104835.html' },
       { name: 'ArMee Infotech',               kind: 'Mainboard', open: '2026-09-23', close: '2026-09-25', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/armee-infotech-limited-rhp_104661.html' },
       { name: 'Varmora Granito',              kind: 'Mainboard', open: '2026-09-22', close: '2026-09-24', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/varmora-granito-limited-rhp_104681.html' },
-      { name: 'Sonaselection India',          kind: 'Mainboard', open: '2026-09-17', close: '2026-09-21', stage: 'rhp', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/sonaselection-india-limited-rhp_104393.html' },
+      { name: 'Sonaselection India',          kind: 'Mainboard', open: '2026-09-17', close: '2026-09-21', price: 99, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/sonaselection-india-limited-rhp_104393.html' },
       { name: 'National Stock Exchange of…',  kind: 'Mainboard', open: '2026-09-17', close: '2026-09-21', price: 1785, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/national-stock-exchange-of-india-ltd-prospectus_104637.html' },
       { name: 'Jindal Supreme (India)',       kind: 'Mainboard', open: '2026-09-16', close: '2026-09-18', price: 93, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/jindal-supreme-india-limited-prospectus_104621.html' },
       { name: 'SS Retail',                    kind: 'Mainboard', open: '2026-09-16', close: '2026-09-18', price: 424, stage: 'final', doc: 'https://www.sebi.gov.in/filings/public-issues/sep-2026/ss-retail-limited-prospectus_104599.html' },

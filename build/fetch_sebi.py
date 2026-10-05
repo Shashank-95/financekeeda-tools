@@ -277,7 +277,8 @@ def text_of(pdf_bytes, pages=4):
 
 def offer_date(flat, word):
     """
-    The date after "OPENS" / "CLOSES", with or without a following "ON".
+    The date after "OPENS" / "CLOSES" (or, in a final Prospectus, "OPENED" /
+    "CLOSED"), with or without a following "ON".
 
     Anchoring on the keyword and taking the next date within 60 characters is
     what makes this survive the markup: real filings write "CLOSES ON#",
@@ -301,10 +302,25 @@ def offer_date(flat, word):
     # Tempsens Instruments' RHP comes out as "BID / OFFER CLOSE S ON(1)".
     # Allowing one optional space before the final S catches that without
     # loosening the keyword enough to match anything else.
-    pat = re.escape(word[:-1]) + r"\s?" + re.escape(word[-1])
-    for m in re.finditer(r"%s\b(?:\s*ON\b)?" % pat, flat, re.I):
+    #
+    # A final Prospectus is written after the event, so the same line reads
+    # "BID/OFFER OPENED ON ... CLOSED ON" — 22 of 25 prospectuses checked in
+    # October 2026 used the past tense, and the exchanges' feeds deliver the
+    # Prospectus long before SEBI posts anything.
+    stem = {"OPENS": r"OPEN\s?(?:S|ED)", "CLOSES": r"CLOS\s?(?:ES|ED)"}.get(
+        word, re.escape(word[:-1]) + r"\s?" + re.escape(word[-1]))
+    for m in re.finditer(r"%s\b(?:\s*ON\b)?" % stem, flat, re.I):
         before = flat[max(0, m.start() - 14):m.start()]
-        if re.search(r"OPENS?\s+AND\s*$", before, re.I):
+        if re.search(r"OPEN(?:S|ED)?\s+AND\s*$", before, re.I):
+            continue
+        # "ANCHOR INVESTOR BID/OFFER OPENED AND CLOSED ON(1) ..." (NSE, Hero
+        # Motors) is a different, earlier day; so is "Anchor Bid opened on:"
+        # (Amtech Esters). The anchor line is skipped, the next one is real.
+        if re.match(r"\s+AND\s+CLOS", flat[m.end():], re.I):
+            continue
+        near = flat[max(0, m.start() - 60):m.start()]
+        a = near.upper().rfind("ANCHOR")
+        if a >= 0 and not DATE_RE.search(near, a):
             continue
         d = DATE_RE.search(flat, m.end(), m.end() + 60)
         if d:

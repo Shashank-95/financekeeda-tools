@@ -9,39 +9,45 @@
 #     widget looks for ./ipos.json relative to itself and needs no editing.
 #
 # That is the whole setup. There is no API key, no account and no secret to
-# add: the data comes from SEBI's own public-issue filings, which are
-# published for exactly this purpose. An earlier version of this file sat
-# dormant until someone supplied a third-party key; nothing is dormant now.
+# add. The data comes from two published sources:
 #
-# It runs twice a day on GitHub's infrastructure. Nothing to keep alive,
-# nothing to pay for on a public repo, and no server of yours involved.
+#   * SEBI's public-issue filings — the audit trail, but posted days or
+#     weeks late and with no SME issues;
+#   * NSE's "Offer Documents" RSS feed — the same documents within hours,
+#     SME included. RSS is published to be read by software; NSE's website
+#     API, which its terms forbid automated use of, is never called.
+#
+# It runs every 30 minutes on GitHub's infrastructure, because NSE's feed
+# only holds its latest ~17 items. Nothing to keep alive, nothing to pay for
+# on a public repo, and a run that finds nothing new commits nothing.
 #
 # ---------------------------------------------------------------------------
 # WHAT IT DOES WHEN THINGS GO WRONG
 # ---------------------------------------------------------------------------
-#  * SEBI unreachable          -> the existing file is left alone and the run
+#  * One source unreachable    -> the other's records still publish, and the
+#                                 run carries a warning naming the source.
+#  * Both unreachable          -> the existing file is left alone and the run
 #                                 fails, so GitHub emails you. Readers keep
 #                                 seeing the last good list, still rotating.
-#  * A filing will not parse   -> that one issue is skipped, the rest publish.
-#                                 Nothing half-read is ever written.
-#  * SEBI serves a stale node  -> the listing is read several times and the
-#                                 results unioned. Its nodes genuinely
-#                                 disagree; see listing() in fetch_sebi.py.
-#  * Pool runs out of open issues -> the file is still written, the run fails
-#                                 loudly, and the widget tells readers the
-#                                 list needs refreshing rather than pretending.
+#  * A document will not parse -> that one is skipped and remembered, the
+#                                 rest publish. Nothing half-read is written.
+#  * Two sources disagree on a price -> the first stays, the run carries a
+#                                 warning. A moved date is taken as an
+#                                 extension and logged.
+#  * SEBI's RHPs not captured  -> two or more missed fails the run: that is
+#                                 the parser breaking, not a quiet market.
 #
-# The commit step runs even when the refresh step fails, so a partial success
-# still reaches readers. The job is marked failed afterwards, so a real
-# problem cannot pass quietly.
+# No issue being open is NOT a failure — it is a quiet week, and the widget
+# says so to readers itself.
 
 name: Refresh IPO tracker
 
 on:
   schedule:
-    # 06:47 and 18:47 IST. Deliberately off the hour — GitHub's scheduler
-    # queues heavily at :00 and a delayed run is a stale widget.
-    - cron: '17 1,13 * * *'
+    # Every 30 minutes, off the hour — GitHub's scheduler queues heavily at
+    # :00. NSE's feed holds ~17 items; this is what keeps any from scrolling
+    # past unread.
+    - cron: '7,37 * * * *'
   workflow_dispatch:          # and a button, for when you want it now
 
 permissions:
@@ -52,15 +58,16 @@ concurrency:
   cancel-in-progress: false   # never let two runs write the file at once
 
 env:
-  SOURCE: sebi                # sebi | url | file | ipoguru
+  SOURCE: filings             # filings (SEBI + NSE feed) | sebi | url | file | ipoguru
   OUT: public/tools/ipo-tracker/ipos.json
   WIDGET: public/tools/ipo-tracker/index.html
+  NSE_STATE: state/nse-feed-state.json   # which feed items have been read
   INPUT_FILE: data/feed.json  # only read when SOURCE is 'file'
 
 jobs:
   refresh:
     runs-on: ubuntu-latest
-    timeout-minutes: 20       # a cold run reads a few dozen filings
+    timeout-minutes: 25       # a cold run reads a few dozen filings
     steps:
       - uses: actions/checkout@v4
 
@@ -84,6 +91,7 @@ jobs:
           python3 build/fetch_ipos.py \
             --out "$OUT" \
             --source "$SOURCE" \
+            --nse-state "$NSE_STATE" \
             ${FEED_URL:+--url "$FEED_URL"} \
             --seed "$WIDGET"
 
@@ -96,12 +104,18 @@ jobs:
           git config user.name  "ipo-bot"
           git config user.email "ipo-bot@users.noreply.github.com"
           git add "$OUT"
+          [ -f "$NSE_STATE" ] && git add "$NSE_STATE"
+          # Only a change to the list itself is worth purging the CDN for;
+          # the state file moves whenever the feed shows something new.
+          LIST_MOVED=1
+          git diff --staged --quiet -- "$OUT" && LIST_MOVED=0
           if git diff --staged --quiet; then
             echo "no change since the last run"
           else
             git commit -m "IPO list refreshed $(date -u +%Y-%m-%d)"
             git pull --rebase --autostash
             git push
+            [ "$LIST_MOVED" = 1 ] || exit 0
             # jsDelivr keeps a branch file for up to 12 hours and ignores the
             # widget's ?d= query when it does, so without this a refresh can
             # take half a day to reach readers. A purge failing is not worth

@@ -8,15 +8,16 @@ then point the widget at that file:
 
     CONFIG.dataUrl = 'https://yoursite.com/data/ipos.json'
 
-Twice a week is plenty — mainboard issues are announced weeks ahead, and the
-widget rotates its existing pool by itself between runs. A GitHub Action on a
+Run it every 30 minutes. NSE's offer-documents feed holds only its latest
+~17 items, so a slower schedule can let a filing scroll past unread; between
+runs the widget rotates its existing pool by itself. A GitHub Action on a
 cron works as well as a server cron; the only requirement is that the output
-file ends up somewhere the widget can fetch over HTTPS from your own origin.
+file ends up somewhere the widget can fetch over HTTPS.
 
 --------------------------------------------------------------------------
 WHERE THE DATA COMES FROM, AND WHERE IT DELIBERATELY DOES NOT
 --------------------------------------------------------------------------
-This script never touches nseindia.com or bseindia.com. NSE's terms of use
+This script never calls NSE's or BSE's website APIs. NSE's terms of use
 prohibit "any systematic or automated data collection activities (including
 scraping, data mining, data extraction and data harvesting)", and BSE's say
 materially the same. Every Python library that offers Indian IPO data —
@@ -24,26 +25,31 @@ nsepython, jugaad-data, stock-nse-india and the rest — works by calling those
 endpoints anyway. Using one of them puts the breach in your deployment rather
 than removing it.
 
-What is available:
+What it does read:
 
-  sebi      The default, and what you should use. SEBI publishes every
-            public-issue filing itself and its robots.txt disallows only
-            /js and /css. No key, no account, no third party, and every
-            number traceable to the document it was read from. See
-            fetch_sebi.py, which also sets out plainly what a filing cannot
-            tell you — the price band above all, because the RHP is filed
-            before the band exists.
+  filings   The default. SEBI's public-issue filings (fetch_sebi.py) plus
+            NSE's "Offer Documents" RSS feed (fetch_nse.py). An RSS feed is
+            published to be read by software — NSE's RSS page tells readers
+            to subscribe with feed-reading software or an aggregator — and
+            every document it links to is in NSE's public archive. SEBI posts
+            late and has no SME issues; the feed fills both gaps within hours.
 
-  ipoguru   A third-party API whose published terms state plainly that
-            commercial use is permitted with attribution. Free key, issued
-            by email, 300 requests a day. Caveat worth knowing: they do not
-            disclose their upstream source, so you are relying on their
-            terms rather than on a chain you can audit.
+  sebi      SEBI's filings alone. No key, no account, no third party, and
+            every number traceable to the document it was read from — but
+            days or weeks behind, and mainboard only.
 
-  file      A JSON file you maintain or that another job produces. Zero
-            dependency, zero terms question. If you would rather one person
-            spend ten minutes a week than carry a third-party dependency,
-            this is a legitimate answer, not a fallback.
+  ipoguru   A third-party API. Free tier is evaluation-only; commercial use
+            needs a paid plan (from Rs 99/month) and credit to IPO Guru.
+
+  file      A JSON file you maintain or that another job produces.
+
+  url       Any endpoint that already returns the widget's shape.
+
+Not covered: SME issues listed ONLY on BSE. BSE announces their bidding
+dates nowhere but its website's IPO pages; its RSS notices carry only the
+draft filing and, after the issue has closed, the listing — with the price
+but not the dates. Checked against BSE's notices for 29 September to
+5 October 2026.
 
 IPO dates, price band, lot size and issue size are public record — they are in
 the RHP and the company's own announcements. What the exchange terms restrict
@@ -125,29 +131,31 @@ def from_file(path):
 
 def from_ipoguru(key):
     """
-    Their published terms permit commercial use with attribution. Field names
-    are normalised here rather than in the widget, so swapping the source
-    later touches this function and nothing else.
+    IPO Guru's v2 calendar. Commercial use needs a paid plan and credit to
+    IPO Guru wherever the data is shown; the free tier is evaluation-only.
+    v1 was retired on 30 September 2026.
     """
-    # Base URL and header spelling taken from their published API page. An
-    # api.* subdomain looks right and does not resolve — worth checking rather
-    # than assuming, because the failure only shows up once a key exists.
     req = urllib.request.Request(
-        "https://www.ipoguru.in/api/v1/ipos",
+        "https://www.ipoguru.in/api/v2/ipos?months=3",
         headers={"X-API-KEY": key, "Accept": "application/json",
                  "User-Agent": "financekeeda-ipo-tracker/1.0"})
     with urllib.request.urlopen(req, timeout=TIMEOUT) as r:
         payload = json.load(r)
-    rows = payload.get("data", payload if isinstance(payload, list) else [])
     out = []
-    for x in rows:
+    for x in payload.get("data", []):
+        price = None
+        # issue_price is filled with the cap while bidding is open; it is only
+        # the final price once the issue has closed.
+        if x.get("status") == "Closed" or x.get("is_listed"):
+            try:
+                price = float(str(x.get("issue_price") or "").replace(",", ""))
+            except ValueError:
+                price = None
         out.append({
-            "name":  x.get("ipo_name") or x.get("name"),
-            "kind":  (x.get("ipo_type") or "").strip() or "Mainboard",
-            "open":  x.get("open_date"), "close": x.get("close_date"),
-            "listed": x.get("listing_date"),
-            "band":  x.get("price_band"), "size": x.get("issue_size"),
-            "price": x.get("issue_price"), "subs": x.get("total_subscription"),
+            "name": x.get("display_name") or x.get("name"),
+            "kind": "SME" if x.get("type") == "SME" else "Mainboard",
+            "open": x.get("open_date"), "close": x.get("close_date"),
+            "price": price,
             # Deliberately NOT importing grey market premium even where the
             # feed carries it. No authoritative source, nothing to stand behind.
         })
@@ -183,29 +191,127 @@ def from_sebi(existing):
     return collect(existing)
 
 
-SOURCES = {"sebi": from_sebi, "file": from_file,
+def from_filings(existing, nse_state):
+    """
+    The default: SEBI's filings plus NSE's offer-documents RSS feed.
+
+    SEBI alone was not enough. It posts an RHP days or weeks after filing —
+    on 5 October 2026 two mainboard issues were open and SEBI had posted
+    neither — and it never posts SME offer documents. NSE's feed announces
+    the same documents within hours, SME included. fetch_nse.py explains why
+    the feed is fair to read when NSE's website API is not.
+
+    Each source is tried on its own. One failing leaves the other's records
+    standing; only both failing counts as a failed fetch.
+    """
+    import fetch_nse
+    out, errors = [], []
+    try:
+        out += from_sebi(existing)
+    except Exception as e:                      # noqa: BLE001
+        errors.append("SEBI: %s" % str(e)[:120])
+        print("warning: SEBI unavailable (%s) — continuing with NSE" % str(e)[:80], file=sys.stderr)
+    try:
+        recs, health = fetch_nse.collect(nse_state)
+        LAST_HEALTH["nse"] = health
+        out += recs
+    except Exception as e:                      # noqa: BLE001
+        errors.append("NSE: %s" % str(e)[:120])
+        print("warning: NSE feed unavailable (%s) — continuing with SEBI" % str(e)[:80], file=sys.stderr)
+    LAST_HEALTH["errors"] = errors
+    if len(errors) == 2:
+        raise RuntimeError("; ".join(errors))
+    return out
+
+
+LAST_HEALTH = {}
+
+SOURCES = {"filings": from_filings, "sebi": from_sebi, "file": from_file,
            "ipoguru": from_ipoguru, "url": from_url}
 
 
 # ------------------------------------------------------------------ merge --
-def merge(existing, incoming, today):
+def find(pool, c):
+    """
+    The pool record for the same issue, or None.
+
+    Names are matched loosely because two sources rarely spell a company the
+    same way — SEBI's "A One Steel" is NSE's "A-One Steels India", SEBI's
+    "Manipal Payment and..." is NSE's "Manipal Payment & Identity..." — and an
+    exact match would list each such issue twice. The close dates must also
+    sit within ten days of each other, so two companies sharing a first word
+    are never merged, and a loose match must be the only one.
+    """
+    from fetch_sebi import match_key, same_company
+    if c["name"].lower() in pool:
+        return pool[c["name"].lower()]
+    k, close = match_key(c["name"]), parse(c["close"])
+    hits = []
+    for rec in pool.values():
+        if not same_company(k, match_key(rec["name"])):
+            continue
+        other = parse(rec["close"])
+        if close and other and abs((close - other).days) > 10:
+            continue
+        hits.append(rec)
+    return hits[0] if len(hits) == 1 else None
+
+
+def absorb(rec, c, notes):
+    """
+    Fold a newer reading into an existing record.
+
+    Dates take the newer reading — an issue that extends its bidding window
+    files a fresh document saying so. A price is never overwritten: every
+    source reads it from a Prospectus, and two readings that disagree mean
+    one parse is wrong, which is logged rather than guessed at. "Mainboard"
+    is what kind_of() returns when a cover names no SME platform, so it never
+    overwrites an SME tag. The name and the audit-trail document stay as
+    first recorded, so a row does not change its name on screen.
+    """
+    for f in ("open", "close"):
+        if c.get(f) and rec.get(f) and c[f] != rec[f]:
+            notes.append("%s: %s %s -> %s" % (rec["name"], f, rec[f], c[f]))
+        if c.get(f):
+            rec[f] = c[f]
+    if c.get("price") is not None:
+        if rec.get("price") is None:
+            rec["price"] = c["price"]
+            rec["stage"] = "final"
+        elif abs(rec["price"] - c["price"]) > 0.001:
+            notes.append("%s: price %g kept, a source read %g" % (rec["name"], rec["price"], c["price"]))
+    if c.get("kind") and c["kind"] != "Mainboard":
+        rec["kind"] = c["kind"]
+    for f in ("doc", "filed"):
+        if c.get(f) and not rec.get(f):
+            rec[f] = c[f]
+    if c.get("stage") == "final":
+        rec["stage"] = "final"
+
+
+def merge(existing, incoming, today, notes=None):
+    notes = [] if notes is None else notes
     pool = {}
     for rec in existing:
         c = clean(rec)
         if c:
-            pool[c["name"].lower()] = c
+            hit = find(pool, c)
+            if hit:                                 # an older pool can hold a pair
+                absorb(hit, c, notes)
+            else:
+                pool[c["name"].lower()] = c
     added = updated = 0
     for rec in incoming:
         c = clean(rec)
         if not c:
             continue
-        k = c["name"].lower()
-        if k in pool:
-            before = dict(pool[k])
-            pool[k].update({a: b for a, b in c.items() if b not in (None, "")})
-            updated += pool[k] != before
+        hit = find(pool, c)
+        if hit:
+            before = dict(hit)
+            absorb(hit, c, notes)
+            updated += hit != before
         else:
-            pool[k] = c
+            pool[c["name"].lower()] = c
             added += 1
 
     cutoff = today - timedelta(days=KEEP_DAYS)
@@ -244,7 +350,9 @@ def seed_from_widget(path):
 def main():
     ap = argparse.ArgumentParser(description="Refresh the IPO tracker pool.")
     ap.add_argument("--out", required=True, help="JSON file the widget fetches")
-    ap.add_argument("--source", default="sebi", choices=sorted(SOURCES))
+    ap.add_argument("--source", default="filings", choices=sorted(SOURCES))
+    ap.add_argument("--nse-state", default="",
+                    help="state file for the NSE feed reader (default: beside --out)")
     ap.add_argument("--key", default=os.environ.get("IPO_API_KEY", ""),
                     help="API key, for sources that need one")
     ap.add_argument("--input", help="path, for --source file")
@@ -269,7 +377,11 @@ def main():
         print(f"seeded {len(existing)} issues from {args.seed}")
 
     try:
-        if args.source == "sebi":
+        if args.source == "filings":
+            nse_state = args.nse_state or os.path.join(
+                os.path.dirname(os.path.abspath(args.out)), "nse-feed-state.json")
+            incoming = from_filings(existing, nse_state)
+        elif args.source == "sebi":
             incoming = from_sebi(existing)
         elif args.source == "file":
             if not args.input:
@@ -291,7 +403,8 @@ def main():
         # has the same right answer — keep the last good file and exit loud.
         sys.exit(f"fetch failed ({e}) — existing pool left untouched")
 
-    pool, added, updated = merge(existing, incoming, today)
+    notes = []
+    pool, added, updated = merge(existing, incoming, today, notes)
 
     future = sum(1 for v in pool if (parse(v["close"]) or today) >= today)
 
@@ -325,12 +438,26 @@ def main():
     # posting outside the date window — and it is silent unless checked for:
     # in September it dropped SRIT India and Tempsens Instruments while every
     # run stayed green.
-    if args.source == "sebi":
+    for n in notes:
+        # Shown as an annotation on the run's page: a date that moved is
+        # normally an extension, a price two sources disagree on never is.
+        print(("::warning::" if "price" in n else "") + "merge: " + n)
+    if args.source == "filings":
+        h = LAST_HEALTH.get("nse")
+        if h:
+            print(f"NSE feed health: {h['items']} items, {h['ipo_docs']} IPO documents, "
+                  f"{h['read']} read, {h['records']} records; types seen {', '.join(h['types'])}")
+        for e in LAST_HEALTH.get("errors", []):
+            # One source down is survivable — the other still feeds the pool
+            # — but it should be visible on the run, not buried in a log.
+            print("::warning::source unavailable this run: " + e)
+    if args.source in ("sebi", "filings"):
         import fetch_sebi
         h = getattr(fetch_sebi, "LAST_RUN", {}) or {}
         listed, missing = h.get("listed", 0), h.get("missing", [])
-        print(f"SEBI health: {listed - len(missing)} of {listed} listed RHPs captured, "
-              f"newest filing {h.get('newest_filed')}")
+        if h:
+            print(f"SEBI health: {listed - len(missing)} of {listed} listed RHPs captured, "
+                  f"newest filing {h.get('newest_filed')}")
         if future == 0:
             print("note: no issue is open or upcoming right now — the widget says so "
                   "itself; this is a quiet market, not a failure")
