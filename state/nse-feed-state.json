@@ -1,0 +1,97 @@
+{
+ "seen": {
+  "https://nsearchives.nseindia.com/corporate/ADV_INE0D4501011_01OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-05",
+   "name": "German Green Steel and Power",
+   "result": "2026-09-25 -> 2026-09-29",
+   "tries": 1,
+   "type": "ADV"
+  },
+  "https://nsearchives.nseindia.com/corporate/ADV_INE0J1N01028_01OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-05",
+   "name": "Orient Cables (India)",
+   "result": "2026-09-25 -> 2026-09-29",
+   "tries": 1,
+   "type": "ADV"
+  },
+  "https://nsearchives.nseindia.com/corporate/ADV_INE580P01029_01OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-05",
+   "name": "AceVector",
+   "result": "2026-09-25 -> 2026-09-29",
+   "tries": 1,
+   "type": "ADV"
+  },
+  "https://nsearchives.nseindia.com/corporate/ADV_INE804W01029_01OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-05",
+   "name": "Runwal Enterprises",
+   "result": "2026-09-25 -> 2026-09-29",
+   "tries": 1,
+   "type": "ADV"
+  },
+  "https://nsearchives.nseindia.com/corporate/AD_IPO_7819_30092026192415.zip": {
+   "done": true,
+   "first": "2026-10-05",
+   "name": "Itwings Infosystem",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
+  "https://nsearchives.nseindia.com/corporate/AD_IPO_7826_30092026213847.zip": {
+   "done": true,
+   "first": "2026-10-05",
+   "name": "Oremet Alloys And Castings",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
+  "https://nsearchives.nseindia.com/corporate/AD_IPO_7830_30092026223019.zip": {
+   "done": true,
+   "first": "2026-10-05",
+   "name": "Suntek Axpress India",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
+  "https://nsearchives.nseindia.com/corporate/AD_IPO_7833_30092026225803.zip": {
+   "done": true,
+   "first": "2026-10-05",
+   "name": "Sabari Construction…",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
+  "https://nsearchives.nseindia.com/corporate/AD_IPO_7838_30092026234827.zip": {
+   "done": true,
+   "first": "2026-10-05",
+   "name": "Abacus Lifestyle Brands",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
+  "https://nsearchives.nseindia.com/corporate/FP_INE029N01014_01OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-05",
+   "name": "Shah Investor's Home",
+   "result": "2026-09-28 -> 2026-09-30 Rs 167",
+   "tries": 1,
+   "type": "PROSP"
+  },
+  "https://nsearchives.nseindia.com/corporate/FP_INE307K01028_01OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-05",
+   "name": "SRIT India",
+   "result": "2026-09-28 -> 2026-09-30 Rs 130",
+   "tries": 1,
+   "type": "PROSP"
+  }
+ },
+ "types_seen": [
+  "ADV",
+  "DP_DRHP",
+  "PROSP"
+ ]
+}
