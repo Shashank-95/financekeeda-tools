@@ -2,6 +2,15 @@
  "updated": "2026-10-05",
  "ipos": [
   {
+   "name": "Nityas Gems and Jewellery…",
+   "kind": "Mainboard",
+   "open": "2026-09-30",
+   "close": "2026-10-05",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/nityas-gems-and-jewellery-india-limited-rhp_105033.html",
+   "filed": "2026-09-25"
+  },
+  {
    "name": "Shah Investor's Home",
    "kind": "Mainboard",
    "open": "2026-09-28",

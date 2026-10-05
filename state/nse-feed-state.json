@@ -1,5 +1,13 @@
 {
  "seen": {
+  "https://nsearchives.nseindia.com/corporate/ADV_INE029N01014_05OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-05",
+   "name": "Shah Investor's Home",
+   "result": "2026-09-28 -> 2026-09-30",
+   "tries": 1,
+   "type": "ADV"
+  },
   "https://nsearchives.nseindia.com/corporate/ADV_INE0D4501011_01OCT2026.pdf": {
    "done": true,
    "first": "2026-10-05",
@@ -13,6 +21,14 @@
    "first": "2026-10-05",
    "name": "Orient Cables (India)",
    "result": "2026-09-25 -> 2026-09-29",
+   "tries": 1,
+   "type": "ADV"
+  },
+  "https://nsearchives.nseindia.com/corporate/ADV_INE307K01028_05OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-05",
+   "name": "SRIT India",
+   "result": "2026-09-28 -> 2026-09-30",
    "tries": 1,
    "type": "ADV"
   },
