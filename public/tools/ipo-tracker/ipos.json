@@ -6,9 +6,20 @@
    "kind": "Mainboard",
    "open": "2026-09-30",
    "close": "2026-10-05",
-   "stage": "rhp",
+   "stage": "final",
    "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/nityas-gems-and-jewellery-india-limited-rhp_105033.html",
-   "filed": "2026-09-25"
+   "filed": "2026-09-25",
+   "price": 75.0
+  },
+  {
+   "name": "Vishal Nirmiti",
+   "kind": "Mainboard",
+   "open": "2026-09-30",
+   "close": "2026-10-05",
+   "stage": "final",
+   "doc": "https://nsearchives.nseindia.com/corporate/FP_INE1O5L01025_06OCT2026.pdf",
+   "filed": "2026-10-06",
+   "price": 220.0
   },
   {
    "name": "Shah Investor's Home",
@@ -123,9 +134,10 @@
    "kind": "Mainboard",
    "open": "2026-09-22",
    "close": "2026-09-24",
-   "stage": "rhp",
+   "stage": "final",
    "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/varmora-granito-limited-rhp_104681.html",
-   "filed": "2026-09-16"
+   "filed": "2026-09-16",
+   "price": 148.0
   },
   {
    "name": "Sonaselection India",

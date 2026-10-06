@@ -96,6 +96,22 @@
    "tries": 1,
    "type": "PROSP"
   },
+  "https://nsearchives.nseindia.com/corporate/FP_INE1O5L01025_06OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-06",
+   "name": "Vishal Nirmiti",
+   "result": "2026-09-30 -> 2026-10-05 Rs 220",
+   "tries": 1,
+   "type": "PROSP"
+  },
+  "https://nsearchives.nseindia.com/corporate/FP_INE211501023_06OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-06",
+   "name": "Nityas Gems and Jewellery",
+   "result": "2026-09-30 -> 2026-10-05 Rs 75",
+   "tries": 1,
+   "type": "PROSP"
+  },
   "https://nsearchives.nseindia.com/corporate/FP_INE307K01028_01OCT2026.pdf": {
    "done": true,
    "first": "2026-10-05",
