@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-06",
+ "updated": "2026-10-07",
  "ipos": [
   {
    "name": "Nityas Gems and Jewellery…",
@@ -485,16 +485,6 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/technocraft-ventures-limited-rhp_103278.html",
    "filed": "2026-07-31"
-  },
-  {
-   "name": "Ardee Industries",
-   "kind": "Mainboard",
-   "open": "2026-08-05",
-   "close": "2026-08-07",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/ardee-industries-limited-prospectus_103457.html",
-   "filed": "2026-07-28",
-   "price": 53.0
   }
  ]
 }
