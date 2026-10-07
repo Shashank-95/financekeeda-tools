@@ -2,6 +2,15 @@
  "updated": "2026-10-07",
  "ipos": [
   {
+   "name": "HD Fire Protect",
+   "kind": "Mainboard",
+   "open": "2026-10-13",
+   "close": "2026-10-15",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/oct-2026/hd-fire-protect-limited-rhp_105058.html",
+   "filed": "2026-10-05"
+  },
+  {
    "name": "Nityas Gems and Jewellery…",
    "kind": "Mainboard",
    "open": "2026-09-30",
