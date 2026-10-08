@@ -72,6 +72,14 @@
    "tries": 0,
    "type": "DP_DRHP"
   },
+  "https://nsearchives.nseindia.com/corporate/AD_IPO_7823_30092026221513.zip": {
+   "done": true,
+   "first": "2026-10-08",
+   "name": "Kasliwal Projects",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
   "https://nsearchives.nseindia.com/corporate/AD_IPO_7826_30092026213847.zip": {
    "done": true,
    "first": "2026-10-05",
@@ -100,6 +108,22 @@
    "done": true,
    "first": "2026-10-05",
    "name": "Abacus Lifestyle Brands",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
+  "https://nsearchives.nseindia.com/corporate/AD_IPO_7842_01102026000518.zip": {
+   "done": true,
+   "first": "2026-10-08",
+   "name": "Madhavaa Crafts",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
+  "https://nsearchives.nseindia.com/corporate/Blueocean_DRHP_DAP.zip": {
+   "done": true,
+   "first": "2026-10-08",
+   "name": "Blueocean Ecotech",
    "result": "draft, no dates",
    "tries": 0,
    "type": "DP_DRHP"
