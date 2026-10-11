@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-10",
+ "updated": "2026-10-11",
  "ipos": [
   {
    "name": "HD Fire Protect",
@@ -475,25 +475,6 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/molbio-diagnostics-limited-addendum-to-rhp_103430.html",
    "filed": "2026-08-07"
-  },
-  {
-   "name": "LEAP India",
-   "kind": "Mainboard",
-   "open": "2026-08-07",
-   "close": "2026-08-11",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/leap-india-limited-prospectus_103511.html",
-   "filed": "2026-08-03",
-   "price": 159.0
-  },
-  {
-   "name": "Technocraft Ventures",
-   "kind": "Mainboard",
-   "open": "2026-08-07",
-   "close": "2026-08-11",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/jul-2026/technocraft-ventures-limited-rhp_103278.html",
-   "filed": "2026-07-31"
   }
  ]
 }
