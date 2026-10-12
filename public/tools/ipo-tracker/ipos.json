@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-11",
+ "updated": "2026-10-12",
  "ipos": [
   {
    "name": "HD Fire Protect",
@@ -457,24 +457,6 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/behari-lal-engineering-limited-rhp_103498.html",
    "filed": "2026-08-12"
-  },
-  {
-   "name": "Dhoot Transmission",
-   "kind": "Mainboard",
-   "open": "2026-08-10",
-   "close": "2026-08-12",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/dhoot-transmission-limited-rhp_103333.html",
-   "filed": "2026-08-04"
-  },
-  {
-   "name": "Molbio Diagnostics",
-   "kind": "Mainboard",
-   "open": "2026-08-10",
-   "close": "2026-08-12",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/molbio-diagnostics-limited-addendum-to-rhp_103430.html",
-   "filed": "2026-08-07"
   }
  ]
 }
