@@ -29,6 +29,15 @@
    "filed": "2026-10-13"
   },
   {
+   "name": "Fusion CX",
+   "kind": "Mainboard",
+   "open": "2026-10-14",
+   "close": "2026-10-16",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/oct-2026/fusion-cx-limited-rhp_105257.html",
+   "filed": "2026-10-09"
+  },
+  {
    "name": "HD Fire Protect",
    "kind": "Mainboard",
    "open": "2026-10-13",
