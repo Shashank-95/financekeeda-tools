@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-13",
+ "updated": "2026-10-14",
  "ipos": [
   {
    "name": "Tonbo Imaging India",
@@ -465,25 +465,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/lalithaa-jewellery-mart-limited-prospectus_103788.html",
    "filed": "2026-08-12",
    "price": 201.0
-  },
-  {
-   "name": "Shiprocket",
-   "kind": "Mainboard",
-   "open": "2026-08-12",
-   "close": "2026-08-14",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/shiprocket-limited-prospectus_103843.html",
-   "filed": "2026-08-07",
-   "price": 97.0
-  },
-  {
-   "name": "Behari Lal Engineering",
-   "kind": "Mainboard",
-   "open": "2026-08-12",
-   "close": "2026-08-14",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/behari-lal-engineering-limited-rhp_103498.html",
-   "filed": "2026-08-12"
   }
  ]
 }
