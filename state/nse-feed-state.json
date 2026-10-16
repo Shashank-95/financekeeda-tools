@@ -159,6 +159,14 @@
    "result": "2026-09-28 -> 2026-09-30 Rs 130",
    "tries": 1,
    "type": "PROSP"
+  },
+  "https://nsearchives.nseindia.com/corporate/PDTL.zip": {
+   "done": true,
+   "first": "2026-10-16",
+   "name": "Paramotor Digital Technology",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
   }
  },
  "types_seen": [
