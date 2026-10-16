@@ -120,6 +120,14 @@
    "tries": 0,
    "type": "DP_DRHP"
   },
+  "https://nsearchives.nseindia.com/corporate/AD_IPO_7912_16102026233005.zip": {
+   "done": true,
+   "first": "2026-10-16",
+   "name": "Hunger Pangs",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
   "https://nsearchives.nseindia.com/corporate/Blueocean_DRHP_DAP.zip": {
    "done": true,
    "first": "2026-10-08",
@@ -133,6 +141,14 @@
    "first": "2026-10-05",
    "name": "Shah Investor's Home",
    "result": "2026-09-28 -> 2026-09-30 Rs 167",
+   "tries": 1,
+   "type": "PROSP"
+  },
+  "https://nsearchives.nseindia.com/corporate/FP_INE18AK01028_16OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-16",
+   "name": "HD Fire Protect",
+   "result": "2026-10-13 -> 2026-10-15 Rs 271",
    "tries": 1,
    "type": "PROSP"
   },
