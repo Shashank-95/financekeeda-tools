@@ -128,6 +128,14 @@
    "tries": 0,
    "type": "DP_DRHP"
   },
+  "https://nsearchives.nseindia.com/corporate/AD_IPO_7913_19102026000424.zip": {
+   "done": true,
+   "first": "2026-10-18",
+   "name": "Gamp Services",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
   "https://nsearchives.nseindia.com/corporate/Blueocean_DRHP_DAP.zip": {
    "done": true,
    "first": "2026-10-08",
