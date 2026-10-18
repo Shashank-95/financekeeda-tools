@@ -183,6 +183,14 @@
    "result": "draft, no dates",
    "tries": 0,
    "type": "DP_DRHP"
+  },
+  "https://nsearchives.nseindia.com/corporate/Registration_18102026202617_drhp.pdf": {
+   "done": true,
+   "first": "2026-10-18",
+   "name": "Gamp Services",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
   }
  },
  "types_seen": [
