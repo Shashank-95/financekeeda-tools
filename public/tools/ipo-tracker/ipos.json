@@ -60,9 +60,10 @@
    "kind": "Mainboard",
    "open": "2026-10-14",
    "close": "2026-10-16",
-   "stage": "rhp",
+   "stage": "final",
    "doc": "https://www.sebi.gov.in/filings/public-issues/oct-2026/fusion-cx-limited-rhp_105257.html",
-   "filed": "2026-10-09"
+   "filed": "2026-10-09",
+   "price": 289.0
   },
   {
    "name": "HD Fire Protect",

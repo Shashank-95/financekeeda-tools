@@ -24,6 +24,14 @@
    "tries": 1,
    "type": "ADV"
   },
+  "https://nsearchives.nseindia.com/corporate/ADV_INE18AK01028_19OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-19",
+   "name": "HD Fire Protect",
+   "result": "2026-10-13 -> 2026-10-15",
+   "tries": 1,
+   "type": "ADV"
+  },
   "https://nsearchives.nseindia.com/corporate/ADV_INE1O5L01025_07OCT2026.pdf": {
    "done": true,
    "first": "2026-10-07",
@@ -149,6 +157,14 @@
    "first": "2026-10-05",
    "name": "Shah Investor's Home",
    "result": "2026-09-28 -> 2026-09-30 Rs 167",
+   "tries": 1,
+   "type": "PROSP"
+  },
+  "https://nsearchives.nseindia.com/corporate/FP_INE0N2201019_19OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-19",
+   "name": "Fusion CX",
+   "result": "2026-10-14 -> 2026-10-16 Rs 289",
    "tries": 1,
    "type": "PROSP"
   },
