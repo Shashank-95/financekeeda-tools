@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-18",
+ "updated": "2026-10-19",
  "ipos": [
   {
    "name": "Jio Platforms",
@@ -483,16 +483,6 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/sunshine-pictures-limited-rhp_103495.html",
    "filed": "2026-08-12"
-  },
-  {
-   "name": "Lalithaa Jewellery Mart",
-   "kind": "Mainboard",
-   "open": "2026-08-17",
-   "close": "2026-08-19",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/lalithaa-jewellery-mart-limited-prospectus_103788.html",
-   "filed": "2026-08-12",
-   "price": 201.0
   }
  ]
 }
