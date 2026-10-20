@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-19",
+ "updated": "2026-10-20",
  "ipos": [
   {
    "name": "BLS Polymers",
@@ -484,15 +484,6 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/gaja-alternative-asset-management-limited-rhp_103733.html",
    "filed": "2026-08-18"
-  },
-  {
-   "name": "Sunshine Pictures",
-   "kind": "Mainboard",
-   "open": "2026-08-18",
-   "close": "2026-08-20",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/sunshine-pictures-limited-rhp_103495.html",
-   "filed": "2026-08-12"
   }
  ]
 }
