@@ -33,27 +33,30 @@
    "kind": "Mainboard",
    "open": "2026-10-15",
    "close": "2026-10-19",
-   "stage": "rhp",
+   "stage": "final",
    "doc": "https://www.sebi.gov.in/filings/public-issues/oct-2026/tonbo-imaging-india-limited-rhp_105141.html",
-   "filed": "2026-10-12"
+   "filed": "2026-10-12",
+   "price": 700.0
   },
   {
    "name": "Sahajanand Medical…",
    "kind": "Mainboard",
    "open": "2026-10-15",
    "close": "2026-10-19",
-   "stage": "rhp",
+   "stage": "final",
    "doc": "https://www.sebi.gov.in/filings/public-issues/oct-2026/sahajanand-medical-technologies-limited-rhp_105149.html",
-   "filed": "2026-10-10"
+   "filed": "2026-10-10",
+   "price": 344.0
   },
   {
    "name": "Zetwerk Manufacturing…",
    "kind": "Mainboard",
    "open": "2026-10-15",
    "close": "2026-10-19",
-   "stage": "rhp",
+   "stage": "final",
    "doc": "https://www.sebi.gov.in/filings/public-issues/oct-2026/zetwerk-manufacturing-businesses-limited-rhp_105195.html",
-   "filed": "2026-10-13"
+   "filed": "2026-10-13",
+   "price": 151.0
   },
   {
    "name": "Fusion CX",

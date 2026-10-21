@@ -24,6 +24,14 @@
    "tries": 1,
    "type": "ADV"
   },
+  "https://nsearchives.nseindia.com/corporate/ADV_INE0N2201019_21OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-21",
+   "name": "Fusion CX",
+   "result": "2026-10-14 -> 2026-10-16",
+   "tries": 1,
+   "type": "ADV"
+  },
   "https://nsearchives.nseindia.com/corporate/ADV_INE18AK01028_19OCT2026.pdf": {
    "done": true,
    "first": "2026-10-19",
@@ -160,6 +168,22 @@
    "tries": 1,
    "type": "PROSP"
   },
+  "https://nsearchives.nseindia.com/corporate/FP_INE09PO01019_21OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-21",
+   "name": "Zetwerk Manufacturing…",
+   "result": "2026-10-15 -> 2026-10-19 Rs 151",
+   "tries": 1,
+   "type": "PROSP"
+  },
+  "https://nsearchives.nseindia.com/corporate/FP_INE0LDG01026_21OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-21",
+   "name": "Tonbo Imaging India",
+   "result": "2026-10-15 -> 2026-10-19 Rs 700",
+   "tries": 1,
+   "type": "PROSP"
+  },
   "https://nsearchives.nseindia.com/corporate/FP_INE0N2201019_19OCT2026.pdf": {
    "done": true,
    "first": "2026-10-19",
@@ -197,6 +221,14 @@
    "first": "2026-10-05",
    "name": "SRIT India",
    "result": "2026-09-28 -> 2026-09-30 Rs 130",
+   "tries": 1,
+   "type": "PROSP"
+  },
+  "https://nsearchives.nseindia.com/corporate/FP_INE356Y01018_21OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-21",
+   "name": "Sahajanand Medical…",
+   "result": "2026-10-15 -> 2026-10-19 Rs 344",
    "tries": 1,
    "type": "PROSP"
   },
