@@ -8,6 +8,14 @@
    "tries": 1,
    "type": "ADV"
   },
+  "https://nsearchives.nseindia.com/corporate/ADV_INE09PO01019_22OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-22",
+   "name": "Zetwerk Manufacturing…",
+   "result": "2026-10-15 -> 2026-10-19",
+   "tries": 1,
+   "type": "ADV"
+  },
   "https://nsearchives.nseindia.com/corporate/ADV_INE0D4501011_01OCT2026.pdf": {
    "done": true,
    "first": "2026-10-05",
@@ -21,6 +29,14 @@
    "first": "2026-10-05",
    "name": "Orient Cables (India)",
    "result": "2026-09-25 -> 2026-09-29",
+   "tries": 1,
+   "type": "ADV"
+  },
+  "https://nsearchives.nseindia.com/corporate/ADV_INE0LDG01026_22OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-22",
+   "name": "Tonbo Imaging India",
+   "result": "2026-10-15 -> 2026-10-19",
    "tries": 1,
    "type": "ADV"
   },
@@ -56,11 +72,27 @@
    "tries": 1,
    "type": "ADV"
   },
+  "https://nsearchives.nseindia.com/corporate/ADV_INE28SO01013_22OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-22",
+   "name": "Bonfiglioli Transmissions",
+   "result": "2026-10-15 -> 2026-10-19",
+   "tries": 1,
+   "type": "ADV"
+  },
   "https://nsearchives.nseindia.com/corporate/ADV_INE307K01028_05OCT2026.pdf": {
    "done": true,
    "first": "2026-10-05",
    "name": "SRIT India",
    "result": "2026-09-28 -> 2026-09-30",
+   "tries": 1,
+   "type": "ADV"
+  },
+  "https://nsearchives.nseindia.com/corporate/ADV_INE356Y01018_22OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-22",
+   "name": "Sahajanand Medical…",
+   "result": "2026-10-15 -> 2026-10-19",
    "tries": 1,
    "type": "ADV"
   },
