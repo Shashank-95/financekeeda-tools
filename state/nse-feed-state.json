@@ -216,6 +216,14 @@
    "tries": 1,
    "type": "PROSP"
   },
+  "https://nsearchives.nseindia.com/corporate/FP_INE28SO01013_22OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-22",
+   "name": "Bonfiglioli Transmissions",
+   "result": "2026-10-15 -> 2026-10-19 Rs 586",
+   "tries": 1,
+   "type": "PROSP"
+  },
   "https://nsearchives.nseindia.com/corporate/FP_INE307K01028_01OCT2026.pdf": {
    "done": true,
    "first": "2026-10-05",

@@ -59,6 +59,16 @@
    "price": 151.0
   },
   {
+   "name": "Bonfiglioli Transmissions",
+   "kind": "Mainboard",
+   "open": "2026-10-15",
+   "close": "2026-10-19",
+   "stage": "final",
+   "doc": "https://nsearchives.nseindia.com/corporate/FP_INE28SO01013_22OCT2026.pdf",
+   "filed": "2026-10-22",
+   "price": 586.0
+  },
+  {
    "name": "Fusion CX",
    "kind": "Mainboard",
    "open": "2026-10-14",
