@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23",
+ "updated": "2026-10-24",
  "ipos": [
   {
    "name": "BLS Polymers",
@@ -488,15 +488,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/augmont-enterprises-limited-prospectus_104039.html",
    "filed": "2026-08-18",
    "price": 788.0
-  },
-  {
-   "name": "Tempsens Instruments (India)",
-   "kind": "Mainboard",
-   "open": "2026-08-20",
-   "close": "2026-08-24",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/tempsens-instruments-india-limited-rhp_104326.html",
-   "filed": "2026-09-08"
   }
  ]
 }
