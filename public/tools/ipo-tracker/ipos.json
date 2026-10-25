@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-24",
+ "updated": "2026-10-25",
  "ipos": [
   {
    "name": "BLS Polymers",
@@ -478,16 +478,6 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/skyways-air-services-limited-rhp_103523.html",
    "filed": "2026-08-12"
-  },
-  {
-   "name": "Augmont Enterprises",
-   "kind": "Mainboard",
-   "open": "2026-08-21",
-   "close": "2026-08-25",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/augmont-enterprises-limited-prospectus_104039.html",
-   "filed": "2026-08-18",
-   "price": 788.0
   }
  ]
 }
