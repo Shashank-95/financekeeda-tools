@@ -208,6 +208,14 @@
    "tries": 1,
    "type": "PROSP"
   },
+  "https://nsearchives.nseindia.com/corporate/FP_INE0BJO01010_26OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-26",
+   "name": "Jio Platforms",
+   "result": "2026-10-21 -> 2026-10-23 Rs 1119",
+   "tries": 1,
+   "type": "PROSP"
+  },
   "https://nsearchives.nseindia.com/corporate/FP_INE0LDG01026_21OCT2026.pdf": {
    "done": true,
    "first": "2026-10-21",
@@ -269,6 +277,14 @@
    "first": "2026-10-21",
    "name": "Sahajanand Medical…",
    "result": "2026-10-15 -> 2026-10-19 Rs 344",
+   "tries": 1,
+   "type": "PROSP"
+  },
+  "https://nsearchives.nseindia.com/corporate/FP_INE661T01029_26OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-26",
+   "name": "Paras Healthcare",
+   "result": "2026-10-21 -> 2026-10-23 Rs 693",
    "tries": 1,
    "type": "PROSP"
   },

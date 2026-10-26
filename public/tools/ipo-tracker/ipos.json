@@ -24,18 +24,20 @@
    "kind": "Mainboard",
    "open": "2026-10-21",
    "close": "2026-10-23",
-   "stage": "rhp",
+   "stage": "final",
    "doc": "https://www.sebi.gov.in/filings/public-issues/oct-2026/jio-platforms-limited-rhp_105274.html",
-   "filed": "2026-10-15"
+   "filed": "2026-10-15",
+   "price": 1119.0
   },
   {
    "name": "Paras Healthcare",
    "kind": "Mainboard",
    "open": "2026-10-21",
    "close": "2026-10-23",
-   "stage": "rhp",
+   "stage": "final",
    "doc": "https://www.sebi.gov.in/filings/public-issues/oct-2026/paras-healthcare-limited-rhp_105284.html",
-   "filed": "2026-10-15"
+   "filed": "2026-10-15",
+   "price": 693.0
   },
   {
    "name": "Tonbo Imaging India",
