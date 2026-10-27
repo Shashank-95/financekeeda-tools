@@ -16,6 +16,14 @@
    "tries": 1,
    "type": "ADV"
   },
+  "https://nsearchives.nseindia.com/corporate/ADV_INE0BJO01010_27OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-27",
+   "name": "Jio Platforms",
+   "result": "2026-10-21 -> 2026-10-23",
+   "tries": 1,
+   "type": "ADV"
+  },
   "https://nsearchives.nseindia.com/corporate/ADV_INE0D4501011_01OCT2026.pdf": {
    "done": true,
    "first": "2026-10-05",

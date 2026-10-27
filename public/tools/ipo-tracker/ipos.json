@@ -2,6 +2,15 @@
  "updated": "2026-10-27",
  "ipos": [
   {
+   "name": "Bombay Coated and Special…",
+   "kind": "Mainboard",
+   "open": "2026-10-29",
+   "close": "2026-11-02",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/oct-2026/bombay-coated-and-special-steels-limited-rhp_105447.html",
+   "filed": "2026-10-21"
+  },
+  {
    "name": "BLS Polymers",
    "kind": "Mainboard",
    "open": "2026-10-27",
