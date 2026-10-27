@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26",
+ "updated": "2026-10-27",
  "ipos": [
   {
    "name": "BLS Polymers",
@@ -461,15 +461,6 @@
    "close": "2026-08-28",
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/annu-projects-ltd-rhp_103758.html",
-   "filed": "2026-08-19"
-  },
-  {
-   "name": "Symbiotec Pharmalab",
-   "kind": "Mainboard",
-   "open": "2026-08-24",
-   "close": "2026-08-27",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/symbiotec-pharmalab-limited-rhp_103750.html",
    "filed": "2026-08-19"
   }
  ]
