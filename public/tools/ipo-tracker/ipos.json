@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27",
+ "updated": "2026-10-28",
  "ipos": [
   {
    "name": "Bombay Coated and Special…",
@@ -462,15 +462,6 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/lumino-industries-limited-rhp_103845.html",
    "filed": "2026-08-21"
-  },
-  {
-   "name": "Annu Projects",
-   "kind": "Mainboard",
-   "open": "2026-08-25",
-   "close": "2026-08-28",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/annu-projects-ltd-rhp_103758.html",
-   "filed": "2026-08-19"
   }
  ]
 }
