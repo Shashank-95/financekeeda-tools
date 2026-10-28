@@ -208,6 +208,14 @@
    "tries": 0,
    "type": "DP_DRHP"
   },
+  "https://nsearchives.nseindia.com/corporate/Carlsberg_India_Limited_UDRHP1.zip": {
+   "done": true,
+   "first": "2026-10-28",
+   "name": "Carlsberg India",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
   "https://nsearchives.nseindia.com/corporate/FP_INE029N01014_01OCT2026.pdf": {
    "done": true,
    "first": "2026-10-05",
