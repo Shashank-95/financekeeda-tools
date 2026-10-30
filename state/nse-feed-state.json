@@ -104,6 +104,14 @@
    "tries": 1,
    "type": "ADV"
   },
+  "https://nsearchives.nseindia.com/corporate/ADV_INE528L01027_30OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-30",
+   "name": "EAAA India Alternatives",
+   "result": "2026-10-26 -> 2026-10-28",
+   "tries": 1,
+   "type": "ADV"
+  },
   "https://nsearchives.nseindia.com/corporate/ADV_INE580P01029_01OCT2026.pdf": {
    "done": true,
    "first": "2026-10-05",
@@ -253,6 +261,22 @@
    "first": "2026-10-19",
    "name": "Fusion CX",
    "result": "2026-10-14 -> 2026-10-16 Rs 289",
+   "tries": 1,
+   "type": "PROSP"
+  },
+  "https://nsearchives.nseindia.com/corporate/FP_INE0PKN01028_30OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-30",
+   "name": "SFC Environmental…",
+   "result": "2026-10-27 -> 2026-10-29 Rs 330",
+   "tries": 1,
+   "type": "PROSP"
+  },
+  "https://nsearchives.nseindia.com/corporate/FP_INE0ZCQ01019_30OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-30",
+   "name": "BLS Polymers",
+   "result": "2026-10-27 -> 2026-10-29 Rs 150",
    "tries": 1,
    "type": "PROSP"
   },
