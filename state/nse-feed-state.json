@@ -304,6 +304,14 @@
    "tries": 1,
    "type": "PROSP"
   },
+  "https://nsearchives.nseindia.com/corporate/FP_INE528L01027_29OCT2026.pdf": {
+   "done": true,
+   "first": "2026-10-30",
+   "name": "EAAA India Alternatives",
+   "result": "2026-10-26 -> 2026-10-28 Rs 1665",
+   "tries": 1,
+   "type": "PROSP"
+  },
   "https://nsearchives.nseindia.com/corporate/FP_INE661T01029_26OCT2026.pdf": {
    "done": true,
    "first": "2026-10-26",

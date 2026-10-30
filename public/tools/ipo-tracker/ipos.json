@@ -15,9 +15,10 @@
    "kind": "Mainboard",
    "open": "2026-10-27",
    "close": "2026-10-29",
-   "stage": "rhp",
+   "stage": "final",
    "doc": "https://www.sebi.gov.in/filings/public-issues/oct-2026/bls-polymers-limited-rhp_105327.html",
-   "filed": "2026-10-19"
+   "filed": "2026-10-19",
+   "price": 150.0
   },
   {
    "name": "SFC Environmental…",
@@ -27,6 +28,16 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/oct-2026/sfc-environmental-technologies-ltd-rhp_105380.html",
    "filed": "2026-10-22"
+  },
+  {
+   "name": "EAAA India Alternatives",
+   "kind": "Mainboard",
+   "open": "2026-10-26",
+   "close": "2026-10-28",
+   "stage": "final",
+   "doc": "https://nsearchives.nseindia.com/corporate/FP_INE528L01027_29OCT2026.pdf",
+   "filed": "2026-10-29",
+   "price": 1665.0
   },
   {
    "name": "Jio Platforms",
