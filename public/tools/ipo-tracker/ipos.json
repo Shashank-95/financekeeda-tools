@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30",
+ "updated": "2026-10-31",
  "ipos": [
   {
    "name": "Bombay Coated and Special…",
@@ -465,15 +465,6 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/esds-software-solution-limited-rhp_103893.html",
    "filed": "2026-08-25"
-  },
-  {
-   "name": "Lumino Industries",
-   "kind": "Mainboard",
-   "open": "2026-08-27",
-   "close": "2026-08-31",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/aug-2026/lumino-industries-limited-rhp_103845.html",
-   "filed": "2026-08-21"
   }
  ]
 }
