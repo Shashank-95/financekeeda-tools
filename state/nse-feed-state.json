@@ -208,6 +208,14 @@
    "tries": 0,
    "type": "DP_DRHP"
   },
+  "https://nsearchives.nseindia.com/corporate/AD_IPO_7968_02112026074519.zip": {
+   "done": true,
+   "first": "2026-11-02",
+   "name": "South Eastern Coalfields",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
   "https://nsearchives.nseindia.com/corporate/Blueocean_DRHP_DAP.zip": {
    "done": true,
    "first": "2026-10-08",
