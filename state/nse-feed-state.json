@@ -56,6 +56,22 @@
    "tries": 1,
    "type": "ADV"
   },
+  "https://nsearchives.nseindia.com/corporate/ADV_INE0PKN01028_02NOV2026.pdf": {
+   "done": true,
+   "first": "2026-11-02",
+   "name": "SFC Environmental…",
+   "result": "2026-10-27 -> 2026-10-29",
+   "tries": 1,
+   "type": "ADV"
+  },
+  "https://nsearchives.nseindia.com/corporate/ADV_INE0ZCQ01019_02NOV2026.pdf": {
+   "done": true,
+   "first": "2026-11-02",
+   "name": "BLS Polymers",
+   "result": "2026-10-27 -> 2026-10-29",
+   "tries": 1,
+   "type": "ADV"
+  },
   "https://nsearchives.nseindia.com/corporate/ADV_INE18AK01028_19OCT2026.pdf": {
    "done": true,
    "first": "2026-10-19",
