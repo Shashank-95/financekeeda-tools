@@ -104,6 +104,14 @@
    "tries": 1,
    "type": "ADV"
   },
+  "https://nsearchives.nseindia.com/corporate/ADV_INE2IXO01012_03NOV2026.pdf": {
+   "done": true,
+   "first": "2026-11-03",
+   "name": "M. K. Sons Fine Jewels",
+   "result": "2026-10-28 -> 2026-10-30",
+   "tries": 1,
+   "type": "ADV"
+  },
   "https://nsearchives.nseindia.com/corporate/ADV_INE307K01028_05OCT2026.pdf": {
    "done": true,
    "first": "2026-10-05",
@@ -380,6 +388,14 @@
    "done": true,
    "first": "2026-10-16",
    "name": "Paramotor Digital Technology",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
+  "https://nsearchives.nseindia.com/corporate/Registration_03112026222550_SDIL_DRHP.pdf": {
+   "done": true,
+   "first": "2026-11-03",
+   "name": "Sitaram Denims India",
    "result": "draft, no dates",
    "tries": 0,
    "type": "DP_DRHP"
