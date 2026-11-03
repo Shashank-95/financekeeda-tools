@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02",
+ "updated": "2026-11-03",
  "ipos": [
   {
    "name": "Bombay Coated and Special…",
@@ -426,26 +426,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/pranav-constructions-limited-prospectus_104488.html",
    "filed": "2026-09-01",
    "price": 124.0
-  },
-  {
-   "name": "Rays of Belief",
-   "kind": "Mainboard",
-   "open": "2026-09-01",
-   "close": "2026-09-03",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/rays-of-belief-limited-prospectus_104816.html",
-   "filed": "2026-08-20",
-   "price": 239.0
-  },
-  {
-   "name": "Deepa Jewellers",
-   "kind": "Mainboard",
-   "open": "2026-09-01",
-   "close": "2026-09-03",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/deepa-jewellers-limited-prospectus_104286.html",
-   "filed": "2026-08-25",
-   "price": 177.0
   }
  ]
 }
