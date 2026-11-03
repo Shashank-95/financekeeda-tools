@@ -240,6 +240,14 @@
    "tries": 0,
    "type": "DP_DRHP"
   },
+  "https://nsearchives.nseindia.com/corporate/AD_IPO_7976_03112026230716.zip": {
+   "done": true,
+   "first": "2026-11-03",
+   "name": "Sitaram Denims India",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
   "https://nsearchives.nseindia.com/corporate/Blueocean_DRHP_DAP.zip": {
    "done": true,
    "first": "2026-10-08",
