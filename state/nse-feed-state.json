@@ -336,6 +336,14 @@
    "tries": 1,
    "type": "PROSP"
   },
+  "https://nsearchives.nseindia.com/corporate/FP_INE2IXO01012_02NOV2026.pdf": {
+   "done": true,
+   "first": "2026-11-03",
+   "name": "M. K. Sons Fine Jewels",
+   "result": "2026-10-28 -> 2026-10-30 Rs 162",
+   "tries": 1,
+   "type": "PROSP"
+  },
   "https://nsearchives.nseindia.com/corporate/FP_INE307K01028_01OCT2026.pdf": {
    "done": true,
    "first": "2026-10-05",
