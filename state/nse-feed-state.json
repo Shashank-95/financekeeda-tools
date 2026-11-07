@@ -64,22 +64,6 @@
    "tries": 1,
    "type": "ADV"
   },
-  "https://nsearchives.nseindia.com/corporate/ADV_INE1O5L01025_07OCT2026.pdf": {
-   "done": true,
-   "first": "2026-10-07",
-   "name": "Vishal Nirmiti",
-   "result": "2026-09-30 -> 2026-10-05",
-   "tries": 1,
-   "type": "ADV"
-  },
-  "https://nsearchives.nseindia.com/corporate/ADV_INE211501023_07OCT2026.pdf": {
-   "done": true,
-   "first": "2026-10-07",
-   "name": "Nityas Gems and Jewellery",
-   "result": "2026-09-30 -> 2026-10-05",
-   "tries": 1,
-   "type": "ADV"
-  },
   "https://nsearchives.nseindia.com/corporate/ADV_INE28SO01013_22OCT2026.pdf": {
    "done": true,
    "first": "2026-10-22",
