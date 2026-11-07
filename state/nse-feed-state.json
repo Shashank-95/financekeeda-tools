@@ -176,6 +176,22 @@
    "tries": 0,
    "type": "DP_DRHP"
   },
+  "https://nsearchives.nseindia.com/corporate/AD_IPO_7990_07112026090107.zip": {
+   "done": true,
+   "first": "2026-11-07",
+   "name": "Il Jin Electronics (India)",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
+  "https://nsearchives.nseindia.com/corporate/AD_IPO_7991_07112026140313.zip": {
+   "done": true,
+   "first": "2026-11-07",
+   "name": "Hindustan Coca Cola Holdings",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
   "https://nsearchives.nseindia.com/corporate/Blueocean_DRHP_DAP.zip": {
    "done": true,
    "first": "2026-10-08",
