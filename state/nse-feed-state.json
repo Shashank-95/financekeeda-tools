@@ -112,26 +112,10 @@
    "tries": 0,
    "type": "DP_DRHP"
   },
-  "https://nsearchives.nseindia.com/corporate/AD_IPO_7823_30092026221513.zip": {
-   "done": true,
-   "first": "2026-10-08",
-   "name": "Kasliwal Projects",
-   "result": "draft, no dates",
-   "tries": 0,
-   "type": "DP_DRHP"
-  },
   "https://nsearchives.nseindia.com/corporate/AD_IPO_7833_30092026225803.zip": {
    "done": true,
    "first": "2026-11-05",
    "name": "Sabari Construction…",
-   "result": "draft, no dates",
-   "tries": 0,
-   "type": "DP_DRHP"
-  },
-  "https://nsearchives.nseindia.com/corporate/AD_IPO_7842_01102026000518.zip": {
-   "done": true,
-   "first": "2026-10-08",
-   "name": "Madhavaa Crafts",
    "result": "draft, no dates",
    "tries": 0,
    "type": "DP_DRHP"
@@ -188,14 +172,6 @@
    "done": true,
    "first": "2026-11-07",
    "name": "Hindustan Coca Cola Holdings",
-   "result": "draft, no dates",
-   "tries": 0,
-   "type": "DP_DRHP"
-  },
-  "https://nsearchives.nseindia.com/corporate/Blueocean_DRHP_DAP.zip": {
-   "done": true,
-   "first": "2026-10-08",
-   "name": "Blueocean Ecotech",
    "result": "draft, no dates",
    "tries": 0,
    "type": "DP_DRHP"
