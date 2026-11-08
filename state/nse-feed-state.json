@@ -112,6 +112,14 @@
    "tries": 0,
    "type": "DP_DRHP"
   },
+  "https://nsearchives.nseindia.com/corporate/AD_IPO_7823_30092026221513.zip": {
+   "done": true,
+   "first": "2026-11-08",
+   "name": "Kasliwal Projects",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
   "https://nsearchives.nseindia.com/corporate/AD_IPO_7833_30092026225803.zip": {
    "done": true,
    "first": "2026-11-05",
@@ -172,6 +180,14 @@
    "done": true,
    "first": "2026-11-07",
    "name": "Hindustan Coca Cola Holdings",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
+  "https://nsearchives.nseindia.com/corporate/Blueocean_DRHP_DAP.zip": {
+   "done": true,
+   "first": "2026-11-08",
+   "name": "Blueocean Ecotech",
    "result": "draft, no dates",
    "tries": 0,
    "type": "DP_DRHP"
