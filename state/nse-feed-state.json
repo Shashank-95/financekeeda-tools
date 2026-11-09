@@ -327,6 +327,14 @@
    "result": "draft, no dates",
    "tries": 0,
    "type": "DP_DRHP"
+  },
+  "https://nsearchives.nseindia.com/corporate/UDRHPSNVA.zip": {
+   "done": true,
+   "first": "2026-11-09",
+   "name": "SNVA Traveltech",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
   }
  },
  "types_seen": [
