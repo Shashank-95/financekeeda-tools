@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-08",
+ "updated": "2026-11-09",
  "ipos": [
   {
    "name": "Bombay Coated and Special…",
@@ -427,16 +427,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/glass-wall-systems-india-limited-prospectus_104426.html",
    "filed": "2026-09-03",
    "price": 182.0
-  },
-  {
-   "name": "Pranav Constructions",
-   "kind": "Mainboard",
-   "open": "2026-09-07",
-   "close": "2026-09-09",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/pranav-constructions-limited-prospectus_104488.html",
-   "filed": "2026-09-01",
-   "price": 124.0
   }
  ]
 }
