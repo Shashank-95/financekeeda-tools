@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-09",
+ "updated": "2026-11-10",
  "ipos": [
   {
    "name": "Bombay Coated and Special…",
@@ -397,36 +397,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/karamtara-engineering-limited-prospectus_104682.html",
    "filed": "2026-09-03",
    "price": 254.0
-  },
-  {
-   "name": "Kanohar Electricals",
-   "kind": "Mainboard",
-   "open": "2026-09-08",
-   "close": "2026-09-10",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/kanohar-electricals-limited-prospectus_104483.html",
-   "filed": "2026-09-03",
-   "price": 632.0
-  },
-  {
-   "name": "Prasol Chemicals",
-   "kind": "Mainboard",
-   "open": "2026-09-08",
-   "close": "2026-09-10",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/prasol-chemicals-limited-prospectus_104479.html",
-   "filed": "2026-09-03",
-   "price": 676.0
-  },
-  {
-   "name": "Glass Wall Systems (india)",
-   "kind": "Mainboard",
-   "open": "2026-09-08",
-   "close": "2026-09-10",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/glass-wall-systems-india-limited-prospectus_104426.html",
-   "filed": "2026-09-03",
-   "price": 182.0
   }
  ]
 }
