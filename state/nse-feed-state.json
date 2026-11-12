@@ -304,6 +304,14 @@
    "tries": 1,
    "type": "PROSP"
   },
+  "https://nsearchives.nseindia.com/corporate/Final_DRHP_Datasoft.zip": {
+   "done": true,
+   "first": "2026-11-12",
+   "name": "Datasoft Computer Services",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
   "https://nsearchives.nseindia.com/corporate/PDTL.zip": {
    "done": true,
    "first": "2026-10-16",
