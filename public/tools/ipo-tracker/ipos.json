@@ -2,6 +2,15 @@
  "updated": "2026-11-13",
  "ipos": [
   {
+   "name": "Crystal Crop Protection",
+   "kind": "Mainboard",
+   "open": "2026-11-18",
+   "close": "2026-11-20",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/nov-2026/crystal-crop-protection-limited-rhp_105734.html",
+   "filed": "2026-11-12"
+  },
+  {
    "name": "Bombay Coated and Special…",
    "kind": "Mainboard",
    "open": "2026-10-29",
