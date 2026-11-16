@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-15",
+ "updated": "2026-11-16",
  "ipos": [
   {
    "name": "Crystal Crop Protection",
@@ -327,16 +327,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/hero-motors-limited-prospectus_104589.html",
    "filed": "2026-09-10",
    "price": 84.0
-  },
-  {
-   "name": "Manika Plastech",
-   "kind": "Mainboard",
-   "open": "2026-09-11",
-   "close": "2026-09-16",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/manika-plastech-limited-prospectus_104534.html",
-   "filed": "2026-09-07",
-   "price": 43.0
   }
  ]
 }
