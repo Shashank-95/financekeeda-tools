@@ -2,6 +2,15 @@
  "updated": "2026-11-16",
  "ipos": [
   {
+   "name": "Mahanadi Coalfields",
+   "kind": "Mainboard",
+   "open": "2026-11-19",
+   "close": "2026-11-23",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/nov-2026/mahanadi-coalfields-limited-rhp_105777.html",
+   "filed": "2026-11-13"
+  },
+  {
    "name": "Crystal Crop Protection",
    "kind": "Mainboard",
    "open": "2026-11-18",
