@@ -128,14 +128,6 @@
    "tries": 0,
    "type": "DP_DRHP"
   },
-  "https://nsearchives.nseindia.com/corporate/AD_IPO_7913_19102026000424.zip": {
-   "done": true,
-   "first": "2026-10-18",
-   "name": "Gamp Services",
-   "result": "draft, no dates",
-   "tries": 0,
-   "type": "DP_DRHP"
-  },
   "https://nsearchives.nseindia.com/corporate/AD_IPO_7968_02112026074519.zip": {
    "done": true,
    "first": "2026-11-02",
@@ -308,14 +300,6 @@
    "done": true,
    "first": "2026-11-03",
    "name": "Sitaram Denims India",
-   "result": "draft, no dates",
-   "tries": 0,
-   "type": "DP_DRHP"
-  },
-  "https://nsearchives.nseindia.com/corporate/Registration_18102026202617_drhp.pdf": {
-   "done": true,
-   "first": "2026-10-18",
-   "name": "Gamp Services",
    "result": "draft, no dates",
    "tries": 0,
    "type": "DP_DRHP"

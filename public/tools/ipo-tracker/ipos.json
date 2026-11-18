@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-17",
+ "updated": "2026-11-18",
  "ipos": [
   {
    "name": "Mahanadi Coalfields",
@@ -306,36 +306,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/national-stock-exchange-of-india-ltd-prospectus_104637.html",
    "filed": "2026-09-11",
    "price": 1785.0
-  },
-  {
-   "name": "Jindal Supreme (India)",
-   "kind": "Mainboard",
-   "open": "2026-09-16",
-   "close": "2026-09-18",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/jindal-supreme-india-limited-prospectus_104621.html",
-   "filed": "2026-09-08",
-   "price": 93.0
-  },
-  {
-   "name": "SS Retail",
-   "kind": "Mainboard",
-   "open": "2026-09-16",
-   "close": "2026-09-18",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/ss-retail-limited-prospectus_104599.html",
-   "filed": "2026-09-09",
-   "price": 424.0
-  },
-  {
-   "name": "Hero Motors",
-   "kind": "Mainboard",
-   "open": "2026-09-16",
-   "close": "2026-09-18",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/hero-motors-limited-prospectus_104589.html",
-   "filed": "2026-09-10",
-   "price": 84.0
   }
  ]
 }
