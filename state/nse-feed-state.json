@@ -56,14 +56,6 @@
    "tries": 1,
    "type": "ADV"
   },
-  "https://nsearchives.nseindia.com/corporate/ADV_INE18AK01028_19OCT2026.pdf": {
-   "done": true,
-   "first": "2026-10-19",
-   "name": "HD Fire Protect",
-   "result": "2026-10-13 -> 2026-10-15",
-   "tries": 1,
-   "type": "ADV"
-  },
   "https://nsearchives.nseindia.com/corporate/ADV_INE28SO01013_22OCT2026.pdf": {
    "done": true,
    "first": "2026-10-22",
@@ -213,14 +205,6 @@
    "first": "2026-10-21",
    "name": "Tonbo Imaging India",
    "result": "2026-10-15 -> 2026-10-19 Rs 700",
-   "tries": 1,
-   "type": "PROSP"
-  },
-  "https://nsearchives.nseindia.com/corporate/FP_INE0N2201019_19OCT2026.pdf": {
-   "done": true,
-   "first": "2026-10-19",
-   "name": "Fusion CX",
-   "result": "2026-10-14 -> 2026-10-16 Rs 289",
    "tries": 1,
    "type": "PROSP"
   },
