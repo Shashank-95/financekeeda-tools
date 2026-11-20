@@ -2,6 +2,15 @@
  "updated": "2026-11-20",
  "ipos": [
   {
+   "name": "Foodlink F&B Holdings India",
+   "kind": "Mainboard",
+   "open": "2026-11-26",
+   "close": "2026-11-30",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/nov-2026/foodlink-fandb-holdings-india-limited-rhp_105865.html",
+   "filed": "2026-11-19"
+  },
+  {
    "name": "Mahanadi Coalfields",
    "kind": "Mainboard",
    "open": "2026-11-19",

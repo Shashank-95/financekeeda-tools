@@ -288,10 +288,26 @@
    "tries": 0,
    "type": "DP_DRHP"
   },
+  "https://nsearchives.nseindia.com/corporate/NIRL.zip": {
+   "done": true,
+   "first": "2026-11-20",
+   "name": "Nlc India Renewables",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
   "https://nsearchives.nseindia.com/corporate/Registration_03112026222550_SDIL_DRHP.pdf": {
    "done": true,
    "first": "2026-11-03",
    "name": "Sitaram Denims India",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
+  "https://nsearchives.nseindia.com/corporate/Sagar_UDRHP.zip": {
+   "done": true,
+   "first": "2026-11-20",
+   "name": "Sagar Defence Engineering",
    "result": "draft, no dates",
    "tries": 0,
    "type": "DP_DRHP"
