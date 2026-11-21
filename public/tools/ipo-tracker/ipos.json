@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20",
+ "updated": "2026-11-21",
  "ipos": [
   {
    "name": "Foodlink F&B Holdings India",
@@ -295,26 +295,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/varmora-granito-limited-rhp_104681.html",
    "filed": "2026-09-16",
    "price": 148.0
-  },
-  {
-   "name": "Sonaselection India",
-   "kind": "Mainboard",
-   "open": "2026-09-17",
-   "close": "2026-09-21",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/sonaselection-india-limited-rhp_104393.html",
-   "filed": "2026-09-09",
-   "price": 99.0
-  },
-  {
-   "name": "National Stock Exchange of…",
-   "kind": "Mainboard",
-   "open": "2026-09-17",
-   "close": "2026-09-21",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/national-stock-exchange-of-india-ltd-prospectus_104637.html",
-   "filed": "2026-09-11",
-   "price": 1785.0
   }
  ]
 }
