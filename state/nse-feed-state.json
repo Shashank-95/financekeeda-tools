@@ -1,26 +1,10 @@
 {
  "seen": {
-  "https://nsearchives.nseindia.com/corporate/ADV_INE09PO01019_22OCT2026.pdf": {
-   "done": true,
-   "first": "2026-10-22",
-   "name": "Zetwerk Manufacturing…",
-   "result": "2026-10-15 -> 2026-10-19",
-   "tries": 1,
-   "type": "ADV"
-  },
   "https://nsearchives.nseindia.com/corporate/ADV_INE0BJO01010_27OCT2026.pdf": {
    "done": true,
    "first": "2026-10-27",
    "name": "Jio Platforms",
    "result": "2026-10-21 -> 2026-10-23",
-   "tries": 1,
-   "type": "ADV"
-  },
-  "https://nsearchives.nseindia.com/corporate/ADV_INE0LDG01026_22OCT2026.pdf": {
-   "done": true,
-   "first": "2026-10-22",
-   "name": "Tonbo Imaging India",
-   "result": "2026-10-15 -> 2026-10-19",
    "tries": 1,
    "type": "ADV"
   },
@@ -48,27 +32,11 @@
    "tries": 1,
    "type": "ADV"
   },
-  "https://nsearchives.nseindia.com/corporate/ADV_INE28SO01013_22OCT2026.pdf": {
-   "done": true,
-   "first": "2026-10-22",
-   "name": "Bonfiglioli Transmissions",
-   "result": "2026-10-15 -> 2026-10-19",
-   "tries": 1,
-   "type": "ADV"
-  },
   "https://nsearchives.nseindia.com/corporate/ADV_INE2IXO01012_03NOV2026.pdf": {
    "done": true,
    "first": "2026-11-03",
    "name": "M. K. Sons Fine Jewels",
    "result": "2026-10-28 -> 2026-10-30",
-   "tries": 1,
-   "type": "ADV"
-  },
-  "https://nsearchives.nseindia.com/corporate/ADV_INE356Y01018_22OCT2026.pdf": {
-   "done": true,
-   "first": "2026-10-22",
-   "name": "Sahajanand Medical…",
-   "result": "2026-10-15 -> 2026-10-19",
    "tries": 1,
    "type": "ADV"
   },
@@ -213,14 +181,6 @@
    "first": "2026-10-30",
    "name": "BLS Polymers",
    "result": "2026-10-27 -> 2026-10-29 Rs 150",
-   "tries": 1,
-   "type": "PROSP"
-  },
-  "https://nsearchives.nseindia.com/corporate/FP_INE28SO01013_22OCT2026.pdf": {
-   "done": true,
-   "first": "2026-10-22",
-   "name": "Bonfiglioli Transmissions",
-   "result": "2026-10-15 -> 2026-10-19 Rs 586",
    "tries": 1,
    "type": "PROSP"
   },
