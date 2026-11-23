@@ -2,6 +2,24 @@
  "updated": "2026-11-23",
  "ipos": [
   {
+   "name": "Monomark Engineering (India)",
+   "kind": "Mainboard",
+   "open": "2026-12-02",
+   "close": "2026-12-04",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/nov-2026/monomark-engineering-india-limited-rhp_105932.html",
+   "filed": "2026-11-23"
+  },
+  {
+   "name": "Matangi Rubber",
+   "kind": "Mainboard",
+   "open": "2026-12-01",
+   "close": "2026-12-03",
+   "stage": "rhp",
+   "doc": "https://www.sebi.gov.in/filings/public-issues/nov-2026/matangi-rubber-limited-rhp_105931.html",
+   "filed": "2026-11-20"
+  },
+  {
    "name": "Foodlink F&B Holdings India",
    "kind": "Mainboard",
    "open": "2026-11-26",
@@ -24,9 +42,10 @@
    "kind": "Mainboard",
    "open": "2026-11-18",
    "close": "2026-11-20",
-   "stage": "rhp",
+   "stage": "final",
    "doc": "https://www.sebi.gov.in/filings/public-issues/nov-2026/crystal-crop-protection-limited-rhp_105734.html",
-   "filed": "2026-11-12"
+   "filed": "2026-11-12",
+   "price": 272.0
   },
   {
    "name": "Bombay Coated and Special…",
