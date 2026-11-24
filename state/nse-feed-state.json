@@ -184,6 +184,14 @@
    "tries": 1,
    "type": "PROSP"
   },
+  "https://nsearchives.nseindia.com/corporate/FP_INE101P01016_23NOV2026.pdf": {
+   "done": true,
+   "first": "2026-11-24",
+   "name": "Crystal Crop Protection",
+   "result": "2026-11-18 -> 2026-11-20 Rs 272",
+   "tries": 1,
+   "type": "PROSP"
+  },
   "https://nsearchives.nseindia.com/corporate/FP_INE2IXO01012_02NOV2026.pdf": {
    "done": true,
    "first": "2026-11-03",

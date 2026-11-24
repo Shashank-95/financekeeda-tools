@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23",
+ "updated": "2026-11-24",
  "ipos": [
   {
    "name": "Monomark Engineering (India)",
@@ -304,16 +304,6 @@
    "stage": "rhp",
    "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/armee-infotech-limited-rhp_104661.html",
    "filed": "2026-09-16"
-  },
-  {
-   "name": "Varmora Granito",
-   "kind": "Mainboard",
-   "open": "2026-09-22",
-   "close": "2026-09-24",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/varmora-granito-limited-rhp_104681.html",
-   "filed": "2026-09-16",
-   "price": 148.0
   }
  ]
 }
