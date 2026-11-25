@@ -32,6 +32,14 @@
    "tries": 1,
    "type": "ADV"
   },
+  "https://nsearchives.nseindia.com/corporate/ADV_INE101P01016_25NOV2026.pdf": {
+   "done": true,
+   "first": "2026-11-25",
+   "name": "Crystal Crop Protection",
+   "result": "2026-11-18 -> 2026-11-20",
+   "tries": 1,
+   "type": "ADV"
+  },
   "https://nsearchives.nseindia.com/corporate/ADV_INE2IXO01012_03NOV2026.pdf": {
    "done": true,
    "first": "2026-11-03",
