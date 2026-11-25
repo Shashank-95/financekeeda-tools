@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24",
+ "updated": "2026-11-25",
  "ipos": [
   {
    "name": "Monomark Engineering (India)",
@@ -275,35 +275,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/oct-2026/a-one-steels-limited-prospectus_104844.html",
    "filed": "2026-09-22",
    "price": 405.0
-  },
-  {
-   "name": "Swastika Infra",
-   "kind": "Mainboard",
-   "open": "2026-09-23",
-   "close": "2026-09-25",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/swastika-infra-limited-prospectus_104762.html",
-   "filed": "2026-09-17",
-   "price": 185.0
-  },
-  {
-   "name": "Adroit Industries",
-   "kind": "Mainboard",
-   "open": "2026-09-23",
-   "close": "2026-09-25",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/adroit-industries-india-limited-prospectus_104835.html",
-   "filed": "2026-09-21",
-   "price": 134.0
-  },
-  {
-   "name": "ArMee Infotech",
-   "kind": "Mainboard",
-   "open": "2026-09-23",
-   "close": "2026-09-25",
-   "stage": "rhp",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/armee-infotech-limited-rhp_104661.html",
-   "filed": "2026-09-16"
   }
  ]
 }
