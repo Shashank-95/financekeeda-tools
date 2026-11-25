@@ -33,9 +33,10 @@
    "kind": "Mainboard",
    "open": "2026-11-19",
    "close": "2026-11-23",
-   "stage": "rhp",
+   "stage": "final",
    "doc": "https://www.sebi.gov.in/filings/public-issues/nov-2026/mahanadi-coalfields-limited-rhp_105777.html",
-   "filed": "2026-11-13"
+   "filed": "2026-11-13",
+   "price": 136.0
   },
   {
    "name": "Crystal Crop Protection",

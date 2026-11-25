@@ -152,6 +152,14 @@
    "tries": 0,
    "type": "DP_DRHP"
   },
+  "https://nsearchives.nseindia.com/corporate/FP_INE03K401026_25NOV2026.pdf": {
+   "done": true,
+   "first": "2026-11-25",
+   "name": "Mahanadi Coalfields",
+   "result": "2026-11-19 -> 2026-11-23 Rs 136",
+   "tries": 1,
+   "type": "PROSP"
+  },
   "https://nsearchives.nseindia.com/corporate/FP_INE0BJO01010_26OCT2026.pdf": {
    "done": true,
    "first": "2026-10-26",
