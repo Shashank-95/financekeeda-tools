@@ -240,6 +240,14 @@
    "tries": 0,
    "type": "DP_DRHP"
   },
+  "https://nsearchives.nseindia.com/corporate/Swaraj_UDRHP-I.zip": {
+   "done": true,
+   "first": "2026-11-27",
+   "name": "Swaraj Green Power and Fuel",
+   "result": "draft, no dates",
+   "tries": 0,
+   "type": "DP_DRHP"
+  },
   "https://nsearchives.nseindia.com/corporate/UDRHPSNVA.zip": {
    "done": true,
    "first": "2026-11-09",
