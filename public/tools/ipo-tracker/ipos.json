@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27",
+ "updated": "2026-11-28",
  "ipos": [
   {
    "name": "Monomark Engineering (India)",
@@ -256,26 +256,6 @@
    "doc": "https://www.sebi.gov.in/filings/public-issues/oct-2026/runwal-enterprises-limited-prospectus_104856.html",
    "filed": "2026-09-24",
    "price": 305.0
-  },
-  {
-   "name": "Moneyview",
-   "kind": "Mainboard",
-   "open": "2026-09-24",
-   "close": "2026-09-28",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/sep-2026/moneyview-limited-prospectus_104787.html",
-   "filed": "2026-09-21",
-   "price": 34.0
-  },
-  {
-   "name": "A One Steel",
-   "kind": "Mainboard",
-   "open": "2026-09-24",
-   "close": "2026-09-28",
-   "stage": "final",
-   "doc": "https://www.sebi.gov.in/filings/public-issues/oct-2026/a-one-steels-limited-prospectus_104844.html",
-   "filed": "2026-09-22",
-   "price": 405.0
   }
  ]
 }
